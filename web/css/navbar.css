@@ -1,0 +1,40 @@
+ul {
+    list-style-type: none;
+    margin: 0px !important;
+    padding: 0px;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+li {
+    float: left;
+    margin: 0px;
+    padding: 0px;}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin:0px;
+}
+
+.buttonLogout{
+    float:right !important;
+    background-color: transparent;
+    color: white;
+    border: 0px;
+}
+
+.buttonNav{
+    background-color: transparent;
+    color: white;
+    border: 0px;
+}
+
+li a:hover {
+    background-color: #168cf5 !important;
+    margin:0px;
+    color:white !important;
+}

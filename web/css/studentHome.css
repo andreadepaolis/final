@@ -1,0 +1,8 @@
+table, th, td {
+    border: 1px solid #3f95ea;
+    border-collapse: collapse;
+}
+
+td, th{
+    min-width: 23px;
+}
