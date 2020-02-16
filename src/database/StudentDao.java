@@ -12,8 +12,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class  StudentDao {
+
+    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
+
 
     public static StudentBean validate(int matricola, String password) throws SQLException {
 
@@ -27,6 +31,7 @@ public abstract class  StudentDao {
             ResultSet rs= StudentQuery.login(stmt,matricola,password);
 
 
+            assert rs != null;
             if(rs.first()){
                 rs.first();
                 //1 nome 2 lastname 3 matricola 4 classe
@@ -44,7 +49,7 @@ public abstract class  StudentDao {
             }
 
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
 
@@ -58,8 +63,7 @@ public abstract class  StudentDao {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("rip");
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -83,7 +87,7 @@ public abstract class  StudentDao {
 
 
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
 
             return null;
         }
@@ -126,10 +130,8 @@ public abstract class  StudentDao {
 
             rs.close();
 
-        } catch (SQLException s){
-            s.printStackTrace();
-        }catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception s){
+            LOGGER.info(s.toString());
         }
         return allGrades;
     }
@@ -171,7 +173,7 @@ public abstract class  StudentDao {
             // STEP 5.1: Clean-up dell'ambiente
             rs.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         // STEP 5.2: Clean-up dell'ambiente
 
@@ -211,7 +213,7 @@ public abstract class  StudentDao {
             }
 
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
 
@@ -229,6 +231,7 @@ public abstract class  StudentDao {
 
             ResultSet rs= StudentQuery.getSchedule(stmt,classe);
 
+            assert rs != null;
             if(rs.first()){
                 rs.first();
 
@@ -247,7 +250,7 @@ public abstract class  StudentDao {
             }
 
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -289,7 +292,7 @@ public abstract class  StudentDao {
             rs.close();
 
         } catch (Exception s){
-            s.printStackTrace();
+            LOGGER.info(s.toString());
         }
         return allGrades;
     }
@@ -309,6 +312,7 @@ public abstract class  StudentDao {
             ResultSet rs = StudentQuery.getSchedule(stmt,myclasse);
 
 
+            assert rs != null;
             if (!rs.first()){
                 return null;
 
@@ -325,7 +329,7 @@ public abstract class  StudentDao {
             rs.close();
 
         } catch (Exception s){
-            s.printStackTrace();
+            LOGGER.info(s.toString());
         }
         return matter;
     }
@@ -343,6 +347,7 @@ public abstract class  StudentDao {
             ResultSet rs = StudentQuery.getPin(stmt,id);
 
 
+            assert rs != null;
             if (!rs.first()){
                 return null;
 
@@ -354,7 +359,7 @@ public abstract class  StudentDao {
 
             rs.close();
         } catch (Exception s){
-            s.printStackTrace();
+            LOGGER.info(s.toString());
         }
         return pin;
 
@@ -369,9 +374,10 @@ public abstract class  StudentDao {
 
             result = StudentQuery.updateAbsences(stmt, a.getData(),a.getMatricolaStudente());
 
+            stmt.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
 
         }
         return result;

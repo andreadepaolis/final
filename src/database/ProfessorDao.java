@@ -11,10 +11,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProfessorDao {
 
 
+    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
 
     public static Professor validate(int matricola, String password) throws SQLException {
@@ -22,6 +24,7 @@ public class ProfessorDao {
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
+
 
         try{
             Statement stmt = con.createStatement();
@@ -42,7 +45,7 @@ public class ProfessorDao {
             }
 
         }catch(Exception e) {
-            e.printStackTrace();
+            LOGGER.info("Login error");
             return null;
         }
     }
@@ -75,7 +78,7 @@ public class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info("SQL error");
         }
         return list;
     }
@@ -109,7 +112,7 @@ public class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return list;
     }
@@ -137,8 +140,7 @@ public class ProfessorDao {
                 } while (rs.next());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            LOGGER.info(e.toString());        }
         return list;
     }
 
@@ -187,7 +189,7 @@ public class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return list;
     }
@@ -235,8 +237,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            LOGGER.info(e.toString());        }
         return result;
 
     }
@@ -264,7 +265,7 @@ public class ProfessorDao {
             stmt.close();
             return list;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -281,7 +282,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
 
@@ -317,7 +318,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
     }
@@ -365,8 +366,8 @@ public class ProfessorDao {
                     stmt.close();
                     return list;
                 } catch(Exception e){
-                    e.printStackTrace();
-                    return null;
+                LOGGER.info(e.toString());
+                return null;
                 }
 
     }
@@ -382,7 +383,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
 

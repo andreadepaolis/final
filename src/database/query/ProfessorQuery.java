@@ -11,18 +11,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
+
 
 public class ProfessorQuery {
-    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
     public static ResultSet login(Statement stmt, int matricola, String password) {
         String sql = String.format("SELECT * FROM professor WHERE matricola ='%d' AND password = '%s'", matricola, password);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }

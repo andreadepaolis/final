@@ -128,6 +128,9 @@ public class ControllerHomeStudent {
             media += temp.getVoto();
             count ++;
         }
+        if(count != 0)
         return media/count;
+        else
+             return 0;
     }
 }

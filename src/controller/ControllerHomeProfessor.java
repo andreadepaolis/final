@@ -5,12 +5,14 @@ import bean.ProfessorBean;
 import bean.StudentBean;
 import database.ProfessorDao;
 import database.StudentDao;
+import utils.CustomRandom;
 import utils.MonthFactory;
 import utils.month;
 import model.*;
 import register.ProfessorRegister;
 import utils.InputController;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -176,10 +178,10 @@ public class ControllerHomeProfessor {
         return m;
     }
 
-    public StudentBean extract_random(List<StudentBean> list) {
+    public StudentBean extract_random(List<StudentBean> list) throws NoSuchAlgorithmException {
 
-        Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
+        CustomRandom c = new CustomRandom();
+        return list.get(c.getRandom().nextInt(list.size()));
     }
 
     public boolean deleteAbsence(ProfessorRegister register, String colIndex, String rowIndex) {

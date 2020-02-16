@@ -82,7 +82,7 @@ public class HomeStudentServlet extends HttpServlet {
             }
 
         }catch (Exception e){
-            e.printStackTrace();
+                    rd.forward(request,response);
             }
         }
 

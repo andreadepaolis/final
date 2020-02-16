@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,12 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
 
          List<StudentBean> list = register.getStudents();
-         StudentBean extracted = chp.extract_random(list);
+         StudentBean extracted = null;
+         try {
+             extracted = chp.extract_random(list);
+         } catch (NoSuchAlgorithmException e) {
+             e.printStackTrace();
+         }
          request.setAttribute("random_student", extracted);
          rd.include(request, response);
          return;

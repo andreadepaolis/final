@@ -6,13 +6,8 @@ import controller.ControllerHomeProfessor;
 import model.Argument;
 import utils.MonthFactory;
 import utils.month;
-import model.Homework;
-import model.Professor;
-import model.Student;
 import register.ProfessorRegister;
-import utils.InputController;
 import utils.Toast;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @WebServlet("/HomeProfessorServlet")

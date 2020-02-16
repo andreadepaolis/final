@@ -6,15 +6,9 @@ import bean.UserLoginBean;
 import controller.ControllerHomeProfessor;
 import controller.ControllerHomeStudent;
 import controller.ControllerLogin;
-import model.Professor;
-import model.Student;
 import utils.Toast;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,7 +64,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("HomeProfessor.jsp");
 
                 } else {
-                        throw new Exception("Faild load data");
+                    throw new Exception("Faild load data");
 
                 }
             }catch (Exception e ){

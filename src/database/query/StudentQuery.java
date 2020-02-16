@@ -4,8 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class StudentQuery {
+
+    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
 
     public static ResultSet login(Statement stmt, int matricola, String password) throws SQLException {
@@ -13,7 +16,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -22,7 +25,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -42,7 +45,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -52,7 +55,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -62,7 +65,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -73,7 +76,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -83,7 +86,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class StudentQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
         }
