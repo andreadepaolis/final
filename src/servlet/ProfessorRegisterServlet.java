@@ -28,6 +28,7 @@ import java.util.List;
 public class ProfessorRegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession(false);
+    String error = "Error";
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/professorRegister.jsp");
  if(session.getAttribute("professor")!= null && session.getAttribute("register")!= null) {
      String cmd = request.getParameter("cmd");
@@ -45,8 +46,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      }
      if (cmd.equals("classe")) {
-         String current_class = request.getParameter("classe");
-         register.setCurrent_class(current_class);
+         String currentClass = request.getParameter("classe");
+         register.setCurrent_class(currentClass);
          session.setAttribute("register", register);
      }
 
@@ -54,14 +55,13 @@ public class ProfessorRegisterServlet extends HttpServlet {
          try {
              boolean res;
              String temp = request.getParameter("type");
-             System.out.println(temp);
-             //da sistemare magari classe control gestisce if else mettere conferma su 1 popup
+
              if (temp.equals("assenza"))
                  res = chp.deleteAbsence(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
              else
                  res = chp.deleteGrades(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
              if (!res) {
-                 Toast t = new Toast("Error", "Ops!", 1);
+                 Toast t = new Toast(error, "Ops!", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
                  return;
@@ -98,17 +98,16 @@ public class ProfessorRegisterServlet extends HttpServlet {
      }
 
      if (cmd.equals("newAbsence")) {
-         ProfessorBean p = (ProfessorBean) session.getAttribute("professor");
          try {
 
              String tipo = request.getParameter("tipo");
 
              int matricola = Integer.parseInt(request.getParameter("matricola"));
-             InputController inp_cnt = InputController.getIstance();
-             Date d = inp_cnt.converDate(request.getParameter("data"));
+             InputController inpCnt = InputController.getIstance();
+             Date d = inpCnt.converDate(request.getParameter("data"));
              if (d == null || !inp_cnt.checkDate(d)) {
 
-                 Toast t = new Toast("Error", "check parameter e try again", 1);
+                 Toast t = new Toast(error, "Invalid Date", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
                  return;
@@ -123,7 +122,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  request.setAttribute("toast", t);
 
              } else {
-                 Toast t = new Toast("Error", "check parameter e try again", 1);
+                 Toast t = new Toast(error, "Something gone wrong", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
                  return;
@@ -132,7 +131,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
          } catch (Exception e) {
 
-             Toast t = new Toast("Error", "check parameter e try again", 1);
+             Toast t = new Toast(error, "check parameter e try again", 1);
              request.setAttribute("toast", t);
              rd.forward(request, response);
              return;
@@ -167,7 +166,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
              Grades g = new Grades(matricola, materia, voto, tipo, matricolaProfessore, nomeProfessore, d);
              if (!inp_cnt.checkInRange(voto, 0, 10) || !inp_cnt.checkInt(voto)) {
-                 Toast t = new Toast("Error", "invalid vote", 1);
+                 Toast t = new Toast(error, "invalid vote", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
                  return;
@@ -178,16 +177,15 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  request.setAttribute("toast", t);
 
              } else {
-                 Toast t = new Toast("Error", "check parameter e try again", 1);
+                 Toast t = new Toast(error, "Saving error", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
                  return;
              }
 
          } catch (Exception e) {
-             //   e.printStackTrace();
 
-             Toast t = new Toast("Error", "check parameter e try again", 1);
+             Toast t = new Toast(error, "check parameter e try again", 1);
              request.setAttribute("toast", t);
              rd.forward(request, response);
              return;
