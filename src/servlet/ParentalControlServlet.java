@@ -73,7 +73,7 @@ public class ParentalControlServlet extends HttpServlet {
 
 
          } catch(Exception e){
-                e.printStackTrace();
+            response.sendRedirect("index.jsp");
         }
     }
 

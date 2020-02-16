@@ -37,17 +37,6 @@ public class DataBase {
         }
     }
 
-    public void closeConnection(Connection connect) throws SQLException {
-
-        if(connect != null){
-            try {
-                connect.close();
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-
-    }
 
 }
 

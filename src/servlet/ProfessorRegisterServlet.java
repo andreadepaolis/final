@@ -66,10 +66,9 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  rd.forward(request, response);
                  return;
              }
-
-
+             
          } catch (Exception e) {
-             e.printStackTrace();
+            response.sendRedirect("index.jsp");
          }
      }
 
@@ -90,8 +89,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
          try {
              extracted = chp.extract_random(list);
          } catch (NoSuchAlgorithmException e) {
-             e.printStackTrace();
-         }
+                return;
+          }
          request.setAttribute("random_student", extracted);
          rd.include(request, response);
          return;
@@ -132,7 +131,6 @@ public class ProfessorRegisterServlet extends HttpServlet {
              }
 
          } catch (Exception e) {
-             //   e.printStackTrace();
 
              Toast t = new Toast("Error", "check parameter e try again", 1);
              request.setAttribute("toast", t);
