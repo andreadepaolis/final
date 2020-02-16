@@ -100,7 +100,7 @@ public class ProfessorBean implements Serializable {
     }
 
     public void setArguments(List<Argument> arguments) {
-        arguments = arguments;
+        this.arguments = arguments;
     }
 
     public Date getCurrentDate() {
