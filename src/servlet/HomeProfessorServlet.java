@@ -36,8 +36,8 @@ public class HomeProfessorServlet extends HttpServlet {
             switch (cmd) {
 
                 case "change_class":{
-                    String new_class = request.getParameter("current_class");
-                    p.setCurrent_class(new_class);
+                    String newClass = request.getParameter("current_class");
+                    p.setCurrent_class(newClass);
                     p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrent_class()));
                     p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrent_class()));
                     session.setAttribute("professor",p);

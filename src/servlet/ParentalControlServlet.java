@@ -23,6 +23,7 @@ public class ParentalControlServlet extends HttpServlet {
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/ParentalControl.jsp");
         ControllerStudent cs = new ControllerStudent();
+        String tst = "toast"
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("student") == null) {
@@ -51,17 +52,17 @@ public class ParentalControlServlet extends HttpServlet {
                         if (cs.manageAbsence(a) > 0) {
 
                             Toast t = new Toast("Justified!", "Absence has been correctly justified", 2);
-                            request.setAttribute("toast", t);
+                            request.setAttribute(tst, t);
                             rd.include(request, response);
                         } else {
                             Toast t = new Toast("Error","Something gone wrong",1);
-                            request.setAttribute("toast",t);
+                            request.setAttribute(tst,t);
                             rd.include(request,response);
                         }
 
                     } else {
                         Toast t = new Toast("Error","Pin incorrect",1);
-                        request.setAttribute("toast",t);
+                        request.setAttribute(tst,t);
                         rd.include(request,response);
                     }
 

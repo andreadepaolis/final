@@ -26,13 +26,14 @@ public class HomeStudentServlet extends HttpServlet {
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeStudent.jsp");
         ControllerHomeStudent chs = new ControllerHomeStudent();
+        String std = "student";
         try {
             HttpSession session = request.getSession(false);
-            if (session.getAttribute("student") == null) {
+            if (session.getAttribute(std) == null) {
                 response.sendRedirect("index.jsp");
                 return;
             }
-            StudentBean s = (StudentBean)session.getAttribute("student");
+            StudentBean s = (StudentBean)session.getAttribute(std);
             String cmd = request.getParameter("cmd");
 
 
@@ -76,8 +77,11 @@ public class HomeStudentServlet extends HttpServlet {
                         s.setHomework(h);
                         break;
                     }
+                    default:{
+                        break;
+                    }
                 }
-              session.setAttribute("student",s);
+              session.setAttribute(std,s);
               rd.forward(request,response);
             }
 
