@@ -64,7 +64,7 @@ public abstract class ProfessorDao {
             ResultSet rs = ProfessorQuery.getMaterie(stmt,matricola);
 
             if (!rs.first()) {
-                return null;
+                return list;
             }
 
             // riposizionamento del cursore
@@ -98,7 +98,7 @@ public abstract class ProfessorDao {
             ResultSet rs = ProfessorQuery.getClassi(stmt,matricola);
 
             if (!rs.first()) {
-                return null;
+                return list;
             }
 
             // riposizionamento del cursore
