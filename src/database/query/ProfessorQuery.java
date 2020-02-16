@@ -33,7 +33,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
 
@@ -45,7 +45,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
 
@@ -63,7 +63,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
     }
@@ -77,8 +77,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("rip");
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -131,7 +130,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
     }
@@ -142,7 +141,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -152,7 +151,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -162,7 +161,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -172,7 +171,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -191,7 +190,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
     }
@@ -204,7 +203,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
 
@@ -217,7 +216,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
     }
@@ -228,7 +227,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
 
@@ -241,7 +240,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -255,7 +254,7 @@ public class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return 0;
 

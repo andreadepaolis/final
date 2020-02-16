@@ -5,11 +5,8 @@ import model.Absences;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ControllerStudent {
-    private static final Logger LOGGER = Logger.getLogger(ControllerStudent.class.getName());
-
 
     public ControllerStudent(){};
 

@@ -31,12 +31,11 @@ public class ControllerLogin {
     public ProfessorBean validateProfessor(UserLoginBean u){
 
         Professor p = null;
+        ProfessorBean pb = null;
+
         try {
             p = ProfessorDao.validate(u.getMatricola(),u.getPassword());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        ProfessorBean pb = null;
+
         if(p != null){
 
             pb = new ProfessorBean();
@@ -44,6 +43,10 @@ public class ControllerLogin {
             pb.setLastname(p.getLastname());
             pb.setName(p.getName());
             pb.setCurrentDate(new Date());
+        }
+
+        } catch (SQLException e) {
+            return null;
         }
         return pb;
      };

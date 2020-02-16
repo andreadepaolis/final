@@ -2,7 +2,6 @@ package controller;
 
 import bean.MatterBean;
 import bean.StudentBean;
-import database.ProfessorDao;
 import database.StudentDao;
 import model.Grades;
 import model.Homework;

@@ -35,7 +35,7 @@ public class StudentQuery {
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }

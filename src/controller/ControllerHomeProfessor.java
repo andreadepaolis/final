@@ -4,7 +4,6 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import bean.StudentBean;
 import database.ProfessorDao;
-import database.StudentDao;
 import utils.CustomRandom;
 import utils.MonthFactory;
 import utils.month;
@@ -15,9 +14,11 @@ import utils.InputController;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ControllerHomeProfessor {
 
+    private static final Logger LOGGER = Logger.getLogger(ControllerHomeProfessor.class.getName());
 
     public ProfessorBean full(ProfessorBean p) throws Exception {
 
@@ -101,7 +102,7 @@ public class ControllerHomeProfessor {
             } else
                  return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
     }
@@ -154,7 +155,7 @@ public class ControllerHomeProfessor {
             register.setStudents(allStudentsBean);
             return register;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
             return null;
         }
 
@@ -173,7 +174,7 @@ public class ControllerHomeProfessor {
             m = mf.createMonth(index, year_int);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return m;
     }
