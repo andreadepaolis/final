@@ -1,8 +1,6 @@
 package servlet;
 
 import bean.ProfessorBean;
-import bean.StudentBean;
-import controller.ControllerHomeProfessor;
 import utils.InputController;
 import database.ProfessorDao;
 import model.*;
@@ -47,7 +45,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
 
      }
-            case "classe" {
+         case "classe": {
          String currentClass = request.getParameter("classe");
          register.setCurrent_class(currentClass);
          session.setAttribute(r, register);
@@ -99,7 +97,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      }
 
-      case "newAbsence" {
+         case "newAbsence" :{
          try {
 
              String tipo = request.getParameter("tipo");
@@ -194,7 +192,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          }
      }
 
-         case: "m" {
+         case "m":{
 
          String month = request.getParameter("monthIndex");
          String year = request.getParameter("monthYear");
@@ -204,7 +202,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
      }
 
      doGet(request, response);
-    } else{
+    } default: {
 
              response.sendRedirect("index.jsp");
 

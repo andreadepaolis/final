@@ -23,7 +23,7 @@ public class ParentalControlServlet extends HttpServlet {
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/ParentalControl.jsp");
         ControllerStudent cs = new ControllerStudent();
-        String tst = "toast"
+        String tst = "toast";
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("student") == null) {
