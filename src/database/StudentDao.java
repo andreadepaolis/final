@@ -13,25 +13,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class  StudentDao {
+public abstract class StudentDao {
 
     private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
     String clss = "class";
-    String mattr ="materia";
+    String mattr = "materia";
+
     public static StudentBean validate(int matricola, String password) throws SQLException {
 
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
-        try{
+        try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs= StudentQuery.login(stmt,matricola,password);
+            ResultSet rs = StudentQuery.login(stmt, matricola, password);
 
 
             assert rs != null;
-            if(rs.first()){
+            if (rs.first()) {
                 rs.first();
                 StudentBean u = new StudentBean();
                 u.setName(rs.getString("name"));
@@ -39,20 +40,19 @@ public abstract class  StudentDao {
                 u.setLastname(rs.getString("lastname"));
                 u.setClasse(rs.getString(clss));
                 return u;
-            }
-
-            else {
+            } else {
                 return null;
 
             }
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.info(e.toString());
             return null;
         }
 
     }
-    public static ResultSet getGradesByClass(Statement stmt, int professorid, String classe) {
+
+    public static ResultSet getGradesByClass(Statement stmt, int professorid) {
 
         String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s'", professorid);
 
@@ -63,15 +63,16 @@ public abstract class  StudentDao {
             return null;
         }
     }
+
     public static Student getUserById(int id) {
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
-        try{
+        try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs= StudentQuery.getById(stmt,id);
+            ResultSet rs = StudentQuery.getById(stmt, id);
             if (rs == null || !rs.first()) {
                 return null;
 
@@ -79,10 +80,10 @@ public abstract class  StudentDao {
 
                 rs.first();
             //1 nome 2 lastname 3 matricola 4 classe
-            return new Student(rs.getString(3),rs.getString(4),rs.getInt(1),rs.getString(5));
+            return new Student(rs.getString(3), rs.getString(4), rs.getInt(1), rs.getString(5));
 
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.info(e.toString());
 
             return null;
@@ -90,28 +91,28 @@ public abstract class  StudentDao {
 
     }
 
-    public static List<Grades> getMyGrades(int id){
+    public static List<Grades> getMyGrades(int id) {
         Statement stmt = null;
         Connection con = null;
         List<Grades> allGrades = new ArrayList<>();
 
         try {
 
-            DataBase db =  DataBase.getInstance();
+            DataBase db = DataBase.getInstance();
             con = db.getConnection();
 
             stmt = con.createStatement();
             ResultSet rs = StudentQuery.getGrades(stmt, id);
 
 
-            if (!rs.first()){
+            if (!rs.first()) {
                 return list;
 
             }
 
             // riposizionamento del cursore
             rs.first();
-            do{
+            do {
                 String materia = rs.getString(mattr);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
@@ -122,11 +123,11 @@ public abstract class  StudentDao {
 
                 allGrades.add(g);
 
-            }while(rs.next());
+            } while (rs.next());
 
             rs.close();
 
-        } catch (Exception s){
+        } catch (Exception s) {
             LOGGER.info(s.toString());
         }
         return allGrades;
@@ -140,7 +141,7 @@ public abstract class  StudentDao {
 
         try {
 
-            DataBase db =  DataBase.getInstance();
+            DataBase db = DataBase.getInstance();
             con = db.getConnection();
 
             stmt = con.createStatement();
@@ -154,17 +155,17 @@ public abstract class  StudentDao {
 
             // riposizionamento del cursore
             rs.first();
-            do{
+            do {
 
                 String tipo = rs.getString("tipo");
                 int checkbit = rs.getInt("checkbit");
                 Date data = rs.getDate("data");
 
-                Absences a = new Absences(id,tipo,data,checkbit);
+                Absences a = new Absences(id, tipo, data, checkbit);
 
                 allAssenze.add(a);
 
-            }while(rs.next());
+            } while (rs.next());
 
             // STEP 5.1: Clean-up dell'ambiente
             rs.close();
@@ -176,43 +177,37 @@ public abstract class  StudentDao {
         return allAssenze;
     }
 
-    public static List<Homework> getHomework(String classe, Date date) {
+    public static List<Homework> getHomework(String classe) {
 
         List<Homework> allHomework = new ArrayList<>();
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
-        try{
+        try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs= StudentQuery.getHomework(stmt,classe);
+            ResultSet rs = StudentQuery.getHomework(stmt, classe);
 
 
-
-            if(rs.first()){
+            if (rs.first()) {
                 rs.first();
 
-                do{
+                do {
 
-                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"),rs.getString(clss),rs.getString(mattr),rs.getString("descrizione"),rs.getDate("data"));
+                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"), rs.getString(clss), rs.getString(mattr), rs.getString("descrizione"), rs.getDate("data"));
                     allHomework.add(hmw);
-                }while(rs.next());
+                } while (rs.next());
 
 
-        return allHomework;
+                return allHomework;
             }
 
-            else {
-                return list;
 
-            }
-
-        }catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.info(e.toString());
-            return null;
         }
-
+        return allHomework;
 
     }
 
@@ -222,33 +217,28 @@ public abstract class  StudentDao {
 
         List<ScheduleInfo> si = new ArrayList<>();
 
-        try{
+        try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs= StudentQuery.getSchedule(stmt,classe);
+            ResultSet rs = StudentQuery.getSchedule(stmt, classe);
 
             assert rs != null;
-            if(rs.first()){
+            if (rs.first()) {
                 rs.first();
 
-                do{
-                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(mattr),rs.getString(clss));
+                do {
+                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"), rs.getInt("hours"), rs.getString(mattr), rs.getString(clss));
                     si.add(sch);
-                }while(rs.next());
+                } while (rs.next());
 
-
-                return si;
-            }
-
-            else {
-                return list;
 
             }
 
-        }catch(Exception e) {
+
+        } catch (Exception e) {
             LOGGER.info(e.toString());
-            return null;
         }
+        return si;
     }
 
     public static List<Grades> getMyGrades(int matricola, String matter) {
@@ -258,21 +248,21 @@ public abstract class  StudentDao {
 
         try {
 
-            DataBase db =  DataBase.getInstance();
+            DataBase db = DataBase.getInstance();
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = StudentQuery.getGrades(stmt, matricola,matter);
+            ResultSet rs = StudentQuery.getGrades(stmt, matricola, matter);
 
 
             assert rs != null;
-            if (!rs.first()){
+            if (!rs.first()) {
                 return list;
 
             }
             // riposizionamento del cursore
             rs.first();
-            do{
+            do {
                 String materia = rs.getString(mattr);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
@@ -283,11 +273,11 @@ public abstract class  StudentDao {
 
                 allGrades.add(g);
 
-            }while(rs.next());
+            } while (rs.next());
 
             rs.close();
 
-        } catch (Exception s){
+        } catch (Exception s) {
             LOGGER.info(s.toString());
         }
         return allGrades;
@@ -301,30 +291,30 @@ public abstract class  StudentDao {
 
         try {
 
-            DataBase db =  DataBase.getInstance();
+            DataBase db = DataBase.getInstance();
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = StudentQuery.getSchedule(stmt,myclasse);
+            ResultSet rs = StudentQuery.getSchedule(stmt, myclasse);
 
 
             assert rs != null;
-            if (!rs.first()){
+            if (!rs.first()) {
                 return list;
 
             }
             // riposizionamento del cursore
             rs.first();
-            do{
+            do {
                 String currentMatter = rs.getString(mattr);
-                if(!matter.contains(currentMatter))
-                     matter.add(currentMatter);
+                if (!matter.contains(currentMatter))
+                    matter.add(currentMatter);
 
-            }while(rs.next());
+            } while (rs.next());
 
             rs.close();
 
-        } catch (Exception s){
+        } catch (Exception s) {
             LOGGER.info(s.toString());
         }
         return matter;
@@ -336,15 +326,15 @@ public abstract class  StudentDao {
         String pin = null;
         try {
 
-            DataBase db =  DataBase.getInstance();
+            DataBase db = DataBase.getInstance();
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = StudentQuery.getPin(stmt,id);
+            ResultSet rs = StudentQuery.getPin(stmt, id);
 
 
             assert rs != null;
-            if (!rs.first()){
+            if (!rs.first()) {
                 return null;
 
             }
@@ -354,7 +344,7 @@ public abstract class  StudentDao {
             pin = rs.getString("pin");
 
             rs.close();
-        } catch (Exception s){
+        } catch (Exception s) {
             LOGGER.info(s.toString());
         }
         return pin;
@@ -366,18 +356,17 @@ public abstract class  StudentDao {
         Statement stmt = null;
         int result = 0;
         try {
-             stmt = con.createStatement();
+            stmt = con.createStatement();
 
-            result = StudentQuery.updateAbsences(stmt, a.getData(),a.getMatricolaStudente());
+            result = StudentQuery.updateAbsences(stmt, a.getData(), a.getMatricolaStudente());
 
             stmt.close();
 
         } catch (Exception e) {
             LOGGER.info(e.toString());
-        }
-        finally {
-            if(stmt != null)
-                    stmt.close();
+        } finally {
+            if (stmt != null)
+                stmt.close();
         }
         return result;
     }
