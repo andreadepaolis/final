@@ -15,7 +15,9 @@ public class ControllerLogin {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerLogin.class.getName());
 
-        public ControllerLogin(){}
+        public ControllerLogin(){
+            //Bean
+        }
 
 
         public StudentBean validateStudent(UserLoginBean u){
@@ -28,7 +30,7 @@ public class ControllerLogin {
             }
             return s;
 
-        };
+        }
 
     public ProfessorBean validateProfessor(UserLoginBean u){
 
@@ -52,7 +54,7 @@ public class ControllerLogin {
             return null;
         }
         return pb;
-     };
+     }
 
     public UserLoginBean generateBean(String matricola, String password) {
 
