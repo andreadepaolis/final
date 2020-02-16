@@ -1,7 +1,6 @@
 package bean;
 
 import model.Argument;
-import model.Homework;
 import model.ScheduleInfo;
 
 import java.io.Serializable;
@@ -19,12 +18,14 @@ public class ProfessorBean implements Serializable {
     private List<HomeworkBean> homework;
     private List<ScheduleInfo> schedule;
     private Date currentDate;
-    private String current_class;
-    private List<Argument> Arguments;
+    private String currentClass;
+    private List<Argument> arguments;
 
 
 
-    public ProfessorBean(){};
+    public ProfessorBean(){
+        //Bean
+    };
 
     public String getName() {
         return name;
@@ -86,12 +87,12 @@ public class ProfessorBean implements Serializable {
         this.currentDate = currentDate;
     }
 
-    public void setCurrent_class(String current_class) {
-        this.current_class = current_class;
+    public void setCurrentClass(String currentClass) {
+        this.currentClass = currentClass;
     }
 
-    public String getCurrent_class() {
-        return current_class;
+    public String getCurrentClass() {
+        return currentClass;
     }
 
     public List<Argument> getArguments() {
