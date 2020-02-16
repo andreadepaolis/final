@@ -8,8 +8,6 @@ import model.Absences;
 import model.Grades;
 
 import model.Student;
-import register.Register;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,20 +19,20 @@ public class ProfessorRegister implements Register {
     private List<Grades> grades;
     private List<Absences> absences;
     private List<StudentBean> students;
-    private String current_class;
-    private month current_month;
-    private String current_matter;
+    private String currentClass;
+    private month currentMonth;
+    private String currentMatter;
 
     public ProfessorRegister(){
-
+    //Register
     }
 
-    public month getCurrent_month() {
-        return current_month;
+    public month getCurrentMonth() {
+        return currentMonth;
     }
 
-    public String getCurrent_class() {
-        return current_class;
+    public String getCurrentClass() {
+        return currentClass;
     }
 
     public List<Absences> getAbsences() {
@@ -45,20 +43,20 @@ public class ProfessorRegister implements Register {
         return students;
     }
 
-    public String getCurrent_matter() {
-        return current_matter;
+    public String getCurrentMatter() {
+        return currentMatter;
     }
 
-    public void setCurrent_class(String current_class) {
-        this.current_class = current_class;
+    public void setCurrentClass(String currentClass) {
+        this.currentClass = currentClass;
     }
 
-    public void setCurrent_matter(String current_matter) {
-        this.current_matter = current_matter;
+    public void setCurrentMatter(String currentMatter) {
+        this.currentMatter = currentMatter;
     }
 
-    public void setCurrent_month(month current_month) {
-        this.current_month = current_month;
+    public void setCurrentMonth(month currentMonth) {
+        this.currentMonth = currentMonth;
     }
 
     public void setGrades(List<Grades> grades) {
@@ -110,12 +108,11 @@ public class ProfessorRegister implements Register {
     @Override
     public List<Grades> getMyGrades(int id, month m, String materia){
         List<Grades> result = new ArrayList<>();
-        List<Grades> temp = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(),m.getIndex()-1,0);
         Calendar end = Calendar.getInstance();
         end.set(m.getYear(),m.getIndex()-1,m.getDay());
-        temp  = StudentDao.getMyGrades(id);
+        List<Grades> temp  = StudentDao.getMyGrades(id);
         if(temp != null) {
             for (Grades g : temp) {
                 if (g.getData().before(end.getTime()) && start.getTime().before(g.getData())&& g.getMateria().equals(materia)){
@@ -125,17 +122,16 @@ public class ProfessorRegister implements Register {
             }
             return result;
         }
-        return null;
+        return result;
     }
     @Override
     public List<Absences> getAbsences(int id, month m){
         List<Absences> result = new ArrayList<>();
-        List<Absences> temp = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(),m.getIndex()-1,0);
         Calendar end = Calendar.getInstance();
         end.set(m.getYear(),m.getIndex()-1,m.getDay());
-        temp  = StudentDao.getMyAssenze(id);
+        List<Absences> temp  = StudentDao.getMyAssenze(id);
         if(temp != null) {
             for (Absences a : temp) {
                 if (a.getData().before(end.getTime()) && start.getTime().before(a.getData()))
@@ -146,7 +142,7 @@ public class ProfessorRegister implements Register {
         return null;
     }
 
-    public int newGrades(int ms,String name, String materia,int voto, String tipo,int professorid,String professor,Date data){
+    public int newGrades(int ms,String materia,int voto, String tipo,int professorid,String professor,Date data){
         Grades g = new Grades(ms,materia,voto,tipo,professorid,professor,data);
         return ProfessorDao.saveGrades(g);
     }
@@ -164,7 +160,7 @@ public class ProfessorRegister implements Register {
              media += g.getVoto();
          }
          if(count != 0)
-         return Math.round((media*10/count))/10.0;
+            return Math.round((media*10/count))/10.0;
          else
              return 0;
 
