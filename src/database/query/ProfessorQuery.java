@@ -160,8 +160,8 @@ public abstract class ProfessorQuery {
 
     }
 
-    public static int deleteGrades(Statement stmt, int matricola, Date d, String current_matter) {
-        String sql = String.format("DELETE FROM Grades WHERE matricolaStudente='%s' AND data='%tF' AND materia='%s'", matricola,d,current_matter);
+    public static int deleteGrades(Statement stmt, int matricola, Date d, String currentMatter) {
+        String sql = String.format("DELETE FROM Grades WHERE matricolaStudente='%s' AND data='%tF' AND materia='%s'", matricola,d,currentMatter);
 
         try {
             return stmt.executeUpdate(sql);

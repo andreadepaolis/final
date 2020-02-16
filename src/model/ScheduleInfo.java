@@ -46,5 +46,5 @@ public class ScheduleInfo {
 
     public void setHours(int hours) {
         this.hours = hours;
-    };
+    }
 }

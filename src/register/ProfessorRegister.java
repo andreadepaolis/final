@@ -139,7 +139,7 @@ public class ProfessorRegister implements Register {
             }
             return result;
         }
-        return null;
+        return list;
     }
 
     public int newGrades(int ms,String materia,int voto, String tipo,int professorid,String professor,Date data){

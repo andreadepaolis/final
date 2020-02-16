@@ -99,7 +99,6 @@ public class HomeProfessorServlet extends HttpServlet {
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(p.getCurrentDate());
                         String temp = request.getParameter("temp");
-                        System.out.println(temp);
                         if(temp.equals("inc")){
 
                             cal.add(Calendar.DATE, +7);
@@ -190,7 +189,7 @@ public class HomeProfessorServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+       //doGet
 
     }
 }
