@@ -6,8 +6,6 @@ public class DataBase {
 
     private static DataBase db;
     private static Connection con ;
-    private static Statement stmt;
-
 
     private DataBase() {
         // private constructor //
