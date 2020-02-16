@@ -177,7 +177,7 @@ public abstract class ProfessorDao {
             ResultSet rs = ProfessorQuery.getScheduleForProfessor(stmt,professorid);
 
             if (!rs.first()) {
-                return null;
+                return list;
             }
 
             // riposizionamento del cursore
@@ -209,7 +209,7 @@ public abstract class ProfessorDao {
             ResultSet rs = ProfessorQuery.getUserGradesForMateria(stmt,matricola,materia);
 
             if (!rs.first()) {
-                return null;
+                return list;
             }
 
             // riposizionamento del cursore
@@ -247,13 +247,13 @@ public abstract class ProfessorDao {
 
         Connection con = DataBase.getInstance().getConnection();
 
-        List<Student> list = new ArrayList<Student>();
+        List<Student> list = new ArrayList<>();
         try {
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.getStudentsOfClass(stmt, classe);
             if (!rs.first()) {
-                return null;
+                return list;
             }
             rs.first();
             do {
@@ -352,10 +352,10 @@ public abstract class ProfessorDao {
 
                 ResultSet rs = ProfessorQuery.getArgument(stmt, matricola, s);
                 if (rs == null)
-                  return null;
+                  return list;
 
                     if (!rs.first()) {
-                        return null;
+                        return list;
                     }
                     rs.first();
                     do {
