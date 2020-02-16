@@ -2,9 +2,6 @@ package servlet;
 
 import bean.GradesPageBean;
 import bean.MatterBean;
-import bean.StudentBean;
-import controller.ControllerHomeStudent;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
