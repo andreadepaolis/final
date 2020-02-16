@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public abstract class  StudentDao {
 
     private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
-
-
+    String clss = "class";
+    String mattr ="materia";
     public static StudentBean validate(int matricola, String password) throws SQLException {
 
 
@@ -37,7 +37,7 @@ public abstract class  StudentDao {
                 u.setName(rs.getString("name"));
                 u.setMatricola(rs.getInt("matricola"));
                 u.setLastname(rs.getString("lastname"));
-                u.setClasse(rs.getString("class"));
+                u.setClasse(rs.getString(clss));
                 return u;
             }
 
@@ -112,7 +112,7 @@ public abstract class  StudentDao {
             // riposizionamento del cursore
             rs.first();
             do{
-                String materia = rs.getString("materia");
+                String materia = rs.getString(mattr);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
                 String tipo = rs.getString("tipo");
@@ -195,7 +195,7 @@ public abstract class  StudentDao {
 
                 do{
 
-                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"),rs.getString("class"),rs.getString("materia"),rs.getString("descrizione"),rs.getDate("data"));
+                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"),rs.getString(clss),rs.getString(mattr),rs.getString("descrizione"),rs.getDate("data"));
                     allHomework.add(hmw);
                 }while(rs.next());
 
@@ -232,7 +232,7 @@ public abstract class  StudentDao {
                 rs.first();
 
                 do{
-                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString("materia"),rs.getString("class"));
+                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(mattr),rs.getString(clss));
                     si.add(sch);
                 }while(rs.next());
 
@@ -273,7 +273,7 @@ public abstract class  StudentDao {
             // riposizionamento del cursore
             rs.first();
             do{
-                String materia = rs.getString("materia");
+                String materia = rs.getString(mattr);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
                 String tipo = rs.getString("tipo");
@@ -316,7 +316,7 @@ public abstract class  StudentDao {
             // riposizionamento del cursore
             rs.first();
             do{
-                String currentMatter = rs.getString("materia");
+                String currentMatter = rs.getString(mattr);
                 if(!matter.contains(currentMatter))
                      matter.add(currentMatter);
 
