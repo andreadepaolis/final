@@ -18,19 +18,16 @@ import java.io.IOException;
 public class GradesStudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
+        String gp = "gradesPage";
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/GradesStudent.jsp");
-        ControllerHomeStudent chs = new ControllerHomeStudent();
         try {
             HttpSession session = request.getSession(false);
-            if (session.getAttribute("student") == null || session.getAttribute("gradesPage")== null) {
+            if (session.getAttribute("student") == null || session.getAttribute(gp)== null) {
                 response.sendRedirect("index.jsp");
                 return;
             }
-            GradesPageBean gpb = (GradesPageBean) session.getAttribute("gradesPage");
+            GradesPageBean gpb = (GradesPageBean) session.getAttribute(gp);
 
-            StudentBean s = (StudentBean)session.getAttribute("student");
             String cmd = request.getParameter("cmd");
 
             if(cmd.equals("materia")) {
@@ -42,7 +39,7 @@ public class GradesStudentServlet extends HttpServlet {
                         matter = m;
                 }
                 gpb.setCurrent_matter(matter);
-                session.setAttribute("gradesPage",gpb);
+                session.setAttribute(gp,gpb);
                 rd.forward(request,response);
             }
 
