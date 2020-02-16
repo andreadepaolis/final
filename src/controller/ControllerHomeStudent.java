@@ -34,8 +34,8 @@ public class ControllerHomeStudent {
                }
 
             }
-            List<Homework> sorted_list = this.sortByDate(list);
-            s.setHomework(sorted_list);
+            List<Homework> sortedList = this.sortByDate(list);
+            s.setHomework(sortedList);
         }
 
         List<ScheduleInfo> schedule = StudentDao.getSchedule(s.getClasse());
@@ -74,7 +74,7 @@ public class ControllerHomeStudent {
             }
             return this.sortByDate(list);
         }  else
-             return null;
+             return list;
     }
 
     public List<Grades> getMyGrades(int matricola) {
@@ -83,9 +83,9 @@ public class ControllerHomeStudent {
         List<Grades> result = StudentDao.getMyGrades(matricola);
 
         if(result != null)
-        return sortByDateGrades(result);
+            return sortByDateGrades(result);
         else
-             return null;
+             return result;
     }
 
     private List<Grades> sortByDateGrades(List<Grades> result) {
@@ -130,7 +130,7 @@ public class ControllerHomeStudent {
             count ++;
         }
         if(count != 0)
-        return media/count;
+            return media/count;
         else
              return 0;
     }
