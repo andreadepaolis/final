@@ -20,7 +20,13 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="background-color: #2581b8; color:white">
+<%
+    if (session.getAttribute("student") != null) {
+        StudentBean s = (StudentBean) session.getAttribute("student");%>
+
 <ul class="col-sm-12" style="padding: 0px 15px">
+    <li><a><strong><%=s.getLastname()%></strong></a></li>
+
     <li><a href="HomeStudent.jsp">Home</a></li>
     <li>
         <form action="HomeStudentServlet" method="post">
@@ -42,10 +48,8 @@
          style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px">
         <br>
         <h5><strong>Manage your absences</strong></h5><br>
-        <%
-            if (session.getAttribute("student") != null) {
-                StudentBean s = (StudentBean) session.getAttribute("student");
 
+        <%
                 if (s.getAbsences() != null)%>
         <div style="background-color:white; border:0px; border-radius:5px; padding:20px">
 

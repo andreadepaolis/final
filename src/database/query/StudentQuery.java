@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class StudentQuery {
 
-    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(StudentQuery.class.getName());
 
 
     public static ResultSet login(Statement stmt, int matricola, String password) throws SQLException {

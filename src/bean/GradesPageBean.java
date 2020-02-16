@@ -26,10 +26,6 @@ public class GradesPageBean {
         this.s = s;
     }
 
-    public StudentBean getS() {
-        return s;
-    }
-
     public void setCurrent_matter(MatterBean current_matter) {
         this.current_matter = current_matter;
     }

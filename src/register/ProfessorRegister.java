@@ -163,7 +163,10 @@ public class ProfessorRegister implements Register {
              count++;
              media += g.getVoto();
          }
+         if(count != 0)
          return Math.round((media*10/count))/10.0;
+         else
+             return 0;
 
     }
 

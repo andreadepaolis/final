@@ -3,9 +3,12 @@ package controller;
 import database.StudentDao;
 import model.Absences;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ControllerStudent {
+    private static final Logger LOGGER = Logger.getLogger(ControllerStudent.class.getName());
 
 
     public ControllerStudent(){};
@@ -24,7 +27,7 @@ public class ControllerStudent {
 
     }
 
-    public int manageAbsence(Absences a) {
+    public int manageAbsence(Absences a) throws SQLException {
 
         a.setCheckbit(0);
          return StudentDao.updateAbsence(a);

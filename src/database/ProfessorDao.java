@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ProfessorDao {
 
 
-    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());
 
 
     public static Professor validate(int matricola, String password) throws SQLException {
@@ -32,11 +32,11 @@ public class ProfessorDao {
             ResultSet rs= ProfessorQuery.login(stmt,matricola,password);
 
 
+            assert rs != null;
             if(rs.first()){
                 rs.first();
-                Professor p = new Professor(rs.getString("name"), rs.getString("lastname"), rs.getInt("matricola"));
 
-                return p;
+                return new Professor(rs.getString("name"), rs.getString("lastname"), rs.getInt("matricola"));
             }
 
             else {
@@ -126,6 +126,7 @@ public class ProfessorDao {
 
             ResultSet rs = ProfessorQuery.getHomework(stmt, professorId);
 
+            assert rs != null;
             if(rs.first()) {
                 do {
                     HomeworkBean h = new HomeworkBean();
@@ -270,19 +271,21 @@ public class ProfessorDao {
         }
     }
 
-    public static int saveAbsence(Absences a) {
+    public static int saveAbsence(Absences a) throws SQLException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
-
+        Statement stmt = null;
         try {
-            Statement stmt = con.createStatement();
+             stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewAbsences(stmt, a);
 
-
         } catch (Exception e) {
             LOGGER.info(e.toString());
+        } finally {
+            if(stmt != null)
+                stmt.close();
         }
         return result;
 

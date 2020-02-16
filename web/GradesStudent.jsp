@@ -20,7 +20,17 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="background-color: #2581b8; color:white">
+
+
+
+<%
+    if (session.getAttribute("gradesPage") != null) {
+
+        GradesPageBean gpb = (GradesPageBean) session.getAttribute("gradesPage");
+%>
+
 <ul class="col-sm-12" style="padding: 0px 15px">
+    <li><a><strong><%=gpb.getStudent().getLastname()%></strong></a></li>
     <li><a href="HomeStudent.jsp">Home</a></li>
     <li><a style="border-bottom: 5px white solid;" href="GradesStudent.jsp">Grades</a></li>
     <li>
@@ -36,12 +46,6 @@
 
 </ul>
 
-<%
-    if (session.getAttribute("gradesPage") != null) {
-
-        GradesPageBean gpb = (GradesPageBean) session.getAttribute("gradesPage");
-
-%>
 
 <div class="container-fluid col-sm-12" style="padding:30px">
     <div class="row col-sm-12 card-deck row container-fluid">

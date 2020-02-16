@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public abstract class  StudentDao {
 
-    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
 
 
     public static StudentBean validate(int matricola, String password) throws SQLException {
@@ -365,12 +365,12 @@ public abstract class  StudentDao {
 
     }
 
-    public static int updateAbsence(Absences a) {
+    public static int updateAbsence(Absences a) throws SQLException {
         Connection con = DataBase.getInstance().getConnection();
-
+        Statement stmt = null;
         int result = 0;
         try {
-            Statement stmt = con.createStatement();
+             stmt = con.createStatement();
 
             result = StudentQuery.updateAbsences(stmt, a.getData(),a.getMatricolaStudente());
 
@@ -378,7 +378,10 @@ public abstract class  StudentDao {
 
         } catch (Exception e) {
             LOGGER.info(e.toString());
-
+        }
+        finally {
+            if(stmt != null)
+                    stmt.close();
         }
         return result;
     }

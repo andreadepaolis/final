@@ -33,7 +33,6 @@ public class DataBase {
             }
             return con;
         } catch (Exception e) {
-            System.out.print("Error : " + e.getMessage());
             return con;
         }
     }
