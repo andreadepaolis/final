@@ -1,6 +1,14 @@
 language: java
-os: osx
+
+jdk: 
+    -openjdk8
+
 addons:
-  apt:
-    packages:
-      - ant
+    sonarcloud:
+     organization: "andreadepaolis"
+     token:
+        secure: "132e236bb49cf2eb6421582e72768c548a934c49"
+
+script:
+- ant build
+- sonar-scanner
