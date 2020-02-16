@@ -155,9 +155,9 @@ public class ProfessorRegisterServlet extends HttpServlet {
              int matricola = Integer.parseInt(request.getParameter("matricola"));
              int matricolaProfessore = p.getMatricola();
              String nomeProfessore = p.getLastname();
-             InputController inp_cnt = InputController.getIstance();
-             Date d = inp_cnt.converDate(request.getParameter("data"));
-             if (d == null || !inp_cnt.checkDate(d)) {
+             InputController inpCnt = InputController.getIstance();
+             Date d = inpCnt.converDate(request.getParameter("data"));
+             if (d == null || !inpCnt.checkDate(d)) {
 
                  Toast t = new Toast("Invalid Date", "Date is out from current year", 1);
                  request.setAttribute("toast", t);
@@ -167,7 +167,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
              }
 
              Grades g = new Grades(matricola, materia, voto, tipo, matricolaProfessore, nomeProfessore, d);
-             if (!inp_cnt.checkInRange(voto, 0, 10) || !inp_cnt.checkInt(voto)) {
+             if (!inpCnt.checkInRange(voto, 0, 10) || !inpCnt.checkInt(voto)) {
                  Toast t = new Toast(error, "invalid vote", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);

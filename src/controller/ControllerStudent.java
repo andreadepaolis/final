@@ -8,7 +8,9 @@ import java.util.List;
 
 public class ControllerStudent {
 
-    public ControllerStudent(){};
+    public ControllerStudent(){
+        //Bean
+    }
 
     public List<Absences> loadAbsences(int id) {
 
@@ -19,8 +21,8 @@ public class ControllerStudent {
 
     public boolean verifyPin(String pin,int id) {
 
-        String real_pin = StudentDao.getPin(id);
-        return pin.equals(real_pin);
+        String realPin = StudentDao.getPin(id);
+        return pin.equals(realPin);
 
     }
 

@@ -4,7 +4,6 @@ import bean.GradesPageBean;
 import bean.MatterBean;
 import bean.StudentBean;
 import controller.ControllerHomeStudent;
-import model.Homework;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 @WebServlet("/GradesStudentServlet")
 public class GradesStudentServlet extends HttpServlet {
@@ -57,6 +53,6 @@ public class GradesStudentServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //doGet
     }
 }

@@ -1,7 +1,6 @@
 package servlet;
 
 import bean.StudentBean;
-import controller.ControllerHomeStudent;
 import controller.ControllerStudent;
 import model.Absences;
 import utils.Toast;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/ParentalControlServlet")
 public class ParentalControlServlet extends HttpServlet {
@@ -78,6 +76,6 @@ public class ParentalControlServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+       //doGet
     }
 }

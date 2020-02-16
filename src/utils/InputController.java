@@ -36,7 +36,7 @@ public class InputController {
                 }
 
     }
-    public int StringToInt(String value){
+    public int stringToInt(String value){
 
         try {
             return Integer.parseInt(value);
@@ -45,9 +45,9 @@ public class InputController {
         }
     }
 
-    public Date generateDate(int day_index, int index, int year) {
+    public Date generateDate(int dayIndex, int index, int year) {
 
-        return new GregorianCalendar(year, index - 1, day_index).getTime();
+        return new GregorianCalendar(year, index - 1, dayIndex).getTime();
     }
 
 

@@ -13,7 +13,7 @@ public class ControllerHomeStudent {
 
     public ControllerHomeStudent(){
         //Bean
-    };
+    }
 
     public StudentBean full(StudentBean s) {
 
