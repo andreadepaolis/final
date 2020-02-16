@@ -20,13 +20,13 @@ public class ControllerHomeProfessor {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerHomeProfessor.class.getName());
 
-    public ProfessorBean full(ProfessorBean p) throws Exception {
+    public ProfessorBean full(ProfessorBean p) {
 
 
         List<String> classi = ProfessorDao.getClassi(p.getMatricola());
 
         if (classi == null)
-            throw new Exception("cant found any class");
+                return null;
 
         p.setClassi(classi);
 
@@ -35,7 +35,7 @@ public class ControllerHomeProfessor {
         List<String> matter = ProfessorDao.getMaterie(p.getMatricola());
 
         if (matter == null)
-            throw new Exception("cant found any class");
+            return null;
 
         p.setMatter(matter);
 
@@ -110,9 +110,11 @@ public class ControllerHomeProfessor {
     public boolean save(HomeworkBean hmwbean) throws ParseException {
 
         InputController input = InputController.getIstance();
-        if(!input.checkDate(hmwbean.getData()))return false;
-            Homework H = new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
-        int result = ProfessorDao.newHomework(H);
+        if(!input.checkDate(hmwbean.getData()))
+                return false;
+
+        Homework h= new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
+        int result = ProfessorDao.newHomework(h);
         return result > 0;
     }
 

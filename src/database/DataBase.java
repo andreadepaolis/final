@@ -5,7 +5,7 @@ import java.sql.*;
 public class DataBase {
 
     private static DataBase db;
-    private static Connection con ;
+    private  Connection con ;
 
     private DataBase() {
         // private constructor //

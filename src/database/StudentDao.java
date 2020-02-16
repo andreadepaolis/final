@@ -33,7 +33,6 @@ public abstract class  StudentDao {
             assert rs != null;
             if(rs.first()){
                 rs.first();
-                //1 nome 2 lastname 3 matricola 4 classe
                 StudentBean u = new StudentBean();
                 u.setName(rs.getString("name"));
                 u.setMatricola(rs.getInt("matricola"));
