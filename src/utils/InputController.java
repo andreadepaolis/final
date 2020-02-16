@@ -30,14 +30,9 @@ public class InputController {
 
                 try{
 
-                    Date d = new SimpleDateFormat("yyyy/MM/dd").parse(data);
-                    System.out.println(d);
-
-
-                    return d;
+                    return new SimpleDateFormat("yyyy/MM/dd").parse(data);
 
                 }catch(ParseException ps){
-                    ps.printStackTrace();
                     return null;
                 }
     }
@@ -46,7 +41,6 @@ public class InputController {
         try {
             return Integer.parseInt(value);
         } catch(Exception e){
-            e.printStackTrace();
             return 0;
         }
     }

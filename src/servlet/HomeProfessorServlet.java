@@ -169,8 +169,7 @@ public class HomeProfessorServlet extends HttpServlet {
                         session.setAttribute("register", register);
                         response.sendRedirect("professorRegister.jsp");
                     } catch (Exception e) {
-                        e.printStackTrace();
-
+                          response.sendRedirect("index.jsp");
                     }
 
                     break;
@@ -178,7 +177,6 @@ public class HomeProfessorServlet extends HttpServlet {
             }
 
         }catch(Exception e){
-            e.printStackTrace();
             Toast t = new Toast("Error","there is an error",1);
             request.setAttribute("toast",t);
             rd.include(request,response);

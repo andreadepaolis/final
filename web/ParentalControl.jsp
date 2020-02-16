@@ -56,22 +56,24 @@
             <%
                 for (Absences a : s.getAbsences()) {
 
-            %>
-            <div class="row col-sm-12" style="color:black; margin:0px">
-                <strong>Date: </strong> &nbsp;&nbsp; <%=a.getData()%>
-                <div class="col-sm-2"></div>
-                <strong>Type: </strong> &nbsp;&nbsp;<%=a.getTipo()%>
-                <% if (a.getCheckbit() == 1) {%>
-                <div class="col-sm-2"></div>
-                <button style="background-color: red; border-radius: 100%; border:0px; color:white; height:40px; width: 40px; font-size: 25px" value="Giustifica"
+            %><div class="row col-sm-12" style="color:black; margin:0px">
+            <div class="col-sm-4"><strong>Date: </strong> &nbsp;&nbsp; <%=a.getData()%></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3"><strong>Type: </strong> &nbsp;&nbsp;<%=a.getTipo()%></div>
+            <% if (a.getCheckbit() == 1) {%>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1" style="float: right">
+                <button style="background-color: red; border-radius: 100%; border:0px; color:white; height:40px; width: 40px; font-size: 25px;" value="Giustifica"
                         onclick=openModal(<%=s.getAbsences().indexOf(a)%>)>!
                 </button>
-
-                <%} else {%>
-                <div class="col-sm-2"></div>
-                <button style="background-color: #0cf049; border-radius: 100%; border:0px; color:white; height:40px; width: 40px; font-size: 25px">V</button>
-                <%}%>
             </div>
+            <%} else {%>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1" style="float: right">
+                <button style="background-color: #0cf049; border-radius: 100%; border:0px; color:white; height:40px; width: 40px; font-size: 25px;">V</button>
+            </div>
+            <%}%>
+        </div>
             <hr style="margin:13px">
             <%}%>
         </div>

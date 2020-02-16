@@ -158,7 +158,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
 
@@ -222,7 +222,7 @@ public class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return list;
     }
@@ -303,7 +303,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
 
@@ -337,7 +337,7 @@ public class ProfessorDao {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.info(e.toString());
         }
         return result;
     }
@@ -374,19 +374,23 @@ public class ProfessorDao {
                 }
 
     }
-    public static int saveArgument(Argument arg) {
+    public static int saveArgument(Argument arg) throws SQLException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
+        Statement stmt = null;
 
         try {
-            Statement stmt = con.createStatement();
+             stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewArg(stmt,arg.getMatricolaProfessore(),arg.getClasse(),arg.getDescprition(),arg.getMateria(),arg.getIndex());
 
 
         } catch (Exception e) {
             LOGGER.info(e.toString());
+        }finally {
+            if(stmt != null)
+                 stmt.close();
         }
         return result;
 

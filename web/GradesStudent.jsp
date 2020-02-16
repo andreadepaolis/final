@@ -63,7 +63,7 @@
                 <form action="GradesStudentServlet" method="post">
                     <input type="hidden" name="materia" value="<%=m.getMateria()%>"/>
                     <input type="hidden" name="cmd" value="materia">
-                    <input class="buttonSave" type="submit" value="<%=m.getMateria()%>">
+                    <input style="width:100px"class="buttonSave" type="submit" value="<%=m.getMateria()%>">
                 </form>
                 <%}%>
             </div>

@@ -9,9 +9,11 @@ import model.Professor;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class ControllerLogin {
 
+    private static final Logger LOGGER = Logger.getLogger(ControllerLogin.class.getName());
 
         public ControllerLogin(){}
 
@@ -22,7 +24,7 @@ public class ControllerLogin {
             try {
                 s = StudentDao.validate(u.getMatricola(),u.getPassword());
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.info(e.toString());
             }
             return s;
 
@@ -46,6 +48,7 @@ public class ControllerLogin {
         }
 
         } catch (SQLException e) {
+            LOGGER.info(e.toString());
             return null;
         }
         return pb;

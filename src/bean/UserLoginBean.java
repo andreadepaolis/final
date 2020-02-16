@@ -19,7 +19,6 @@ public class UserLoginBean implements Serializable {
 
             this.matricola = i;
         } catch (Exception e ){
-            e.printStackTrace();
             this.matricola = 0;
         }
 
