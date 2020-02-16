@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="registro777" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.klib"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.ane"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.13" value="${jdk.home.13}/bin"/>
+  <path id="jdk.classpath.13">
+    <fileset dir="${jdk.home.13}">
+      <include name="../Home!/java.base"/>
+      <include name="../Home!/java.compiler"/>
+      <include name="../Home!/java.datatransfer"/>
+      <include name="../Home!/java.desktop"/>
+      <include name="../Home!/java.instrument"/>
+      <include name="../Home!/java.logging"/>
+      <include name="../Home!/java.management"/>
+      <include name="../Home!/java.management.rmi"/>
+      <include name="../Home!/java.naming"/>
+      <include name="../Home!/java.net.http"/>
+      <include name="../Home!/java.prefs"/>
+      <include name="../Home!/java.rmi"/>
+      <include name="../Home!/java.scripting"/>
+      <include name="../Home!/java.se"/>
+      <include name="../Home!/java.security.jgss"/>
+      <include name="../Home!/java.security.sasl"/>
+      <include name="../Home!/java.smartcardio"/>
+      <include name="../Home!/java.sql"/>
+      <include name="../Home!/java.sql.rowset"/>
+      <include name="../Home!/java.transaction.xa"/>
+      <include name="../Home!/java.xml"/>
+      <include name="../Home!/java.xml.crypto"/>
+      <include name="../Home!/jdk.accessibility"/>
+      <include name="../Home!/jdk.aot"/>
+      <include name="../Home!/jdk.attach"/>
+      <include name="../Home!/jdk.charsets"/>
+      <include name="../Home!/jdk.compiler"/>
+      <include name="../Home!/jdk.crypto.cryptoki"/>
+      <include name="../Home!/jdk.crypto.ec"/>
+      <include name="../Home!/jdk.dynalink"/>
+      <include name="../Home!/jdk.editpad"/>
+      <include name="../Home!/jdk.hotspot.agent"/>
+      <include name="../Home!/jdk.httpserver"/>
+      <include name="../Home!/jdk.internal.ed"/>
+      <include name="../Home!/jdk.internal.jvmstat"/>
+      <include name="../Home!/jdk.internal.le"/>
+      <include name="../Home!/jdk.internal.opt"/>
+      <include name="../Home!/jdk.internal.vm.ci"/>
+      <include name="../Home!/jdk.internal.vm.compiler"/>
+      <include name="../Home!/jdk.internal.vm.compiler.management"/>
+      <include name="../Home!/jdk.jartool"/>
+      <include name="../Home!/jdk.javadoc"/>
+      <include name="../Home!/jdk.jcmd"/>
+      <include name="../Home!/jdk.jconsole"/>
+      <include name="../Home!/jdk.jdeps"/>
+      <include name="../Home!/jdk.jdi"/>
+      <include name="../Home!/jdk.jdwp.agent"/>
+      <include name="../Home!/jdk.jfr"/>
+      <include name="../Home!/jdk.jlink"/>
+      <include name="../Home!/jdk.jshell"/>
+      <include name="../Home!/jdk.jsobject"/>
+      <include name="../Home!/jdk.jstatd"/>
+      <include name="../Home!/jdk.localedata"/>
+      <include name="../Home!/jdk.management"/>
+      <include name="../Home!/jdk.management.agent"/>
+      <include name="../Home!/jdk.management.jfr"/>
+      <include name="../Home!/jdk.naming.dns"/>
+      <include name="../Home!/jdk.naming.rmi"/>
+      <include name="../Home!/jdk.net"/>
+      <include name="../Home!/jdk.pack"/>
+      <include name="../Home!/jdk.rmic"/>
+      <include name="../Home!/jdk.scripting.nashorn"/>
+      <include name="../Home!/jdk.scripting.nashorn.shell"/>
+      <include name="../Home!/jdk.sctp"/>
+      <include name="../Home!/jdk.security.auth"/>
+      <include name="../Home!/jdk.security.jgss"/>
+      <include name="../Home!/jdk.unsupported"/>
+      <include name="../Home!/jdk.unsupported.desktop"/>
+      <include name="../Home!/jdk.xml.dom"/>
+      <include name="../Home!/jdk.zipfs"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.13}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.13}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.13"/>
+  
+  
+  <!-- Global Libraries -->
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <path id="library.tomcat_9.0.27.classpath">
+    <pathelement location="/Users/andrea/eclipse/apache-tomcat-9.0.27/lib/jsp-api.jar"/>
+    <pathelement location="/Users/andrea/eclipse/apache-tomcat-9.0.27/lib/servlet-api.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module registro777 -->
+  
+  <dirname property="module.registro777.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.registro777" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.registro777" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.registro777" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.registro777" value="-encoding UTF-8 -source 13 -target 13 ${compiler.args}"/>
+  
+  <property name="registro777.output.dir" value="${module.registro777.basedir}/out/production/registro777"/>
+  <property name="registro777.testoutput.dir" value="${module.registro777.basedir}/out/test/registro777"/>
+  
+  <path id="registro777.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="registro777.module.production.classpath">
+    <path refid="${module.jdk.classpath.registro777}"/>
+    <path refid="library.tomcat_9.0.27.classpath"/>
+  </path>
+  
+  <path id="registro777.runtime.production.module.classpath">
+    <pathelement location="${registro777.output.dir}"/>
+  </path>
+  
+  <path id="registro777.module.classpath">
+    <path refid="${module.jdk.classpath.registro777}"/>
+    <pathelement location="${registro777.output.dir}"/>
+    <path refid="library.tomcat_9.0.27.classpath"/>
+  </path>
+  
+  <path id="registro777.runtime.module.classpath">
+    <pathelement location="${registro777.testoutput.dir}"/>
+    <pathelement location="${registro777.output.dir}"/>
+    <path refid="library.tomcat_9.0.27.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.registro777">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.registro777">
+    <patternset refid="excluded.from.module.registro777"/>
+  </patternset>
+  
+  <path id="registro777.module.sourcepath">
+    <dirset dir="${module.registro777.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.registro777" depends="compile.module.registro777.production,compile.module.registro777.tests" description="Compile module registro777"/>
+  
+  <target name="compile.module.registro777.production" depends="register.custom.compilers" description="Compile module registro777; production classes">
+    <mkdir dir="${registro777.output.dir}"/>
+    <javac2 destdir="${registro777.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.registro777}/javac">
+      <compilerarg line="${compiler.args.registro777}"/>
+      <bootclasspath refid="registro777.module.bootclasspath"/>
+      <classpath refid="registro777.module.production.classpath"/>
+      <src refid="registro777.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.registro777"/>
+    </javac2>
+    
+    <copy todir="${registro777.output.dir}">
+      <fileset dir="${module.registro777.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.registro777.tests" depends="register.custom.compilers,compile.module.registro777.production" description="compile module registro777; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.registro777" description="cleanup module">
+    <delete dir="${registro777.output.dir}"/>
+    <delete dir="${registro777.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.registro777, clean.artifact.registro777:war_exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.registro777" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.registro777:war_exploded" value="${basedir}/out/artifacts/registro777_war_exploded"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="clean.artifact.registro777:war_exploded" description="clean registro777:war exploded artifact output">
+    <delete dir="${artifact.output.registro777:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.registro777:war_exploded" depends="init.artifacts, compile.module.registro777" description="Build &#39;registro777:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.registro777:war_exploded}"/>
+    <copy todir="${artifact.output.registro777:war_exploded}">
+      <fileset dir="${basedir}/web"/>
+    </copy>
+    <mkdir dir="${artifact.output.registro777:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/web/WEB-INF/web.xml" tofile="${artifact.output.registro777:war_exploded}/WEB-INF/web.xml"/>
+    <mkdir dir="${artifact.output.registro777:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.registro777:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.registro777:war_exploded}/WEB-INF/classes">
+      <fileset dir="${registro777.output.dir}"/>
+    </copy>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.registro777:war_exploded" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
