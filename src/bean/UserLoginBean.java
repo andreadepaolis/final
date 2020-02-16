@@ -7,7 +7,9 @@ public class UserLoginBean implements Serializable {
      private int matricola;
      private String password;
 
-    public UserLoginBean(){}
+    public UserLoginBean(){
+        //Bean
+    }
 
     public int getMatricola() {
         return matricola;

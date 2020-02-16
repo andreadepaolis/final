@@ -11,7 +11,9 @@ import java.util.*;
 
 public class ControllerHomeStudent {
 
-    public ControllerHomeStudent(){};
+    public ControllerHomeStudent(){
+        //Bean
+    };
 
     public StudentBean full(StudentBean s) {
 

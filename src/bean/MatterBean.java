@@ -14,7 +14,9 @@ public class MatterBean implements Serializable {
 
 
 
-    public MatterBean(){};
+    public MatterBean(){
+        //Bean
+    };
 
     public void setMateria(String materia) {
         this.materia = materia;

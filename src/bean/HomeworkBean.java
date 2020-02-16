@@ -12,7 +12,9 @@ public class HomeworkBean implements Serializable {
     private String description;
     private Date data;
 
-    public HomeworkBean(){};
+    public HomeworkBean(){
+        //Bean
+    };
 
     public int getMatricolaProfessore() {
         return matricolaProfessore;

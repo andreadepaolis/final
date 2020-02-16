@@ -19,7 +19,9 @@ public class StudentBean implements Serializable {
     private List<Homework> homework;
     private Date currentDate;
 
-    public StudentBean(){};
+    public StudentBean(){
+        //Bean
+    };
 
     public String getName() {
         return name;
