@@ -1,21 +1,18 @@
 package database.query;
 
-//import model.Assenze;
 import model.Absences;
-import model.Argument;
 import model.Grades;
 import model.Homework;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.logging.Logger;
 
 
-public class ProfessorQuery {
+public abstract class ProfessorQuery {
     private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
     public static ResultSet login(Statement stmt, int matricola, String password) {
@@ -68,54 +65,7 @@ public class ProfessorQuery {
         return 0;
     }
 
-    public static ResultSet getGradesByClass(Statement stmt, int professorid, String classe) {
 
-        // String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s' INNER JOIN users ON users.class = '%s'",professorid,classe);
-        String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s'", professorid);
-
-        System.out.println(sql);
-        try {
-            return stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
-        }
-    }
-
-    /*public static int saveNewAssenza(Statement stmt, Assenze a) {
-        int ms = a.getMatricolaStudente();
-        String type = a.getTipo();
-        Date data = a.getData();
-        String sql = String.format("INSERT INTO assenze(matricolaStudente,data,tipo,checkbit) VALUES('%d','%tD','%s','%d')", ms, data, type, 1);
-
-        try {
-            return stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public static int saveNewGrades(Statement stmt, Grades g) {
-
-        int ms = g.getMatricolaStudente();
-        String nameP = g.getNomeProfessore();
-        String tipo = g.getTipo();
-        int voto = g.getVoto();
-        int pfid = g.getProfessorid();
-        Date d = g.getData();
-        String materia = g.getMateria();
-        String sql = String.format("INSERT INTO Grades(matricolaStudente,matricolaProfessore,nomeProfessore,materia,voto,tipo,data) VALUES('%d','%d','%s','%s','%d','%s','%tF')", ms, pfid, nameP, materia, voto, tipo, d);
-
-        try {
-            return stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-     */
     public static int saveNewGrades(Statement stmt, Grades g) {
 
         int ms = g.getMatricolaStudente();

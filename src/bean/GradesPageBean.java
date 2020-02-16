@@ -7,11 +7,9 @@ public class GradesPageBean  implements Serializable {
 
     private StudentBean s;
     private List<MatterBean> matter;
-    private MatterBean currentMatter;
+    private MatterBean current_matter;
 
-    public GradesPageBean(){
-        // Bean
-    };
+    public GradesPageBean(){};
 
     public void setMatter(List<MatterBean> matter) {
         this.matter = matter;
@@ -29,11 +27,11 @@ public class GradesPageBean  implements Serializable {
         this.s = s;
     }
 
-    public void setCurrentMatter(MatterBean currentMatter) {
-        this.currentMatter = currentMatter;
+    public void setCurrent_matter(MatterBean current_matter) {
+        this.current_matter = current_matter;
     }
 
-    public MatterBean getCurrentMatter() {
-        return currentMatter;
+    public MatterBean getCurrent_matter() {
+        return current_matter;
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ProfessorDao {
+public abstract class ProfessorDao {
 
 
     private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());

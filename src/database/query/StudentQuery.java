@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.logging.Logger;
 
-public class StudentQuery {
+public abstract class StudentQuery {
 
     private static final Logger LOGGER = Logger.getLogger(StudentQuery.class.getName());
 

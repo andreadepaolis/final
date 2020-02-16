@@ -1,7 +1,4 @@
 package utils;
-
-import database.DataBase;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;

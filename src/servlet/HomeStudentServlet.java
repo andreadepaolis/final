@@ -42,7 +42,7 @@ public class HomeStudentServlet extends HttpServlet {
                 page.setStudent(s);
                 List<MatterBean> list = chs.getMatterBean(s.getMatricola(),s.getClasse());
                 page.setMatter(list);
-                page.setCurrentMatter(list.get(0));
+                page.setCurrent_matter(list.get(0));
                 session.setAttribute("gradesPage",page);
                 response.sendRedirect("GradesStudent.jsp");
 

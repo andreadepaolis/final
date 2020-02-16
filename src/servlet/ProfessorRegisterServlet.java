@@ -66,7 +66,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  rd.forward(request, response);
                  return;
              }
-             
+
          } catch (Exception e) {
             response.sendRedirect("index.jsp");
          }

@@ -1,9 +1,9 @@
 package utils;
 
-import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,7 +24,6 @@ public class InputController {
 
             public Date convertDate(String data) {
 
-            System.out.println(data);
                 data = data.replace('-','/');
 
 
@@ -35,6 +34,7 @@ public class InputController {
                 }catch(ParseException ps){
                     return null;
                 }
+
     }
     public int StringToInt(String value){
 
