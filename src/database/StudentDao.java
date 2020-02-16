@@ -1,7 +1,6 @@
 package database;
 
 import bean.StudentBean;
-import database.query.ProfessorQuery;
 import database.query.StudentQuery;
 import model.*;
 
@@ -56,10 +55,8 @@ public abstract class  StudentDao {
     }
     public static ResultSet getGradesByClass(Statement stmt, int professorid, String classe) {
 
-        // String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s' INNER JOIN users ON users.class = '%s'",professorid,classe);
         String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s'", professorid);
 
-        System.out.println(sql);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
@@ -67,7 +64,7 @@ public abstract class  StudentDao {
             return null;
         }
     }
-    public static Student GetUserById(int id) {
+    public static Student getUserById(int id) {
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
@@ -97,7 +94,7 @@ public abstract class  StudentDao {
     public static List<Grades> getMyGrades(int id){
         Statement stmt = null;
         Connection con = null;
-        List<Grades> allGrades = new ArrayList<Grades>();
+        List<Grades> allGrades = new ArrayList<>();
 
         try {
 
@@ -109,7 +106,7 @@ public abstract class  StudentDao {
 
 
             if (!rs.first()){
-                return null;
+                return list;
 
             }
 
@@ -152,7 +149,7 @@ public abstract class  StudentDao {
 
 
             if (rs == null || !rs.first()) {
-                return null;
+                return list;
 
             }
 
@@ -208,7 +205,7 @@ public abstract class  StudentDao {
             }
 
             else {
-                return null;
+                return list;
 
             }
 
@@ -245,7 +242,7 @@ public abstract class  StudentDao {
             }
 
             else {
-                return null;
+                return list;
 
             }
 
@@ -258,7 +255,7 @@ public abstract class  StudentDao {
     public static List<Grades> getMyGrades(int matricola, String matter) {
         Statement stmt = null;
         Connection con = null;
-        List<Grades> allGrades = new ArrayList<Grades>();
+        List<Grades> allGrades = new ArrayList<>();
 
         try {
 
@@ -271,7 +268,7 @@ public abstract class  StudentDao {
 
             assert rs != null;
             if (!rs.first()){
-                return null;
+                return list;
 
             }
             // riposizionamento del cursore
@@ -314,15 +311,15 @@ public abstract class  StudentDao {
 
             assert rs != null;
             if (!rs.first()){
-                return null;
+                return list;
 
             }
             // riposizionamento del cursore
             rs.first();
             do{
-                String current_matter = rs.getString("materia");
-                if(!matter.contains(current_matter))
-                     matter.add(current_matter);
+                String currentMatter = rs.getString("materia");
+                if(!matter.contains(currentMatter))
+                     matter.add(currentMatter);
 
             }while(rs.next());
 
