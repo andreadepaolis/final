@@ -18,7 +18,8 @@ public abstract class ProfessorDao {
 
     private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());
 
-
+    String mat = "materia";
+    String classString = "class";
     public static Professor validate(int matricola, String password) throws SQLException {
 
 
@@ -132,9 +133,9 @@ public abstract class ProfessorDao {
                     HomeworkBean h = new HomeworkBean();
                     h.setMatricolaProfessore(rs.getInt("matricolaProfessore"));
                     h.setDescription(rs.getString("descrizione"));
-                    h.setMateria(rs.getString("materia"));
+                    h.setMateria(rs.getString(mat));
                     h.setData(rs.getDate("data"));
-                    h.setClasse(rs.getString("class"));
+                    h.setClasse(rs.getString(classString));
 
                     if(h.getClasse().equals(classe))
                          list.add(h);
@@ -184,7 +185,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString("materia"),rs.getString("class"));
+                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(mat),rs.getString(classString));
                 list.add(si);
 
             } while (rs.next());
@@ -216,7 +217,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                Grades g = new Grades(rs.getString("materia"),rs.getInt("voto"));
+                Grades g = new Grades(rs.getString(mat),rs.getInt("voto"));
                 list.add(g);
 
             } while (rs.next());
@@ -264,11 +265,11 @@ public abstract class ProfessorDao {
             } while (rs.next());
             rs.close();
             stmt.close();
-            return list;
+
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            return null;
         }
+        return list;
     }
 
     public static int saveAbsence(Absences a) throws SQLException {
@@ -359,7 +360,7 @@ public abstract class ProfessorDao {
                     }
                     rs.first();
                     do {
-                        Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString("materia"), rs.getString("class"), rs.getInt("count" +
+                        Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(mat), rs.getString(classString), rs.getInt("count" +
                                 ""));
                         list.add(arg);
 
@@ -367,11 +368,12 @@ public abstract class ProfessorDao {
 
                     rs.close();
                     stmt.close();
-                    return list;
+
                 } catch(Exception e){
                 LOGGER.info(e.toString());
-                return null;
+
                 }
+            return list;
 
     }
     public static int saveArgument(Argument arg) throws SQLException {
