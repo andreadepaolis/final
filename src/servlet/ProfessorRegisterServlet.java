@@ -29,10 +29,12 @@ public class ProfessorRegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession(false);
     String error = "Error";
+    String r = "register";
+    String pr = "professor";
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/professorRegister.jsp");
- if(session.getAttribute("professor")!= null && session.getAttribute("register")!= null) {
+ if(session.getAttribute(pr)!= null && session.getAttribute(r)!= null) {
      String cmd = request.getParameter("cmd");
-     ProfessorRegister register = (ProfessorRegister) session.getAttribute("register");
+     ProfessorRegister register = (ProfessorRegister) session.getAttribute(r);
 
      ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
@@ -41,14 +43,14 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
          String materia = request.getParameter("materia");
          register.setCurrent_matter(materia);
-         session.setAttribute("register", register);
+         session.setAttribute(r, register);
 
 
      }
      if (cmd.equals("classe")) {
          String currentClass = request.getParameter("classe");
          register.setCurrent_class(currentClass);
-         session.setAttribute("register", register);
+         session.setAttribute(r, register);
      }
 
      if (cmd.equals("delete")) {
@@ -78,7 +80,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          MonthFactory mf = new MonthFactory();
          month m = mf.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
          register.setCurrent_month(m);
-         session.setAttribute("register", register);
+         session.setAttribute(r, register);
 
      }
      if (cmd.equals("random")) {
@@ -144,7 +146,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      if (cmd.equals("ng")) {
 
-         ProfessorBean p = (ProfessorBean) session.getAttribute("professor");
+         ProfessorBean p = (ProfessorBean) session.getAttribute(pr);
          try {
              int voto = Integer.parseInt(request.getParameter("voto"));
 
@@ -198,7 +200,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          String year = request.getParameter("monthYear");
          month m = chp.getMonth(year, month);
          register.setCurrent_month(m);
-         session.setAttribute("register", register);
+         session.setAttribute(r, register);
      }
 
      doGet(request, response);
@@ -214,9 +216,9 @@ public class ProfessorRegisterServlet extends HttpServlet {
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/professorRegister.jsp");
 
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
-        ProfessorRegister register = (ProfessorRegister)session.getAttribute("register");
+        ProfessorRegister register = (ProfessorRegister)session.getAttribute(r);
         register = chp.getFullRegister(register.getCurrent_class(),register.getCurrent_month(),register.getCurrent_matter());
-        session.setAttribute("register",register);
+        session.setAttribute(r,register);
         rd.include(request,response);
         }
     }
