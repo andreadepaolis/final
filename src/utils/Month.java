@@ -1,6 +1,6 @@
 package utils;
 
-public class month {
+public class Month {
 
    private int day;
    private int index;
