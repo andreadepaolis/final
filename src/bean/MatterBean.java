@@ -2,9 +2,10 @@ package bean;
 
 import model.Grades;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MatterBean {
+public class MatterBean implements Serializable {
 
     private String materia;
     private String professor;

@@ -2,10 +2,11 @@ package bean;
 
 import model.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class StudentBean {
+public class StudentBean implements Serializable {
 
 
     private int matricola;

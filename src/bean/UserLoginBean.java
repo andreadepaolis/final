@@ -1,6 +1,8 @@
 package bean;
 
-public class UserLoginBean{
+import java.io.Serializable;
+
+public class UserLoginBean implements Serializable {
 
      private int matricola;
      private String password;

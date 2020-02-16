@@ -4,10 +4,11 @@ import model.Argument;
 import model.Homework;
 import model.ScheduleInfo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ProfessorBean {
+public class ProfessorBean implements Serializable {
 
 
     private String name;

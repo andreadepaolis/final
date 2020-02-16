@@ -1,8 +1,9 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class HomeworkBean {
+public class HomeworkBean implements Serializable {
 
 
     private int matricolaProfessore;

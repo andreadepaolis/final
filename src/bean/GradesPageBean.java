@@ -1,8 +1,9 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GradesPageBean {
+public class GradesPageBean  implements Serializable {
 
     private StudentBean s;
     private List<MatterBean> matter;
