@@ -38,8 +38,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
-
-     if (cmd.equals("mat")) {
+     switch (cmd){
+         case "mat": {
 
          String materia = request.getParameter("materia");
          register.setCurrent_matter(materia);
@@ -47,13 +47,13 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
 
      }
-     if (cmd.equals("classe")) {
+            case "classe" {
          String currentClass = request.getParameter("classe");
          register.setCurrent_class(currentClass);
          session.setAttribute(r, register);
      }
 
-     if (cmd.equals("delete")) {
+         case "delete":{
          try {
              boolean res;
              String temp = request.getParameter("type");
@@ -74,7 +74,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          }
      }
 
-     if (cmd.equals("today")) {
+     case "today": {
 
          Calendar cal = Calendar.getInstance();
          MonthFactory mf = new MonthFactory();
@@ -83,7 +83,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          session.setAttribute(r, register);
 
      }
-     if (cmd.equals("random")) {
+     case "random" {
 
 
          List<StudentBean> list = register.getStudents();
@@ -99,7 +99,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      }
 
-     if (cmd.equals("newAbsence")) {
+      case "newAbsence" {
          try {
 
              String tipo = request.getParameter("tipo");
@@ -144,7 +144,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
      }
 
-     if (cmd.equals("ng")) {
+         case "ng": {
 
          ProfessorBean p = (ProfessorBean) session.getAttribute(pr);
          try {
@@ -194,7 +194,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
          }
      }
 
-     if (cmd.equals("m")) {
+         case: "m" {
 
          String month = request.getParameter("monthIndex");
          String year = request.getParameter("monthYear");
@@ -208,7 +208,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
 
              response.sendRedirect("index.jsp");
 
-        }
+        }}
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -32,7 +32,6 @@ public class ParentalControlServlet extends HttpServlet {
             StudentBean s = (StudentBean)session.getAttribute("student");
             String cmd = request.getParameter("cmd");
 
-
             if(cmd.equals("Absences")){
 
                 s.setAbsences(cs.loadAbsences(s.getMatricola()));
