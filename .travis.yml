@@ -1,0 +1,6 @@
+language: java
+os: osx
+addons:
+  apt:
+    packages:
+      - ant
