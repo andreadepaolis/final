@@ -11,7 +11,7 @@ public class GradesPageBean  implements Serializable {
 
     public GradesPageBean(){
         //Bean
-    };
+    }
 
     public void setMatter(List<MatterBean> matter) {
         this.matter = matter;

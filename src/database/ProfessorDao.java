@@ -309,7 +309,7 @@ public abstract class ProfessorDao {
 
     }
 
-    public static int deleteGrades(int matricola, Date d, String current_matter) {
+    public static int deleteGrades(int matricola, Date d, String currentMatter) {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
@@ -317,7 +317,7 @@ public abstract class ProfessorDao {
         try {
             Statement stmt = con.createStatement();
 
-            result = ProfessorQuery.deleteGrades(stmt, matricola,d,current_matter);
+            result = ProfessorQuery.deleteGrades(stmt, matricola,d,currentMatter);
 
 
         } catch (Exception e) {

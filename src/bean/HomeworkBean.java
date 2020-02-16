@@ -14,7 +14,7 @@ public class HomeworkBean implements Serializable {
 
     public HomeworkBean(){
         //Bean
-    };
+    }
 
     public int getMatricolaProfessore() {
         return matricolaProfessore;

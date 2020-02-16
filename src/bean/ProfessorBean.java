@@ -25,7 +25,7 @@ public class ProfessorBean implements Serializable {
 
     public ProfessorBean(){
         //Bean
-    };
+    }
 
     public String getName() {
         return name;

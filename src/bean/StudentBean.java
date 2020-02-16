@@ -21,7 +21,7 @@ public class StudentBean implements Serializable {
 
     public StudentBean(){
         //Bean
-    };
+    }
 
     public String getName() {
         return name;
