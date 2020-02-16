@@ -96,11 +96,11 @@ public class ProfessorBean implements Serializable {
     }
 
     public List<Argument> getArguments() {
-        return Arguments;
+        return arguments;
     }
 
     public void setArguments(List<Argument> arguments) {
-        Arguments = arguments;
+        arguments = arguments;
     }
 
     public Date getCurrentDate() {
