@@ -192,9 +192,9 @@ public class ControllerHomeProfessor {
 
         int studentIndex = inputCntl.StringToInt(rowIndex);
         int dayIndex = inputCntl.StringToInt(colIndex);
-        StudentBean StudentSelected = studentBean.get(studentIndex - 1);
+        StudentBean studentSelected = studentBean.get(studentIndex - 1);
         Date d = inputCntl.generateDate(dayIndex, register.getCurrent_month().getIndex(), register.getCurrent_month().getYear());
-        int result = ProfessorDao.deleteAbsence(StudentSelected.getMatricola(), d);
+        int result = ProfessorDao.deleteAbsence(studentSelected.getMatricola(), d);
         return result > 0;
 
     }
@@ -205,9 +205,9 @@ public class ControllerHomeProfessor {
 
         int studentIndex = inputCntl.StringToInt(rowIndex);
         int dayIndex = inputCntl.StringToInt(colIndex);
-        StudentBean StudentSelected = studentBean.get(studentIndex - 1);
+        StudentBean studentSelected = studentBean.get(studentIndex - 1);
         Date d = inputCntl.generateDate(dayIndex, register.getCurrent_month().getIndex(), register.getCurrent_month().getYear());
-        int result = ProfessorDao.deleteGrades(StudentSelected.getMatricola(), d, register.getCurrent_matter());
+        int result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrent_matter());
         return result > 0;
     }
 
