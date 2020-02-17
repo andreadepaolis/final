@@ -171,12 +171,14 @@
 
                         <%
                   String result = "";
+                  String flag1 = "";
                   if(u.getGrades()!= null){
                   for (Grades g :u.getGrades()) {
                       Calendar cal = Calendar.getInstance();
                         cal.setTime(g.getData());
                             int day = cal.get(Calendar.DAY_OF_MONTH);
                             if(day == i){
+                                    flag1 = g.getTipo();
                                     result = String.valueOf(g.getVoto());
                             }
                        }
@@ -195,14 +197,39 @@
                     }
                 }
                   %>
-                    <td onclick="test(this)"><%=result%>
+                    <td onclick="test(this)">
+
+
+                        <% if (flag1.equals("orale")) {%>
+
+                        <p style="color:chocolate; margin:0px"><%=result%>
+                        </p>
+                        <%} else if (flag1.equals("scritto")) {%>
+                        <p style="color:blue; margin:0px"><%=result%>
+                        </p>
+                        <%} else if (flag1.equals("laboratorio")) {%>
+                        <p style="color:green; margin:0px"><%=result%>
+                        </p>
+                        <%} else {%>
+                        <p style="color:black; margin:0px"><%=result%>
+                        </p>
+                        <%}%>
+
                     </td>
                         <%
 
               }
               %>
-                    <td><%=register.getMedia(u.getMatricola(), materia)%>
+                        <% double media=register.getMedia(u.getMatricola(),materia);
+                    if(media>5){%>
+
+                    <td style="color:lawngreen"><%=media%>
                     </td>
+                        <%}else{%>
+                    <td style="color:red"><%=media%>
+                    </td>
+                        <%}%>
+
 
                         <%
 
@@ -232,6 +259,17 @@
             <br>
         </div>
         <br>
+        <div class="col-sm-12 container-fluid row" style="padding:0px 30px">
+            <p><strong>Legenda:&nbsp;&nbsp;</strong> A: Absence &nbsp;&nbsp; R: Delay</p>&nbsp;&nbsp;
+            <button style="width: 20px; height: 20px; background-color: blue; border-radius: 100%"></button>&nbsp;
+            <p>Written </p>&nbsp;&nbsp;&nbsp;
+            <button style="width: 20px; height: 20px; background-color: chocolate; border-radius: 100%"></button>&nbsp;
+            <p>Oral </p>&nbsp;&nbsp;&nbsp;
+            <button style="width: 20px; height: 20px; background-color: green; border-radius: 100%"></button>&nbsp;
+            <p>Laboratory</p>&nbsp;&nbsp;&nbsp;
+            <p>*Click a vote to delete it</p>
+        </div>
+        <br>
     </div>
 
 </div>
@@ -241,7 +279,7 @@
         <br>
         <div>
             <br>
-            <div align="center" class="col-sm-12"><h5>Assign grade</h5></div>
+            <div align="center" class="col-sm-12"><h5>Assign mark</h5></div>
             <br>
 
             <form align="center" action="ProfessorRegisterServlet" method="post">

@@ -22,7 +22,6 @@
 <body style="background-color: #2581b8; color:white">
 
 
-
 <%
     if (session.getAttribute("gradesPage") != null) {
 
@@ -30,7 +29,8 @@
 %>
 
 <ul class="col-sm-12" style="padding: 0px 15px">
-    <li><a><strong><%=gpb.getStudent().getLastname()%></strong></a></li>
+    <li><a><strong><%=gpb.getStudent().getLastname()%>
+    </strong></a></li>
     <li><a href="HomeStudent.jsp">Home</a></li>
     <li><a style="border-bottom: 5px white solid;" href="GradesStudent.jsp">Grades</a></li>
     <li>
@@ -63,7 +63,7 @@
                 <form action="GradesStudentServlet" method="post">
                     <input type="hidden" name="materia" value="<%=m.getMateria()%>"/>
                     <input type="hidden" name="cmd" value="materia">
-                    <input style="width:100px"class="buttonSave" type="submit" value="<%=m.getMateria()%>">
+                    <input style="width:100px" class="buttonSave" type="submit" value="<%=m.getMateria()%>">
                 </form>
                 <%}%>
             </div>
@@ -91,9 +91,14 @@
                 <%
                     if (gpb.getCurrentMatter().getGradesForMatter() != null) {
                         for (Grades g : gpb.getCurrentMatter().getGradesForMatter()) {
+                            if (g.getVoto() < 6) {
                 %>
+                <strong>Mark:</strong> <strong style="font-size: 22px; color:red"><%=g.getVoto()%>
+            </strong><br>
+                <%} else {%>
                 <strong>Mark:</strong> <strong style="font-size: 22px; color:lawngreen"><%=g.getVoto()%>
             </strong><br>
+                <%}%>
                 <strong>Type:</strong> <%=g.getTipo()%><br>
                 <strong>Date:</strong> <%=g.getData()%><br>
                 <hr style="margin:8px">
@@ -118,10 +123,16 @@
                  style="background-color: white; border: 0px; border-radius: 5px; color:black; padding:20px; margin:0px">
                 <%
                     for (MatterBean m : gpb.getMatter()) {
+
                 %>
                 <div style="width:100%; padding:0px 20px 20px 20px">
                     <strong><%=m.getMateria()%>
-                    </strong>: <strong style="font-size: 22px; float:right; color:lawngreen"><%=m.getMedia()%>
+                        <% if (m.getMedia() < 6) {%>
+
+                    </strong>: <strong style="font-size: 22px; float:right; color:red"><%=m.getMedia()%>
+                    <%} else {%>
+                </strong>: <strong style="font-size: 22px; float:right; color:lawngreen"><%=m.getMedia()%>
+                    <%}%>
                 </strong>
                     <hr style="margin:8px 0px">
                 </div>
