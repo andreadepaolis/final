@@ -29,8 +29,9 @@ public class ProfessorRegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession(false);
     String error = "Error";
-    String r = "register";
     String pr = "professor";
+    String r = "register";
+    String tstt = "toast";
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/professorRegister.jsp");
  if(session.getAttribute(pr)!= null && session.getAttribute(r)!= null) {
      String cmd = request.getParameter("cmd");
@@ -64,7 +65,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
                      res = chp.deleteGrades(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
                  if (!res) {
                      Toast t = new Toast(error, "Ops!", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
                  }
@@ -111,7 +113,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  if (d == null || !inpCnt.checkDate(d)) {
 
                      Toast t = new Toast(error, "Invalid Date", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
 
@@ -122,11 +125,13 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  int result = ProfessorDao.saveAbsence(a);
                  if (result > 0) {
                      Toast t = new Toast("ok", "saved correctly", 2);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
 
                  } else {
                      Toast t = new Toast(error, "Something gone wrong", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
 
@@ -135,7 +140,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
              } catch (Exception e) {
 
                  Toast t = new Toast(error, "check parameter e try again", 1);
-                 request.setAttribute("toast", t);
+                 request.setAttribute(tstt
+                         , t);
                  rd.forward(request, response);
                  return;
 
@@ -159,7 +165,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  if (d == null || !inpCnt.checkDate(d)) {
 
                      Toast t = new Toast("Invalid Date", "Date is out from current year", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
 
@@ -168,18 +175,21 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  Grades g = new Grades(matricola, materia, voto, tipo, matricolaProfessore, nomeProfessore, d);
                  if (!inpCnt.checkInRange(voto, 0, 10) || !inpCnt.checkInt(voto)) {
                      Toast t = new Toast(error, "invalid vote", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
                  }
                  int result = ProfessorDao.saveGrades(g);
                  if (result > 0) {
                      Toast t = new Toast("ok", "saved correctly", 2);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
 
                  } else {
                      Toast t = new Toast(error, "Saving error", 1);
-                     request.setAttribute("toast", t);
+                     request.setAttribute(tstt
+                             , t);
                      rd.forward(request, response);
                      return;
                  }
@@ -187,7 +197,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
              } catch (Exception e) {
 
                  Toast t = new Toast(error, "check parameter e try again", 1);
-                 request.setAttribute("toast", t);
+                 request.setAttribute(tstt
+                         , t);
                  rd.forward(request, response);
                  return;
              }
@@ -215,11 +226,11 @@ public class ProfessorRegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/professorRegister.jsp");
-
+        String r = "register";
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
-        ProfessorRegister register = (ProfessorRegister)session.getAttribute("register");
+        ProfessorRegister register = (ProfessorRegister)session.getAttribute(r);
         register = chp.getFullRegister(register.getCurrentClass(),register.getCurrentMonth(),register.getCurrentMatter());
-        session.setAttribute("register",register);
+        session.setAttribute(r,register);
         rd.include(request,response);
         }
     }

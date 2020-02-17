@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-
+    String err = "Error";
+    String tst = "toast";
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
@@ -44,8 +45,9 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("HomeStudent.jsp");
 
             } else{
-                Toast t = new Toast("Error","invalid password or matricola",1);
-                request.setAttribute("toast",t);
+                Toast t = new Toast(err
+                        ,"invalid password or matricola",1);
+                request.setAttribute(tst,t);
                 rd.include(request, response);
             }
 
@@ -64,14 +66,16 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("HomeProfessor.jsp");
 
                 } else {
-                    Toast t = new Toast("Error", "invalid password or matricola", 1);
-                    request.setAttribute("toast", t);
+                    Toast t = new Toast(err
+                            , "invalid password or matricola", 1);
+                    request.setAttribute(tst, t);
                     rd.include(request,response);
 
                 }
             }catch (Exception e ){
-                Toast t = new Toast("Error", "Something gone wrong", 1);
-                request.setAttribute("toast", t);
+                Toast t = new Toast(err
+                        , "Something gone wrong", 1);
+                request.setAttribute(tst, t);
                 rd.include(request, response);
             }
 
