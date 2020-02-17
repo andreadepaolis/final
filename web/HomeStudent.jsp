@@ -1,10 +1,8 @@
-<%@ page import="model.Student" %>
 <%@ page import="bean.StudentBean" %>
 <%@ page import="model.Homework" %>
 <%@ page import="model.ScheduleInfo" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.Calendar" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%--
   Created by IntelliJ IDEA.
   User: andrea
   Date: 06/02/2020

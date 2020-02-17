@@ -65,7 +65,8 @@
 %>
 
 <ul class="row col-sm-12" style="padding: 0px 15px">
-    <li><a><strong>Prof. <%=p.getLastname()%></strong></a></li>
+    <li><a><strong>Prof. <%=p.getLastname()%>
+    </strong></a></li>
     <li><a class="buttonNav" href="HomeProfessor.jsp">Home</a></li>
     <li><a style="border-bottom: 5px white solid;" class="buttonNav" href="professorRegister.jsp">Register</a></li>
 
@@ -77,7 +78,6 @@
 
 </ul>
 <div class="container-fluid col-sm-12" style="padding:30px">
-
 
 
     <div align="center" class="col-sm-12"><h3>Hi <%=p.getName()%>, welcome in the register.</h3></div>
@@ -209,8 +209,8 @@
 }
 
 %>
+                    <br>
             </table>
-        </div>
 
             <div class="col-sm-2"
                  style="background-color: transparent; border: 0px; color:white; padding: 0px 0px 0px 15px"
@@ -225,224 +225,225 @@
                         if (request.getAttribute("random_student") != null) {
                             StudentBean s = (StudentBean) request.getAttribute("random_student");
                     %>
-                    <div><br><%=s.getLastname()%>
-                        <div>
-                                <%}%>
+                    <br><br><%=s.getLastname()%>
+                    <%}%>
                 </form>
             </div>
+            <br>
         </div>
         <br>
-
     </div>
 
-    <br>
-    <div class="container-fluid col-sm-12 row" style="padding: 0px; margin:0px">
-        <div class="container-fluid col-sm-6 shadow" style="background-color: #53a8db; border-radius: 5px;color:white;">
+</div>
+<div class="container-fluid card-deck col-sm-12 row" style="padding: 20px; margin:0px">
+    <div class="container-fluid card col-sm-6 shadow"
+         style="background-color: #53a8db; border-radius: 5px;color:white;">
+        <br>
+        <div>
             <br>
-            <div>
-                <br>
-                <div align="center" class="col-sm-12"><h5>Assign grade</h5></div>
-                <br>
-
-                <form align="center" action="ProfessorRegisterServlet" method="post">
-                    <input type="hidden" name="cmd" value="ng">
-                    Student:<br>
-                    <select name="matricola">
-                        <% for (StudentBean st : register.getUsers()) { %>
-                        <option value="<%=st.getMatricola()%>">
-                            <%=st.getLastname()%>
-                        </option>
-                        <% }%>
-                    </select>
-                    <br><br>
-                    Subject:<br>
-                    <select name="materia">
-                        <% for (String s : p.getMatter()) { %>
-                        <option value="<%=s%>">
-                            <%=s%>
-                        </option>
-                        <% }%>
-                    </select><br><br>
-                    Type:<br>
-                    <select name="tipo">
-                        <option value="orale">Orale</option>
-                        <option value="scritto">Scritto</option>
-                        <option value="laboratorio">Laboratorio</option>
-                    </select><br><br>
-                    Data:<br>
-                    <input type="date" name="data" value="<%=today%>"><br><br>
-                    Vote:<br>
-                    <input style="border-radius: 5px" type="text" name="voto"><br><br>
-                    <div align="center">
-                        <input class="buttonSave" type="submit" value="Confirm">
-                    </div>
-                </form>
-                <br>
-            </div>
-        </div>
-
-        <div class="container-fluid col-sm-6 shadow" style="background-color: #53a8db; border-radius: 5px;color:white;">
+            <div align="center" class="col-sm-12"><h5>Assign grade</h5></div>
             <br>
-            <div>
-                <br>
-                <div align="center" class="col-sm-12"><h5>Assign absence</h5></div>
-                <br>
 
-                <form align="center" action="ProfessorRegisterServlet" method="post">
-                    <input type="hidden" name="cmd" value="newAbsence">
-                    Student:<br>
-                    <select name="matricola">
-                        <% for (StudentBean std : register.getUsers()) { %>
-                        <option value="<%=std.getMatricola()%>">
-                            <%=std.getLastname()%>
-                        </option>
-                        <% }%>
-                    </select>
-                    <br><br>
-                    </select>
-                    Type:<br>
-                    <select name="tipo">
-                        <option value="ritardo">Ritardo</option>
-                        <option value="assenza">Assenza</option>
-                    </select><br><br>
-                    Data:<br>
-                    <input type="date" name="data" value="<%=today%>">
-                    <div align="center">
-                        <br><br>
-                        <input class="buttonSave" type="submit" value="Confirm">
-                    </div>
-                </form>
-                <br>
-            </div>
+            <form align="center" action="ProfessorRegisterServlet" method="post">
+                <input type="hidden" name="cmd" value="ng">
+                Student:<br>
+                <select name="matricola">
+                    <% for (StudentBean st : register.getUsers()) { %>
+                    <option value="<%=st.getMatricola()%>">
+                        <%=st.getLastname()%>
+                    </option>
+                    <% }%>
+                </select>
+                <br><br>
+                Subject:<br>
+                <select name="materia">
+                    <% for (String s : p.getMatter()) { %>
+                    <option value="<%=s%>">
+                        <%=s%>
+                    </option>
+                    <% }%>
+                </select><br><br>
+                Type:<br>
+                <select name="tipo">
+                    <option value="orale">Orale</option>
+                    <option value="scritto">Scritto</option>
+                    <option value="laboratorio">Laboratorio</option>
+                </select><br><br>
+                Data:<br>
+                <input type="date" name="data" value="<%=today%>"><br><br>
+                Vote:<br>
+                <input style="border-radius: 5px" type="text" name="voto"><br><br>
+                <div align="center">
+                    <input class="buttonSave" type="submit" value="Confirm">
+                </div>
+            </form>
+            <br>
         </div>
     </div>
 
-    <form action="ProfessorRegisterServlet" method="post" id="delete">
-        <input type="hidden" name="rowIndex">
-        <input type="hidden" name="colIndex">
-        <input type="hidden" name="type">
-        <input type="hidden" name="cmd" value="delete">
-    </form>
-    <%
+    <div class="container-fluid card col-sm-6 shadow"
+         style="background-color: #53a8db; border-radius: 5px;color:white;">
+        <br>
+        <div>
+            <br>
+            <div align="center" class="col-sm-12"><h5>Assign absence</h5></div>
+            <br>
+
+            <form align="center" action="ProfessorRegisterServlet" method="post">
+                <input type="hidden" name="cmd" value="newAbsence">
+                Student:<br>
+                <select name="matricola">
+                    <% for (StudentBean std : register.getUsers()) { %>
+                    <option value="<%=std.getMatricola()%>">
+                        <%=std.getLastname()%>
+                    </option>
+                    <% }%>
+                </select>
+                <br><br>
+                </select>
+                Type:<br>
+                <select name="tipo">
+                    <option value="ritardo">Ritardo</option>
+                    <option value="assenza">Assenza</option>
+                </select><br><br>
+                Data:<br>
+                <input type="date" name="data" value="<%=today%>">
+                <div align="center">
+                    <br><br>
+                    <input class="buttonSave" type="submit" value="Confirm">
+                </div>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+<form action="ProfessorRegisterServlet" method="post" id="delete">
+    <input type="hidden" name="rowIndex">
+    <input type="hidden" name="colIndex">
+    <input type="hidden" name="type">
+    <input type="hidden" name="cmd" value="delete">
+</form>
+<%
+    } else {
+
+        response.sendRedirect("index.jsp");
+        return;
+    }
+%>
+
+<%
+    if (request.getAttribute("toast") != null) {
+        Toast t = (Toast) request.getAttribute("toast");
+%>
+
+
+<div id="snackbar"><%=t.getTitle()%><br> <%=t.getMessage()%>
+</div>
+<script type="text/javascript">
+    function ShowToast(value) {
+        var x = document.getElementById("snackbar");
+        if (value == 1) {
+            x.className = "error";
+            setTimeout(function () {
+                x.className = x.className.replace("error", "");
+            }, 3000);
         } else {
-
-            response.sendRedirect("index.jsp");
-            return;
-        }
-    %>
-
-    <%
-        if (request.getAttribute("toast") != null) {
-            Toast t = (Toast) request.getAttribute("toast");
-    %>
-
-
-    <div id="snackbar"><%=t.getTitle()%><br> <%=t.getMessage()%>
-    </div>
-    <script type="text/javascript">
-        function ShowToast(value) {
-            var x = document.getElementById("snackbar");
-            if (value == 1) {
-                x.className = "error";
-                setTimeout(function () {
-                    x.className = x.className.replace("error", "");
-                }, 3000);
-            } else {
-                x.className = "succ";
-                setTimeout(function () {
-                    x.className = x.className.replace("succ", "");
-                }, 3000);
-            }
-
-
-        }
-    </script>
-
-    <script type="text/javascript">ShowToast(<%=t.getType()%>);</script>
-    <%
-            request.setAttribute("toast", null);
-
-        }
-    %>
-
-
-    <script>
-        function highlight_function(x) {
-
-            for (var i = 0; i < x.classList.length; i++) {
-                if (x.classList[i] == "highlight") {
-                    x.classList.remove("highlight");
-                    return;
-                }
-            }
-            x.classList.add("highlight");
-            console.log(x);
+            x.className = "succ";
+            setTimeout(function () {
+                x.className = x.className.replace("succ", "");
+            }, 3000);
         }
 
 
-    </script>
-    <!-- The Modal -->
-    <div id="myModal" class="modal col-sm-12">
+    }
+</script>
 
-        <!-- Modal content -->
-        <div class="modal-content col-sm-3">
-            <span class="close" align="right">&times;</span>
-            <p style="color: black">Are you sure you want to delete it?</p>
-            <button class="buttonSave" id="confirm"> Yes</button>
-        </div>
+<script type="text/javascript">ShowToast(<%=t.getType()%>);</script>
+<%
+        request.setAttribute("toast", null);
 
-    </div>
+    }
+%>
 
 
-    <script>
-        function test(x) {
-            var doc = document.getElementById("delete");
-            doc.rowIndex.value = x.parentElement.rowIndex;
-            doc.colIndex.value = x.cellIndex;
-            if (x.innerText == null || x.innerText === " " || x.innerText === "")
+<script>
+    function highlight_function(x) {
+
+        for (var i = 0; i < x.classList.length; i++) {
+            if (x.classList[i] == "highlight") {
+                x.classList.remove("highlight");
                 return;
-            if (x.innerText.toString() === "A" || x.innerText.toString() === "R")
-                doc.type.value = "assenza";
-            else
-                doc.type.value = x.innerHTML;
-
-            var modal = document.getElementById("myModal");
-
-            var span = document.getElementsByClassName("close")[0];
-
-            var buttn = document.getElementById("confirm");
-
-
-            modal.style.display = "block";
-
-            span.onclick = function () {
-                modal.style.display = "none";
-            };
-
-            window.onclick = function (event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
             }
+        }
+        x.classList.add("highlight");
+        console.log(x);
+    }
 
-            buttn.onclick = function () {
-                doc.submit();
 
+</script>
+<!-- The Modal -->
+<div id="myModal" class="modal col-sm-12">
+
+    <!-- Modal content -->
+    <div class="modal-content col-sm-3">
+        <span class="close" align="right">&times;</span>
+        <p style="color: black">Are you sure you want to delete it?</p>
+        <button class="buttonSave" id="confirm"> Yes</button>
+    </div>
+
+</div>
+
+
+<script>
+    function test(x) {
+        var doc = document.getElementById("delete");
+        doc.rowIndex.value = x.parentElement.rowIndex;
+        doc.colIndex.value = x.cellIndex;
+        if (x.innerText == null || x.innerText === " " || x.innerText === "")
+            return;
+        if (x.innerText.toString() === "A" || x.innerText.toString() === "R")
+            doc.type.value = "assenza";
+        else
+            doc.type.value = x.innerHTML;
+
+        var modal = document.getElementById("myModal");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        var buttn = document.getElementById("confirm");
+
+
+        modal.style.display = "block";
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
                 modal.style.display = "none";
-
             }
         }
 
+        buttn.onclick = function () {
+            doc.submit();
 
-    </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+            modal.style.display = "none";
+
+        }
+    }
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
