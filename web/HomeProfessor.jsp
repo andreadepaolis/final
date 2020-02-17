@@ -275,24 +275,34 @@
 
                     </div>
                     <br>
-                    <form action="HomeProfessorServlet" method="post">
+                    <div class="col-sm-12 row" style="padding:0px">
 
-                        <input type="hidden" name="cmd" value="newArg">
-                        <div class="col-sm-12 row" style="padding:0px">
-                            <input class="col-sm-7"
+                        <form class="col-sm-7" style="padding:0px" action="HomeProfessorServlet" method="post">
+
+                            <input type="hidden" name="cmd" value="newArg">
+                            <input class="col-sm-12"
                                    style="background-color: white !important; border-radius: 5px; border:0px"
                                    type="text" name="description" placeholder="Insert an argument and click enter">
-                            <div class="col-sm-3">
-                                <select name="materia">
+
+                        </form>
+
+                        <form action="HomeProfessorServlet" method="post">
+                        <div class="col-sm-3">
+                            <input type="hidden" name="cmd" value="change_matter">
+                            <select name="current_matter" onchange='this.form.submit()'>
+                                <option selected disabled hidden> Select Matter</option>
+
                                     <% for (String s : p.getMatter()) { %>
                                     <option value="<%=s%>">
                                         <%=s%>
                                     </option>
                                     <% }%>
                                 </select>
+                            <noscript><input type="submit" value="Submit"/></noscript>
+
                             </div>
-                        </div>
-                    </form>
+                            </form>
+                    </div>
                 </div>
             </div>
 
