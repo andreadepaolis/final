@@ -95,6 +95,19 @@ public class ControllerHomeStudent {
           return result;
     }
 
+
+    public GradesPageBean fullGradesPage(StudentBean s){
+        GradesPageBean page = new GradesPageBean();
+        page.setStudent(s);
+        List<MatterBean> list = chs.getMatterBean(s.getMatricola(),s.getClasse());
+        page.setMatter(list);
+        page.setCurrent_matter(list.get(0));
+        return page
+    }
+
+
+
+
     public List<MatterBean> getMatterBean(int matricola,String myclasse) {
 
         List<MatterBean> list  = new ArrayList<>();

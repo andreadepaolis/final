@@ -152,7 +152,7 @@ public class HomeProfessorServlet extends HttpServlet {
                 case "Register": {
                     //mont //1 materia //1 classe e il registro
 
-                    Calendar cal = GregorianCalendar.getInstance();
+                    Calendar cal = Calendar.getInstance();
                     MonthFactory f = new MonthFactory();
                     Date d = new Date();
                     month m;
@@ -183,11 +183,7 @@ public class HomeProfessorServlet extends HttpServlet {
             rd.include(request,response);
 
         }
-
-
-
-
-
+        
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -118,7 +118,7 @@ public abstract class ProfessorDao {
         return list;
     }
 
-    public static List<HomeworkBean> getHomework(int professorId, Date date, String classe) {
+    public static List<HomeworkBean> getHomework(int professorId, String classe) {
 
         List<HomeworkBean> list = new ArrayList<>();
         Connection con = DataBase.getInstance().getConnection();

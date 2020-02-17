@@ -39,11 +39,7 @@ public class HomeStudentServlet extends HttpServlet {
 
             if(cmd.equals("Grades")){
 
-                GradesPageBean page = new GradesPageBean();
-                page.setStudent(s);
-                List<MatterBean> list = chs.getMatterBean(s.getMatricola(),s.getClasse());
-                page.setMatter(list);
-                page.setCurrent_matter(list.get(0));
+                GradesPageBean page = chs.fullGradesPage(s);
                 session.setAttribute("gradesPage",page);
                 response.sendRedirect("GradesStudent.jsp");
 

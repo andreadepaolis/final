@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("HomeProfessor.jsp");
 
                 } else {
-                    throw new Exception("Faild load data");
+                    response.sendRedirect("index.jsp");
 
                 }
             }catch (Exception e ){
