@@ -53,14 +53,14 @@ public class InputController {
 
     public boolean checkInRange(int num, int min, int max){
 
-        return num > min && num < max;
+        return num >= min && num <= max;
     }
 
 
     public Date converDate(String date) {
         SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
 
-        Date d = null;
+        Date d;
         try {
             d = formatter1.parse(date);
             return d;

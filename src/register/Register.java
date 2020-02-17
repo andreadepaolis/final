@@ -23,7 +23,5 @@ public interface Register {
     List<Grades> getMyGrades(int id, Month m, String materia);
 
     List<Absences> getAbsences(int id, Month m);
-  //  List<Grades> sortBy()
 
-//many sorting algoritms for user
 }

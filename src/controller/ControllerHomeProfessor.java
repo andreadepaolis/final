@@ -32,6 +32,7 @@ public class ControllerHomeProfessor {
         List<String> matter = null;
         try {
             matter = ProfessorDao.getMaterie(p.getMatricola());
+
         } catch (CustomSQLException se) {
             throw se;
         } catch (CustomException e) {
@@ -42,8 +43,9 @@ public class ControllerHomeProfessor {
             return null;
 
         p.setMatter(matter);
+        p.setCurrentMatter(matter.get(0));
 
-        List<Argument> arguments = ProfessorDao.getArguments(p.getMatricola(), p.getClassi().get(0));
+        List<Argument> arguments = ProfessorDao.getArguments(p.getMatricola(), p.getClassi().get(0),matter.get(0));
         if (arguments != null) {
             List<Argument> sortedArg = this.sortByIndex(arguments);
             p.setArguments(sortedArg);
@@ -224,11 +226,17 @@ public class ControllerHomeProfessor {
         return result > 0;
     }
 
-    public List<HomeworkBean> updateHomeworkList(int professorid, String classe) {
+    public List<HomeworkBean> updateHomeworkList(int professorid, String classe, String matter) {
 
 
         List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, classe);
-        return this.sortByDate(homeworks);
+        List<HomeworkBean> result = new ArrayList<>();
+        for (HomeworkBean h: homeworks) {
+            if(h.getMateria().equals(matter))
+                result.add(h);
+
+        }
+        return this.sortByDate(result);
     }
 
     public boolean removeHmw(HomeworkBean hmw) {
@@ -244,10 +252,10 @@ public class ControllerHomeProfessor {
         }
     }
 
-    public List<Argument> reloadArgument(int matricola, String classe) throws CustomSQLException, CustomException {
+    public List<Argument> reloadArgument(int matricola, String classe,String matter) throws CustomSQLException, CustomException {
         List<Argument> arguments = null;
         try {
-            arguments = ProfessorDao.getArguments(matricola, classe);
+            arguments = ProfessorDao.getArguments(matricola, classe,matter);
         } catch (CustomSQLException se) {
             throw se;
         } catch (CustomException e) {
@@ -284,7 +292,7 @@ public class ControllerHomeProfessor {
             return list;
     }
 
-    public int checkIndex(List<Argument> list, String classe, String materia) {
+    public int checkIndex(List<Argument> list) {
 
         if (list == null)
             return 0;

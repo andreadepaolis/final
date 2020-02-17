@@ -9,7 +9,7 @@ import java.util.List;
 public class ControllerStudent {
 
     public ControllerStudent(){
-        //Bean
+        //C
     }
 
     public List<Absences> loadAbsences(int id) {

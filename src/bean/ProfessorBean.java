@@ -19,6 +19,7 @@ public class ProfessorBean implements Serializable {
     private List<ScheduleInfo> schedule;
     private Date currentDate;
     private String currentClass;
+    private String currentMatter;
     private List<Argument> arguments;
 
 
@@ -105,5 +106,13 @@ public class ProfessorBean implements Serializable {
 
     public Date getCurrentDate() {
         return currentDate;
+    }
+
+    public String getCurrentMatter() {
+        return currentMatter;
+    }
+
+    public void setCurrentMatter(String currentMatter) {
+        this.currentMatter = currentMatter;
     }
 }

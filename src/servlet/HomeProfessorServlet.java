@@ -40,11 +40,24 @@ public class HomeProfessorServlet extends HttpServlet {
                 case "change_class":{
                     String newClass = request.getParameter("current_class");
                     p.setCurrentClass(newClass);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass()));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass()));
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
+                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getMatter().get(0)));
                     session.setAttribute(prof,p);
                     rd.forward(request,response);
                     return;
+
+                }
+
+                case "change_matter":{
+
+                    String newMatter = request.getParameter("current_matter");
+                    p.setCurrentMatter(newMatter);
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),newMatter));
+                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),newMatter));
+                    session.setAttribute(prof,p);
+                    rd.forward(request,response);
+                    return;
+
                 }
 
 
@@ -58,7 +71,7 @@ public class HomeProfessorServlet extends HttpServlet {
                             if (chp.removeHmw(hmw)) {
                                 Toast t = new Toast("Removed", "Homework removed correctly", 2);
                                 request.setAttribute(tst, t);
-                                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass()));
+                                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
 
                                 session.setAttribute(prof, p);
                                 rd.include(request, response);
@@ -85,7 +98,7 @@ public class HomeProfessorServlet extends HttpServlet {
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(tst, t);
-                        p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrentClass()));
+                        p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
 
                         session.setAttribute(prof, p);
                         rd.include(request, response);
@@ -129,16 +142,16 @@ public class HomeProfessorServlet extends HttpServlet {
                 case "newArg":{
 
 
-                    String materia = request.getParameter("materia");
+                    String materia = p.getCurrentMatter();
                     String description = request.getParameter("description");
-                    int index = chp.checkIndex(p.getArguments(),p.getCurrentClass(),materia);
-                    Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrentClass(),index);
+                    int index = chp.checkIndex(p.getArguments());
+                    Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrentClass(),index+1);
                     if(chp.saveArg(arg)) {
 
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(tst, t);
-                        p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass()));
+                        p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
                         session.setAttribute(prof, p);
                     } else{
                         Toast t = new Toast(errr, "Cannot save", 1);

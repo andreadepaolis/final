@@ -378,7 +378,7 @@ public abstract class ProfessorDao {
         return result;
     }
 
-    public static List<Argument> getArguments(int matricola, String s) throws CustomSQLException, CustomException {
+    public static List<Argument> getArguments(int matricola, String s,String matter) throws CustomSQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
 
@@ -395,9 +395,9 @@ public abstract class ProfessorDao {
             }
             rs.first();
             do {
-                Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(MAT), rs.getString(CLASS), rs.getInt("count" +
-                        ""));
-                list.add(arg);
+                Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(MAT), rs.getString(CLASS), rs.getInt("count" + ""));
+                if(arg.getMateria().equals(matter))
+                        list.add(arg);
 
             } while (rs.next());
 

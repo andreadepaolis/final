@@ -13,7 +13,7 @@ import java.util.*;
 public class ControllerHomeStudent {
 
     public ControllerHomeStudent(){
-        //Bean
+        //C
     }
 
     public StudentBean full(StudentBean s) {
