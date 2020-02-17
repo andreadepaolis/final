@@ -128,7 +128,7 @@ public class HomeProfessorServlet extends HttpServlet {
 
                 case "newArg":{
 
-                    String classe = request.getParameter("classe");
+
                     String materia = request.getParameter("materia");
                     String description = request.getParameter("description");
                     int index = chp.checkIndex(p.getArguments(),p.getCurrentClass(),materia);

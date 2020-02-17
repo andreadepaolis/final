@@ -1,8 +1,6 @@
 package servlet;
 
 import bean.GradesPageBean;
-
-import bean.MatterBean;
 import bean.StudentBean;
 import controller.ControllerHomeStudent;
 import model.Homework;

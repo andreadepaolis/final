@@ -18,8 +18,8 @@ public abstract class ProfessorDao {
 
     private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());
 
-    private static final String mat = "materia";
-    private static final  String classString = "class";
+    private static final String MAT = "materia";
+    private static final  String CLASS = "class";
     public static Professor validate(int matricola, String password) throws SQLException {
 
 
@@ -54,8 +54,8 @@ public abstract class ProfessorDao {
 
     public static List<String> getMaterie(int matricola) {
         List<String> list = new ArrayList<>();
-        Statement stmt = null;
-        Connection con = null;
+        Statement stmt;
+        Connection con;
         try {
 
             DataBase db = DataBase.getInstance();
@@ -88,8 +88,8 @@ public abstract class ProfessorDao {
     public static List<String> getClassi(int matricola) {
 
         List<String> list = new ArrayList<>();
-        Statement stmt = null;
-        Connection con = null;
+        Statement stmt;
+        Connection con;
         try {
 
             DataBase db = DataBase.getInstance();
@@ -98,6 +98,7 @@ public abstract class ProfessorDao {
             stmt = con.createStatement();
             ResultSet rs = ProfessorQuery.getClassi(stmt,matricola);
 
+            assert rs != null;
             if (!rs.first()) {
                 return list;
             }
@@ -133,9 +134,9 @@ public abstract class ProfessorDao {
                     HomeworkBean h = new HomeworkBean();
                     h.setMatricolaProfessore(rs.getInt("matricolaProfessore"));
                     h.setDescription(rs.getString("descrizione"));
-                    h.setMateria(rs.getString(mat));
+                    h.setMateria(rs.getString(MAT));
                     h.setData(rs.getDate("data"));
-                    h.setClasse(rs.getString(classString));
+                    h.setClasse(rs.getString(CLASS));
 
                     if(h.getClasse().equals(classe))
                          list.add(h);
@@ -185,7 +186,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(mat),rs.getString(classString));
+                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(MAT),rs.getString(CLASS));
                 list.add(si);
 
             } while (rs.next());
@@ -217,7 +218,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                Grades g = new Grades(rs.getString(mat),rs.getInt("voto"));
+                Grades g = new Grades(rs.getString(MAT),rs.getInt("voto"));
                 list.add(g);
 
             } while (rs.next());
@@ -360,7 +361,7 @@ public abstract class ProfessorDao {
                     }
                     rs.first();
                     do {
-                        Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(mat), rs.getString(classString), rs.getInt("count" +
+                        Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(MAT), rs.getString(CLASS), rs.getInt("count" +
                                 ""));
                         list.add(arg);
 

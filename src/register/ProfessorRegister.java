@@ -122,7 +122,7 @@ public class ProfessorRegister implements Register {
             }
             return result;
         }
-        return null;
+        return result;
     }
     @Override
     public List<Absences> getAbsences(int id, Month m){
