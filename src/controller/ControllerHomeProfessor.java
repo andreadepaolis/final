@@ -55,7 +55,7 @@ public class ControllerHomeProfessor {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date min = cal.getTime();
-        cal.add(Calendar.DATE, +7);
+        cal.add(Calendar.DATE, +1);
         Date max = cal.getTime();
 
         for (HomeworkBean h : homeworks) {
