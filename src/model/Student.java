@@ -1,6 +1,6 @@
 package model;
 
-public class Student  extends AbstractStudent{
+public class Student{
 
     private int matricola;
     private String name;
