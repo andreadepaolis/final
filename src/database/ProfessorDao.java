@@ -23,8 +23,7 @@ public abstract class ProfessorDao {
 
     private static final String MAT = "materia";
     private static final String CLASS = "class";
-    private static final String SQLE = "SQL Error";
-    private static final String ERRR = "Error";
+
     public static Professor validate(int matricola, String password) throws SQLException, CustomException {
 
 
@@ -46,7 +45,7 @@ public abstract class ProfessorDao {
             }
 
         } catch (SQLException s) {
-            throw new CustomSQLException(SQLE, s);
+            throw new CustomSQLException("SQL Error", s);
 
         } catch (Exception e) {
             LOGGER.info("Login error");
@@ -86,11 +85,11 @@ public abstract class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return list;
     }
@@ -254,11 +253,11 @@ public abstract class ProfessorDao {
 
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return result;
 
@@ -288,11 +287,11 @@ public abstract class ProfessorDao {
             stmt.close();
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return list;
     }
@@ -308,11 +307,11 @@ public abstract class ProfessorDao {
             result = ProfessorQuery.saveNewAbsences(stmt, a);
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         } finally {
             if (stmt != null)
                 stmt.close();
@@ -350,11 +349,11 @@ public abstract class ProfessorDao {
             result = ProfessorQuery.deleteGrades(stmt, matricola, d, currentMatter);
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return result;
     }
@@ -370,11 +369,11 @@ public abstract class ProfessorDao {
 
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return result;
     }
@@ -406,11 +405,11 @@ public abstract class ProfessorDao {
             stmt.close();
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         }
         return list;
 
@@ -429,11 +428,11 @@ public abstract class ProfessorDao {
 
 
         } catch (SQLException se) {
-            LOGGER.info(SQLE);
-            throw new CustomSQLException(SQLE, se);
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-            throw new CustomException(ERRR, e);
+            throw new CustomException("Error", e);
         } finally {
             if (stmt != null)
                 stmt.close();

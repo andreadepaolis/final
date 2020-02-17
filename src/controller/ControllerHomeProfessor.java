@@ -4,12 +4,9 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import bean.StudentBean;
 import database.ProfessorDao;
-import utils.CustomRandom;
-import utils.Month;
-import utils.MonthFactory;
+import utils.*;
 import model.*;
 import register.ProfessorRegister;
-import utils.InputController;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -20,42 +17,49 @@ public class ControllerHomeProfessor {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerHomeProfessor.class.getName());
 
-    public ProfessorBean full(ProfessorBean p) {
+    public ProfessorBean full(ProfessorBean p) throws CustomSQLException, CustomException {
 
 
         List<String> classi = ProfessorDao.getClassi(p.getMatricola());
 
         if (classi == null)
-                return null;
+            return null;
 
         p.setClassi(classi);
 
         p.setCurrentClass(p.getClassi().get(0));
 
-        List<String> matter = ProfessorDao.getMaterie(p.getMatricola());
+        List<String> matter = null;
+        try {
+            matter = ProfessorDao.getMaterie(p.getMatricola());
+        } catch (CustomSQLException se) {
+            throw se;
+        } catch (CustomException e) {
+            throw e;
+        }
 
         if (matter == null)
             return null;
 
         p.setMatter(matter);
 
-        List<Argument> arguments = ProfessorDao.getArguments(p.getMatricola(),p.getClassi().get(0));
-        if(arguments != null){
-        List<Argument> sortedArg = this.sortByIndex(arguments);
-        p.setArguments(sortedArg);
+        List<Argument> arguments = ProfessorDao.getArguments(p.getMatricola(), p.getClassi().get(0));
+        if (arguments != null) {
+            List<Argument> sortedArg = this.sortByIndex(arguments);
+            p.setArguments(sortedArg);
         }
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(p.getMatricola(),p.getClassi().get(0));
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(p.getMatricola(), p.getClassi().get(0));
         List<HomeworkBean> list = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE,-1);
+        cal.add(Calendar.DATE, -1);
         Date min = cal.getTime();
         cal.add(Calendar.DATE, +7);
         Date max = cal.getTime();
 
-        for(HomeworkBean h: homeworks){
-            if(h.getData().before(max) && h.getData().after(min)){
+        for (HomeworkBean h : homeworks) {
+            if (h.getData().before(max) && h.getData().after(min)) {
                 list.add(h);
             }
 
@@ -92,7 +96,7 @@ public class ControllerHomeProfessor {
         HomeworkBean hwb = new HomeworkBean();
         try {
             Date d = inpCntl.converDate(data);
-            if(inpCntl.checkDate(d)){
+            if (inpCntl.checkDate(d)) {
                 hwb.setMatricolaProfessore(matricolaProfessor);
                 hwb.setData(d);
                 hwb.setClasse(classe);
@@ -100,7 +104,7 @@ public class ControllerHomeProfessor {
                 hwb.setDescription(descrizione);
                 return hwb;
             } else
-                 return null;
+                return null;
         } catch (Exception e) {
             LOGGER.info(e.toString());
             return null;
@@ -110,10 +114,10 @@ public class ControllerHomeProfessor {
     public boolean save(HomeworkBean hmwbean) throws ParseException {
 
         InputController input = InputController.getIstance();
-        if(!input.checkDate(hmwbean.getData()))
-                return false;
+        if (!input.checkDate(hmwbean.getData()))
+            return false;
 
-        Homework h= new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
+        Homework h = new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
         int result = ProfessorDao.newHomework(h);
         return result > 0;
     }
@@ -201,7 +205,7 @@ public class ControllerHomeProfessor {
 
     }
 
-    public boolean deleteGrades(ProfessorRegister register, String colIndex, String rowIndex) {
+    public boolean deleteGrades(ProfessorRegister register, String colIndex, String rowIndex) throws CustomSQLException, CustomException {
         List<StudentBean> studentBean = register.getStudents();
         InputController inputCntl = InputController.getIstance();
 
@@ -209,14 +213,21 @@ public class ControllerHomeProfessor {
         int dayIndex = inputCntl.stringToInt(colIndex);
         StudentBean studentSelected = studentBean.get(studentIndex - 1);
         Date d = inputCntl.generateDate(dayIndex, register.getCurrentMonth().getIndex(), register.getCurrentMonth().getYear());
-        int result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrentMatter());
+        int result = 0;
+        try {
+            result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrentMatter());
+        } catch (CustomSQLException se) {
+            throw se;
+        } catch (CustomException e) {
+            throw e;
+        }
         return result > 0;
     }
 
-    public List<HomeworkBean> updateHomeworkList(int professorid,String classe) {
+    public List<HomeworkBean> updateHomeworkList(int professorid, String classe) {
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid,classe);
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, classe);
         return this.sortByDate(homeworks);
     }
 
@@ -224,7 +235,7 @@ public class ControllerHomeProfessor {
 
         try {
 
-             int result = ProfessorDao.deleteHomework(hmw.getDescription());
+            int result = ProfessorDao.deleteHomework(hmw.getDescription());
 
             return result > 0;
         } catch (Exception e) {
@@ -233,9 +244,16 @@ public class ControllerHomeProfessor {
         }
     }
 
-    public List<Argument> reloadArgument(int matricola,String classe){
-        List<Argument> arguments = ProfessorDao.getArguments(matricola,classe);
-        if(arguments != null){
+    public List<Argument> reloadArgument(int matricola, String classe) throws CustomSQLException, CustomException {
+        List<Argument> arguments = null;
+        try {
+            arguments = ProfessorDao.getArguments(matricola, classe);
+        } catch (CustomSQLException se) {
+            throw se;
+        } catch (CustomException e) {
+            throw e;
+        }
+        if (arguments != null) {
             return this.sortByIndex(arguments);
         }
         return arguments;
@@ -244,32 +262,32 @@ public class ControllerHomeProfessor {
     public List<HomeworkBean> scrollHomework(int id, String s, Date currentDate) {
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(id,s);
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(id, s);
 
         List<HomeworkBean> list = new ArrayList<>();
         if (homeworks != null) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(currentDate);
-            cal.add(Calendar.DATE,-1);
+            cal.add(Calendar.DATE, -1);
             Date min = cal.getTime();
             cal.add(Calendar.DATE, +7);
             Date max = cal.getTime();
 
-            for(HomeworkBean h: homeworks){
-                if(h.getData().before(max) && h.getData().after(min))
+            for (HomeworkBean h : homeworks) {
+                if (h.getData().before(max) && h.getData().after(min))
                     list.add(h);
 
 
             }
             return this.sortByDate(list);
-        }  else
+        } else
             return list;
     }
 
-    public int checkIndex(List<Argument> list, String classe,String materia) {
+    public int checkIndex(List<Argument> list, String classe, String materia) {
 
-        if(list == null)
-            return  0;
+        if (list == null)
+            return 0;
         return list.size();
     }
 

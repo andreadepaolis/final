@@ -1,5 +1,7 @@
 package register;
 
+import utils.CustomException;
+import utils.CustomSQLException;
 import utils.Month;
 import model.Absences;
 import model.Grades;
@@ -16,7 +18,7 @@ public interface Register {
 
     Student getStudent();
 
-    List<Student>getAllUserForClass(String c);
+    List<Student>getAllUserForClass(String c) throws CustomSQLException, CustomException;
 
     List<Grades> getMyGrades(int id, Month m, String materia);
 

@@ -3,6 +3,8 @@ package register;
 import bean.StudentBean;
 import database.ProfessorDao;
 import database.StudentDao;
+import utils.CustomException;
+import utils.CustomSQLException;
 import utils.Month;
 import model.Absences;
 import model.Grades;
@@ -23,8 +25,8 @@ public class ProfessorRegister implements Register {
     private Month currentMonth;
     private String currentMatter;
 
-    public ProfessorRegister(){
-    //Register
+    public ProfessorRegister() {
+        //Register
     }
 
     public Month getCurrentMonth() {
@@ -87,6 +89,7 @@ public class ProfessorRegister implements Register {
         return result;
 
     }
+
     @Override
     public List<Absences> getAbsences(int id) {
         List<Absences> result;
@@ -100,22 +103,29 @@ public class ProfessorRegister implements Register {
     }
 
     @Override
-    public List<Student> getAllUserForClass(String c) {
+    public List<Student> getAllUserForClass(String c) throws CustomSQLException, CustomException {
         List<Student> users;
-        users = ProfessorDao.getClasse(c);
+        try {
+            users = ProfessorDao.getClasse(c);
+        } catch (CustomSQLException se) {
+            throw se;
+        } catch (CustomException e) {
+            throw e;
+        }
         return users;
     }
+
     @Override
-    public List<Grades> getMyGrades(int id, Month m, String materia){
+    public List<Grades> getMyGrades(int id, Month m, String materia) {
         List<Grades> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
-        start.set(m.getYear(),m.getIndex()-1,0);
+        start.set(m.getYear(), m.getIndex() - 1, 0);
         Calendar end = Calendar.getInstance();
-        end.set(m.getYear(),m.getIndex()-1,m.getDay());
-        List<Grades> temp  = StudentDao.getMyGrades(id);
-        if(temp != null) {
+        end.set(m.getYear(), m.getIndex() - 1, m.getDay());
+        List<Grades> temp = StudentDao.getMyGrades(id);
+        if (temp != null) {
             for (Grades g : temp) {
-                if (g.getData().before(end.getTime()) && start.getTime().before(g.getData())&& g.getMateria().equals(materia)){
+                if (g.getData().before(end.getTime()) && start.getTime().before(g.getData()) && g.getMateria().equals(materia)) {
                     result.add(g);
                 }
 
@@ -124,15 +134,16 @@ public class ProfessorRegister implements Register {
         }
         return result;
     }
+
     @Override
-    public List<Absences> getAbsences(int id, Month m){
+    public List<Absences> getAbsences(int id, Month m) {
         List<Absences> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
-        start.set(m.getYear(),m.getIndex()-1,0);
+        start.set(m.getYear(), m.getIndex() - 1, 0);
         Calendar end = Calendar.getInstance();
-        end.set(m.getYear(),m.getIndex()-1,m.getDay());
-        List<Absences> temp  = StudentDao.getMyAssenze(id);
-        if(temp != null) {
+        end.set(m.getYear(), m.getIndex() - 1, m.getDay());
+        List<Absences> temp = StudentDao.getMyAssenze(id);
+        if (temp != null) {
             for (Absences a : temp) {
                 if (a.getData().before(end.getTime()) && start.getTime().before(a.getData()))
                     result.add(a);
@@ -142,27 +153,33 @@ public class ProfessorRegister implements Register {
         return temp;
     }
 
-    public int newGrades(int ms,String materia,int voto, String tipo,int professorid,String professor,Date data){
-        Grades g = new Grades(ms,materia,voto,tipo,professorid,professor,data);
-        return ProfessorDao.saveGrades(g);
+    public int newGrades(int ms, String materia, int voto, String tipo, int professorid, String professor, Date data) throws CustomSQLException, CustomException {
+        Grades g = new Grades(ms, materia, voto, tipo, professorid, professor, data);
+        try {
+            return ProfessorDao.saveGrades(g);
+        } catch (CustomSQLException se) {
+            throw se;
+        } catch (CustomException e) {
+            throw e;
+        }
     }
 
-    public double getMedia(int matricola,String materia) {
+    public double getMedia(int matricola, String materia) {
 
-         double media = 0;
-         List<Grades> voti = ProfessorDao.getMedia(matricola,materia);
-         int count = 0;
-         if(voti == null){
-             return 0;
-         }
-         for(Grades g : voti){
-             count++;
-             media += g.getVoto();
-         }
-         if(count != 0)
-            return Math.round((media*10/count))/10.0;
-         else
-             return 0;
+        double media = 0;
+        List<Grades> voti = ProfessorDao.getMedia(matricola, materia);
+        int count = 0;
+        if (voti == null) {
+            return 0;
+        }
+        for (Grades g : voti) {
+            count++;
+            media += g.getVoto();
+        }
+        if (count != 0)
+            return Math.round((media * 10 / count)) / 10.0;
+        else
+            return 0;
 
     }
 
