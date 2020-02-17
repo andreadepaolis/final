@@ -57,9 +57,7 @@
 </ul>
 
 <div class="container-fluid col-sm-12 card-deck row" style="padding: 20px; margin:0px">
-    <div align="center" class="col-sm-12"><h3>Welcolme <%=s.getLastname()%>
-    </h3></div>
-    <br><br><br>
+    <br><br>
     <div class="shadow card col-sm-6"
          style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px;">
         <br>

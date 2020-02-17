@@ -69,7 +69,6 @@
     </li>
 </ul>
 <div class="container-fluid col-sm-12" style="padding:30px">
-    <div align="center" class="col-sm-12"><h3>Welcome to you Homepage</h3></div>
     <br>
 
     <%

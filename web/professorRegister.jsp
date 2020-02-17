@@ -79,8 +79,6 @@
 </ul>
 <div class="container-fluid col-sm-12" style="padding:30px">
 
-
-    <div align="center" class="col-sm-12"><h3>Hi <%=p.getName()%>, welcome in the register.</h3></div>
     <br>
 
 
