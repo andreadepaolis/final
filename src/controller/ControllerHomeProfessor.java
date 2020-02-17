@@ -157,7 +157,6 @@ public class ControllerHomeProfessor {
             register.setStudents(allStudentsBean);
             return register;
         } catch (Exception e) {
-            e.printStackTrace();
             LOGGER.info(e.toString());
             return null;
         }
