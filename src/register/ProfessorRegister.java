@@ -3,7 +3,7 @@ package register;
 import bean.StudentBean;
 import database.ProfessorDao;
 import database.StudentDao;
-import utils.month;
+import utils.Month;
 import model.Absences;
 import model.Grades;
 
@@ -20,14 +20,14 @@ public class ProfessorRegister implements Register {
     private List<Absences> absences;
     private List<StudentBean> students;
     private String currentClass;
-    private month currentMonth;
+    private Month currentMonth;
     private String currentMatter;
 
     public ProfessorRegister(){
     //Register
     }
 
-    public month getCurrentMonth() {
+    public Month getCurrentMonth() {
         return currentMonth;
     }
 
@@ -55,7 +55,7 @@ public class ProfessorRegister implements Register {
         this.currentMatter = currentMatter;
     }
 
-    public void setCurrentMonth(month currentMonth) {
+    public void setCurrentMonth(Month currentMonth) {
         this.currentMonth = currentMonth;
     }
 
@@ -106,7 +106,7 @@ public class ProfessorRegister implements Register {
         return users;
     }
     @Override
-    public List<Grades> getMyGrades(int id, month m, String materia){
+    public List<Grades> getMyGrades(int id, Month m, String materia){
         List<Grades> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(),m.getIndex()-1,0);
@@ -122,10 +122,10 @@ public class ProfessorRegister implements Register {
             }
             return result;
         }
-        return result;
+        return null;
     }
     @Override
-    public List<Absences> getAbsences(int id, month m){
+    public List<Absences> getAbsences(int id, Month m){
         List<Absences> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(),m.getIndex()-1,0);
@@ -139,7 +139,7 @@ public class ProfessorRegister implements Register {
             }
             return result;
         }
-        return list;
+        return temp;
     }
 
     public int newGrades(int ms,String materia,int voto, String tipo,int professorid,String professor,Date data){

@@ -35,7 +35,7 @@ public class GradesStudentServlet extends HttpServlet {
                     if (m.getMateria().equals(mat))
                         matter = m;
                 }
-                gpb.setCurrent_matter(matter);
+                gpb.setCurrentMatter(matter);
                 session.setAttribute(gp,gpb);
                 rd.forward(request,response);
             }

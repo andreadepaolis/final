@@ -4,8 +4,8 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import model.Argument;
+import utils.Month;
 import utils.MonthFactory;
-import utils.month;
 import register.ProfessorRegister;
 import utils.Toast;
 import javax.servlet.RequestDispatcher;
@@ -39,9 +39,9 @@ public class HomeProfessorServlet extends HttpServlet {
 
                 case "change_class":{
                     String newClass = request.getParameter("current_class");
-                    p.setCurrent_class(newClass);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrent_class()));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrent_class()));
+                    p.setCurrentClass(newClass);
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass()));
+                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass()));
                     session.setAttribute(prof,p);
                     rd.forward(request,response);
                     return;
@@ -58,7 +58,7 @@ public class HomeProfessorServlet extends HttpServlet {
                             if (chp.removeHmw(hmw)) {
                                 Toast t = new Toast("Removed", "Homework removed correctly", 2);
                                 request.setAttribute(tst, t);
-                                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrent_class()));
+                                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass()));
 
                                 session.setAttribute(prof, p);
                                 rd.include(request, response);
@@ -85,7 +85,7 @@ public class HomeProfessorServlet extends HttpServlet {
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(tst, t);
-                        p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrent_class()));
+                        p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrentClass()));
 
                         session.setAttribute(prof, p);
                         rd.include(request, response);
@@ -105,19 +105,19 @@ public class HomeProfessorServlet extends HttpServlet {
 
                             cal.add(Calendar.DATE, +7);
                             p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrent_class(),p.getCurrentDate());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),p.getCurrentDate());
                             p.setHomework(h);
 
 
                         }else if(temp.equals("dec")){
                             cal.add(Calendar.DATE, -7);
                             p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrent_class(),p.getCurrentDate());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),p.getCurrentDate());
                             p.setHomework(h);
                         }
                         else if(temp.equals("today")){
                             p.setCurrentDate(new Date());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrent_class(),new Date());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),new Date());
                             p.setHomework(h);
                         }
                         session.setAttribute(prof,p);
@@ -131,14 +131,14 @@ public class HomeProfessorServlet extends HttpServlet {
                     String classe = request.getParameter("classe");
                     String materia = request.getParameter("materia");
                     String description = request.getParameter("description");
-                    int index = chp.checkIndex(p.getArguments(),p.getCurrent_class(),materia);
-                    Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrent_class(),index);
+                    int index = chp.checkIndex(p.getArguments(),p.getCurrentClass(),materia);
+                    Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrentClass(),index);
                     if(chp.saveArg(arg)) {
 
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(tst, t);
-                        p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrent_class()));
+                        p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass()));
                         session.setAttribute(prof, p);
                     } else{
                         Toast t = new Toast(errr, "Cannot save", 1);
@@ -155,9 +155,8 @@ public class HomeProfessorServlet extends HttpServlet {
                     Calendar cal = Calendar.getInstance();
                     MonthFactory f = new MonthFactory();
                     Date d = new Date();
-                    month m;
                     cal.setTime(d);
-                    m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+                    Month m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
 
                     String materia = p.getMatter().get(0);
                     String classe = p.getClassi().get(0);

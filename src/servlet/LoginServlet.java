@@ -64,11 +64,13 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("HomeProfessor.jsp");
 
                 } else {
-                    response.sendRedirect("index.jsp");
+                    Toast t = new Toast("Error", "invalid password or matricola", 1);
+                    request.setAttribute("toast", t);
+                    rd.include(request,response);
 
                 }
             }catch (Exception e ){
-                Toast t = new Toast("Error", "invalid password or matricola", 1);
+                Toast t = new Toast("Error", "Something gone wrong", 1);
                 request.setAttribute("toast", t);
                 rd.include(request, response);
             }

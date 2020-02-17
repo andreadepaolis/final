@@ -1,5 +1,6 @@
 package controller;
 
+import bean.GradesPageBean;
 import bean.MatterBean;
 import bean.StudentBean;
 import database.StudentDao;
@@ -18,7 +19,7 @@ public class ControllerHomeStudent {
     public StudentBean full(StudentBean s) {
 
 
-        List<Homework> homeworks = StudentDao.getHomework(s.getClasse(),new Date());
+        List<Homework> homeworks = StudentDao.getHomework(s.getClasse());
 
         List<Homework> list = new ArrayList<>();
         if (homeworks != null) {
@@ -55,7 +56,7 @@ public class ControllerHomeStudent {
 
     public List<Homework> scrollHomework(String classe, Date d){
 
-        List<Homework> homeworks = StudentDao.getHomework(classe,d);
+        List<Homework> homeworks = StudentDao.getHomework(classe);
 
         List<Homework> list = new ArrayList<>();
         if (homeworks != null) {
@@ -99,16 +100,16 @@ public class ControllerHomeStudent {
     public GradesPageBean fullGradesPage(StudentBean s){
         GradesPageBean page = new GradesPageBean();
         page.setStudent(s);
-        List<MatterBean> list = chs.getMatterBean(s.getMatricola(),s.getClasse());
+        List<MatterBean> list = this.getMatterBean(s.getMatricola(),s.getClasse());
         page.setMatter(list);
-        page.setCurrent_matter(list.get(0));
-        return page
+        page.setCurrentMatter(list.get(0));
+        return page;
     }
 
 
 
 
-    public List<MatterBean> getMatterBean(int matricola,String myclasse) {
+    private List<MatterBean> getMatterBean(int matricola, String myclasse) {
 
         List<MatterBean> list  = new ArrayList<>();
 

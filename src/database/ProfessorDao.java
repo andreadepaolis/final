@@ -18,8 +18,8 @@ public abstract class ProfessorDao {
 
     private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());
 
-    String mat = "materia";
-    String classString = "class";
+    private static final String mat = "materia";
+    private static final  String classString = "class";
     public static Professor validate(int matricola, String password) throws SQLException {
 
 

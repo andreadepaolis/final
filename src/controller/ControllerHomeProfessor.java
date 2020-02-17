@@ -5,8 +5,8 @@ import bean.ProfessorBean;
 import bean.StudentBean;
 import database.ProfessorDao;
 import utils.CustomRandom;
+import utils.Month;
 import utils.MonthFactory;
-import utils.month;
 import model.*;
 import register.ProfessorRegister;
 import utils.InputController;
@@ -30,7 +30,7 @@ public class ControllerHomeProfessor {
 
         p.setClassi(classi);
 
-        p.setCurrent_class(p.getClassi().get(0));
+        p.setCurrentClass(p.getClassi().get(0));
 
         List<String> matter = ProfessorDao.getMaterie(p.getMatricola());
 
@@ -46,7 +46,7 @@ public class ControllerHomeProfessor {
         }
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(p.getMatricola(), p.getCurrentDate(),p.getClassi().get(0));
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(p.getMatricola(),p.getClassi().get(0));
         List<HomeworkBean> list = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE,-1);
@@ -119,11 +119,11 @@ public class ControllerHomeProfessor {
     }
 
 
-    public ProfessorRegister getFullRegister(String classe, month m, String materia) {
+    public ProfessorRegister getFullRegister(String classe, Month m, String materia) {
         ProfessorRegister register = new ProfessorRegister();
-        register.setCurrent_class(classe);
-        register.setCurrent_matter(materia);
-        register.setCurrent_month(m);
+        register.setCurrentClass(classe);
+        register.setCurrentMatter(materia);
+        register.setCurrentMonth(m);
         try {
             List<Student> allUserForClass = ProfessorDao.getClasse(classe);
             List<StudentBean> allStudentsBean = new ArrayList<>();
@@ -157,6 +157,7 @@ public class ControllerHomeProfessor {
             register.setStudents(allStudentsBean);
             return register;
         } catch (Exception e) {
+            e.printStackTrace();
             LOGGER.info(e.toString());
             return null;
         }
@@ -164,10 +165,10 @@ public class ControllerHomeProfessor {
 
     }
 
-    public month getMonth(String year, String month) {
+    public Month getMonth(String year, String month) {
 
         MonthFactory mf = new MonthFactory();
-        month m = null;
+        Month m = null;
         try {
 
             int yearInt = Integer.parseInt(year);
@@ -192,10 +193,10 @@ public class ControllerHomeProfessor {
         List<StudentBean> studentBean = register.getStudents();
         InputController inputCntl = InputController.getIstance();
 
-        int studentIndex = inputCntl.StringToInt(rowIndex);
-        int dayIndex = inputCntl.StringToInt(colIndex);
+        int studentIndex = inputCntl.stringToInt(rowIndex);
+        int dayIndex = inputCntl.stringToInt(colIndex);
         StudentBean studentSelected = studentBean.get(studentIndex - 1);
-        Date d = inputCntl.generateDate(dayIndex, register.getCurrent_month().getIndex(), register.getCurrent_month().getYear());
+        Date d = inputCntl.generateDate(dayIndex, register.getCurrentMonth().getIndex(), register.getCurrentMonth().getYear());
         int result = ProfessorDao.deleteAbsence(studentSelected.getMatricola(), d);
         return result > 0;
 
@@ -205,18 +206,18 @@ public class ControllerHomeProfessor {
         List<StudentBean> studentBean = register.getStudents();
         InputController inputCntl = InputController.getIstance();
 
-        int studentIndex = inputCntl.StringToInt(rowIndex);
-        int dayIndex = inputCntl.StringToInt(colIndex);
+        int studentIndex = inputCntl.stringToInt(rowIndex);
+        int dayIndex = inputCntl.stringToInt(colIndex);
         StudentBean studentSelected = studentBean.get(studentIndex - 1);
-        Date d = inputCntl.generateDate(dayIndex, register.getCurrent_month().getIndex(), register.getCurrent_month().getYear());
-        int result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrent_matter());
+        Date d = inputCntl.generateDate(dayIndex, register.getCurrentMonth().getIndex(), register.getCurrentMonth().getYear());
+        int result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrentMatter());
         return result > 0;
     }
 
     public List<HomeworkBean> updateHomeworkList(int professorid,String classe) {
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, new Date(),classe);
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid,classe);
         return this.sortByDate(homeworks);
     }
 
@@ -244,7 +245,7 @@ public class ControllerHomeProfessor {
     public List<HomeworkBean> scrollHomework(int id, String s, Date currentDate) {
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(id,currentDate,s);
+        List<HomeworkBean> homeworks = ProfessorDao.getHomework(id,s);
 
         List<HomeworkBean> list = new ArrayList<>();
         if (homeworks != null) {

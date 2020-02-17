@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public abstract class StudentDao {
 
     private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
-    String clss = "class";
-    String mattr = "materia";
+    private static String clss = "class";
+    private static String mattr = "materia";
 
     public static StudentBean validate(int matricola, String password) throws SQLException {
 
@@ -106,7 +106,7 @@ public abstract class StudentDao {
 
 
             if (!rs.first()) {
-                return list;
+                return allGrades;
 
             }
 
@@ -149,7 +149,7 @@ public abstract class StudentDao {
 
 
             if (rs == null || !rs.first()) {
-                return list;
+                return allAssenze;
 
             }
 
@@ -257,7 +257,7 @@ public abstract class StudentDao {
 
             assert rs != null;
             if (!rs.first()) {
-                return list;
+                return allGrades;
 
             }
             // riposizionamento del cursore
@@ -300,7 +300,7 @@ public abstract class StudentDao {
 
             assert rs != null;
             if (!rs.first()) {
-                return list;
+                return matter;
 
             }
             // riposizionamento del cursore

@@ -1,6 +1,6 @@
 package register;
 
-import utils.month;
+import utils.Month;
 import model.Absences;
 import model.Grades;
 import model.Student;
@@ -18,9 +18,9 @@ public interface Register {
 
     List<Student>getAllUserForClass(String c);
 
-    List<Grades> getMyGrades(int id, month m, String materia);
+    List<Grades> getMyGrades(int id, Month m, String materia);
 
-    List<Absences> getAbsences(int id, month m);
+    List<Absences> getAbsences(int id, Month m);
   //  List<Grades> sortBy()
 
 //many sorting algoritms for user
