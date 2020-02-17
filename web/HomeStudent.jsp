@@ -92,7 +92,7 @@
     background-color: white !important;
     border-radius: 5px;">
             <%
-                if (s.getHomework() != null) {
+                if (s.getHomework() != null && s.getHomework().size()>0) {
                     for (Homework hmw : s.getHomework()) {
 
 
@@ -107,7 +107,8 @@
             } else {
             %>
 
-            Nessun nuovo compito
+            <p>No homework available</p>
+
             <%}%>
         </div>
         <br>

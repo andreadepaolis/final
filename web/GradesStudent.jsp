@@ -78,7 +78,6 @@
             <div style="background-color: white; border: 0px; border-radius: 5px; color:black; padding:20px;
                                     margin:1px;
                                     color:black;
-                                    padding:3px;
                                     width: 100%;
                                     height: 490px;
                                     overflow-x: hidden;

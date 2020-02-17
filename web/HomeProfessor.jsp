@@ -54,7 +54,8 @@
 
 %>
 <ul class="row col-sm-12" style="padding: 0px 15px">
-    <li><a><strong>Prof. <%=p.getLastname()%></strong></a></li>
+    <li><a><strong>Prof. <%=p.getLastname()%>
+    </strong></a></li>
     <li><a style="border-bottom: 5px white solid;" href="HomeProfessor.jsp">Home</a></li>
     <li><a style="padding:0px">
         <form action="HomeProfessorServlet" method="post">
@@ -133,9 +134,8 @@
                                     border-radius: 5px;">
 
                         <%
-
-                            for (HomeworkBean hmw : p.getHomework()) {
-                                System.out.println(hmw.getData());
+                            if (p.getHomework() != null && p.getHomework().size() > 0) {
+                                for (HomeworkBean hmw : p.getHomework()) {
                         %>
                         <div style="text-align: left">
                             <form action="HomeProfessorServlet" method="post">
@@ -151,8 +151,12 @@
                         <hr style="margin:6px">
 
 
+                        <%
+                            }
+                        } else {
+                        %>
+                        No homework available
                         <%}%>
-
                     </div>
                 </div>
 
@@ -256,7 +260,7 @@
                                     font-size: 13px;
                                     background-color: white !important;
                                     border-radius: 5px;">
-                        <% if (p.getArguments() != null) {
+                        <% if (p.getArguments() != null && p.getArguments().size() > 0) {
                             for (Argument arg : p.getArguments()) {%>
 
                         <b>Lezione <%=arg.getIndex()%>
@@ -266,7 +270,7 @@
                             }
                         } else {
                         %>
-                        <div align="center">No arguments found;</div>
+                        No arguments available
                         <%}%>
 
                     </div>
