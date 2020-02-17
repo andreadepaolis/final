@@ -3,6 +3,9 @@ package database;
 import bean.HomeworkBean;
 import database.query.ProfessorQuery;
 import model.*;
+import utils.BasicExcpetion;
+import utils.CustomException;
+import utils.CustomSQLException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,40 +22,41 @@ public abstract class ProfessorDao {
     private static final Logger LOGGER = Logger.getLogger(ProfessorDao.class.getName());
 
     private static final String MAT = "materia";
-    private static final  String CLASS = "class";
-    public static Professor validate(int matricola, String password) throws SQLException {
+    private static final String CLASS = "class";
+
+    public static Professor validate(int matricola, String password) throws SQLException, CustomException {
 
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
 
-        try{
+        try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs= ProfessorQuery.login(stmt,matricola,password);
+            ResultSet rs = ProfessorQuery.login(stmt, matricola, password);
 
 
             assert rs != null;
-            if(rs.first()){
+            if (rs.first()) {
                 rs.first();
 
                 return new Professor(rs.getString("name"), rs.getString("lastname"), rs.getInt("matricola"));
             }
 
-            else {
-                return null;
+        } catch (SQLException s) {
+            throw new CustomSQLException("SQL Error", s);
 
-            }
-
-        }catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.info("Login error");
-            return null;
+            throw new CustomException("Login error", e);
+
         }
+        return null;
     }
 
 
-    public static List<String> getMaterie(int matricola) {
+    public static List<String> getMaterie(int matricola) throws CustomSQLException, CustomException {
         List<String> list = new ArrayList<>();
         Statement stmt;
         Connection con;
@@ -62,8 +66,10 @@ public abstract class ProfessorDao {
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = ProfessorQuery.getMaterie(stmt,matricola);
+            ResultSet rs = ProfessorQuery.getMaterie(stmt, matricola);
 
+
+            assert rs != null;
             if (!rs.first()) {
                 return list;
             }
@@ -78,8 +84,12 @@ public abstract class ProfessorDao {
 
             } while (rs.next());
 
-        } catch (SQLException e) {
+        } catch (SQLException se) {
             LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
+        } catch (Exception e) {
+            LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
         }
         return list;
     }
@@ -96,7 +106,7 @@ public abstract class ProfessorDao {
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = ProfessorQuery.getClassi(stmt,matricola);
+            ResultSet rs = ProfessorQuery.getClassi(stmt, matricola);
 
             assert rs != null;
             if (!rs.first()) {
@@ -129,7 +139,7 @@ public abstract class ProfessorDao {
             ResultSet rs = ProfessorQuery.getHomework(stmt, professorId);
 
             assert rs != null;
-            if(rs.first()) {
+            if (rs.first()) {
                 do {
                     HomeworkBean h = new HomeworkBean();
                     h.setMatricolaProfessore(rs.getInt("matricolaProfessore"));
@@ -138,12 +148,13 @@ public abstract class ProfessorDao {
                     h.setData(rs.getDate("data"));
                     h.setClasse(rs.getString(CLASS));
 
-                    if(h.getClasse().equals(classe))
-                         list.add(h);
+                    if (h.getClasse().equals(classe))
+                        list.add(h);
                 } while (rs.next());
             }
         } catch (Exception e) {
-            LOGGER.info(e.toString());        }
+            LOGGER.info(e.toString());
+        }
         return list;
     }
 
@@ -165,6 +176,7 @@ public abstract class ProfessorDao {
         return result;
 
     }
+
     public static List<ScheduleInfo> getSchedule(int professorid) {
 
         List<ScheduleInfo> list = new ArrayList<>();
@@ -176,7 +188,7 @@ public abstract class ProfessorDao {
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = ProfessorQuery.getScheduleForProfessor(stmt,professorid);
+            ResultSet rs = ProfessorQuery.getScheduleForProfessor(stmt, professorid);
 
             if (!rs.first()) {
                 return list;
@@ -186,7 +198,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"),rs.getInt("hours"),rs.getString(MAT),rs.getString(CLASS));
+                ScheduleInfo si = new ScheduleInfo(rs.getInt("day"), rs.getInt("hours"), rs.getString(MAT), rs.getString(CLASS));
                 list.add(si);
 
             } while (rs.next());
@@ -208,7 +220,7 @@ public abstract class ProfessorDao {
             con = db.getConnection();
 
             stmt = con.createStatement();
-            ResultSet rs = ProfessorQuery.getUserGradesForMateria(stmt,matricola,materia);
+            ResultSet rs = ProfessorQuery.getUserGradesForMateria(stmt, matricola, materia);
 
             if (!rs.first()) {
                 return list;
@@ -218,7 +230,7 @@ public abstract class ProfessorDao {
             rs.first();
 
             do {
-                Grades g = new Grades(rs.getString(MAT),rs.getInt("voto"));
+                Grades g = new Grades(rs.getString(MAT), rs.getInt("voto"));
                 list.add(g);
 
             } while (rs.next());
@@ -228,7 +240,8 @@ public abstract class ProfessorDao {
         }
         return list;
     }
-    public static int saveGrades(Grades g) {
+
+    public static int saveGrades(Grades g) throws CustomSQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
@@ -239,13 +252,18 @@ public abstract class ProfessorDao {
             result = ProfessorQuery.saveNewGrades(stmt, g);
 
 
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
-            LOGGER.info(e.toString());        }
+            LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
+        }
         return result;
 
     }
 
-    public static List<Student> getClasse(String classe) {
+    public static List<Student> getClasse(String classe) throws CustomSQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
 
@@ -254,6 +272,7 @@ public abstract class ProfessorDao {
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.getStudentsOfClass(stmt, classe);
+            assert rs != null;
             if (!rs.first()) {
                 return list;
             }
@@ -267,26 +286,34 @@ public abstract class ProfessorDao {
             rs.close();
             stmt.close();
 
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
         }
         return list;
     }
 
-    public static int saveAbsence(Absences a) throws SQLException {
+    public static int saveAbsence(Absences a) throws SQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
         Statement stmt = null;
         try {
-             stmt = con.createStatement();
+            stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewAbsences(stmt, a);
 
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
         } finally {
-            if(stmt != null)
+            if (stmt != null)
                 stmt.close();
         }
         return result;
@@ -301,7 +328,7 @@ public abstract class ProfessorDao {
         try {
             Statement stmt = con.createStatement();
 
-            result = ProfessorQuery.deleteAbsences(stmt, matricola,d);
+            result = ProfessorQuery.deleteAbsences(stmt, matricola, d);
 
 
         } catch (Exception e) {
@@ -311,7 +338,7 @@ public abstract class ProfessorDao {
 
     }
 
-    public static int deleteGrades(int matricola, Date d, String currentMatter) {
+    public static int deleteGrades(int matricola, Date d, String currentMatter) throws CustomSQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
@@ -319,81 +346,96 @@ public abstract class ProfessorDao {
         try {
             Statement stmt = con.createStatement();
 
-            result = ProfessorQuery.deleteGrades(stmt, matricola,d,currentMatter);
+            result = ProfessorQuery.deleteGrades(stmt, matricola, d, currentMatter);
 
-
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
         }
         return result;
     }
 
-    public static int deleteHomework(String description) {
+    public static int deleteHomework(String description) throws CustomSQLException, CustomException {
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
             Statement stmt = con.createStatement();
 
-            result = ProfessorQuery.deleteHomework(stmt,description);
+            result = ProfessorQuery.deleteHomework(stmt, description);
 
 
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
         }
         return result;
     }
 
-    public static List<Argument> getArguments(int matricola, String s) {
+    public static List<Argument> getArguments(int matricola, String s) throws CustomSQLException, CustomException {
 
-            Connection con = DataBase.getInstance().getConnection();
+        Connection con = DataBase.getInstance().getConnection();
 
-            List<Argument> list = new ArrayList<>();
-            try {
-                Statement stmt = con.createStatement();
+        List<Argument> list = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement();
 
-                ResultSet rs = ProfessorQuery.getArgument(stmt, matricola, s);
-                if (rs == null)
-                  return list;
+            ResultSet rs = ProfessorQuery.getArgument(stmt, matricola, s);
+            if (rs == null)
+                return list;
 
-                    if (!rs.first()) {
-                        return list;
-                    }
-                    rs.first();
-                    do {
-                        Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(MAT), rs.getString(CLASS), rs.getInt("count" +
-                                ""));
-                        list.add(arg);
+            if (!rs.first()) {
+                return list;
+            }
+            rs.first();
+            do {
+                Argument arg = new Argument(matricola, rs.getString("descrizione"), rs.getString(MAT), rs.getString(CLASS), rs.getInt("count" +
+                        ""));
+                list.add(arg);
 
-                    } while (rs.next());
+            } while (rs.next());
 
-                    rs.close();
-                    stmt.close();
+            rs.close();
+            stmt.close();
 
-                } catch(Exception e){
-                LOGGER.info(e.toString());
-
-                }
-            return list;
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
+        } catch (Exception e) {
+            LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
+        }
+        return list;
 
     }
-    public static int saveArgument(Argument arg) throws SQLException {
+
+    public static int saveArgument(Argument arg) throws SQLException, CustomException {
 
         Connection con = DataBase.getInstance().getConnection();
         int result = 0;
         Statement stmt = null;
 
         try {
-             stmt = con.createStatement();
+            stmt = con.createStatement();
 
-            result = ProfessorQuery.saveNewArg(stmt,arg.getMatricolaProfessore(),arg.getClasse(),arg.getDescprition(),arg.getMateria(),arg.getIndex());
+            result = ProfessorQuery.saveNewArg(stmt, arg.getMatricolaProfessore(), arg.getClasse(), arg.getDescprition(), arg.getMateria(), arg.getIndex());
 
 
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            throw new CustomSQLException("SQL Error", se);
         } catch (Exception e) {
             LOGGER.info(e.toString());
-        }finally {
-            if(stmt != null)
-                 stmt.close();
+            throw new CustomException("Error", e);
+        } finally {
+            if (stmt != null)
+                stmt.close();
         }
         return result;
 

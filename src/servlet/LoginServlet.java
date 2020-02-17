@@ -6,6 +6,8 @@ import bean.UserLoginBean;
 import controller.ControllerHomeProfessor;
 import controller.ControllerHomeStudent;
 import controller.ControllerLogin;
+import utils.CustomException;
+import utils.CustomSQLException;
 import utils.Toast;
 import java.io.IOException;
 import java.util.Date;
@@ -21,8 +23,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    String err = "Error";
-    String tst = "toast";
+
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
@@ -45,9 +46,8 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("HomeStudent.jsp");
 
             } else{
-                Toast t = new Toast(err
-                        ,"invalid password or matricola",1);
-                request.setAttribute(tst,t);
+                Toast t = new Toast("Error","invalid password or matricola",1);
+                request.setAttribute("toast",t);
                 rd.include(request, response);
             }
 
@@ -66,16 +66,20 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("HomeProfessor.jsp");
 
                 } else {
-                    Toast t = new Toast(err
-                            , "invalid password or matricola", 1);
-                    request.setAttribute(tst, t);
+                    Toast t = new Toast("Error", "invalid password or matricola", 1);
+                    request.setAttribute("toast", t);
                     rd.include(request,response);
 
                 }
-            }catch (Exception e ){
-                Toast t = new Toast(err
-                        , "Something gone wrong", 1);
-                request.setAttribute(tst, t);
+            } catch(CustomException c){
+
+                Toast t = new Toast("Error",c.getMessage(),1);
+                request.setAttribute("toast",t);
+                rd.include(request,response);
+
+            } catch (CustomSQLException se ){
+                Toast t = new Toast("SQL", se.getMessage(), 1);
+                request.setAttribute("toast", t);
                 rd.include(request, response);
             }
 

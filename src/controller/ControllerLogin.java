@@ -6,6 +6,9 @@ import bean.UserLoginBean;
 import database.ProfessorDao;
 import database.StudentDao;
 import model.Professor;
+import utils.BasicExcpetion;
+import utils.CustomException;
+import utils.CustomSQLException;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -32,26 +35,31 @@ public class ControllerLogin {
 
         }
 
-    public ProfessorBean validateProfessor(UserLoginBean u){
+    public ProfessorBean validateProfessor(UserLoginBean u) throws CustomException, CustomSQLException {
 
         Professor p = null;
         ProfessorBean pb = null;
 
         try {
-            p = ProfessorDao.validate(u.getMatricola(),u.getPassword());
+            p = ProfessorDao.validate(u.getMatricola(), u.getPassword());
 
-        if(p != null){
+            if (p != null) {
 
-            pb = new ProfessorBean();
-            pb.setMatricola(p.getMatricola());
-            pb.setLastname(p.getLastname());
-            pb.setName(p.getName());
-            pb.setCurrentDate(new Date());
-        }
+                pb = new ProfessorBean();
+                pb.setMatricola(p.getMatricola());
+                pb.setLastname(p.getLastname());
+                pb.setName(p.getName());
+                pb.setCurrentDate(new Date());
+            }
+
+        }catch (CustomException ce){
+            LOGGER.info(ce.toString());
+            throw new CustomException(ce.getMessage(),ce);
+
 
         } catch (SQLException e) {
             LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e.getMessage(),e);
         }
         return pb;
      }
