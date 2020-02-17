@@ -94,7 +94,7 @@
                         <form style="padding:0px 5px" action="HomeProfessorServlet" method="post">
                             <input type="hidden" name="cmd" value="change_class">
                             <select name="current_class" onchange='this.form.submit()'>
-                                <option selected disabled hidden><%=p.getCurrent_class()%>
+                                <option selected disabled hidden><%=p.getCurrentClass()%>
                                 </option>
                                 <% for (String t : p.getClassi()) { %>
                                 <option value="<%=t%>">

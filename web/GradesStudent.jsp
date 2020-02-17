@@ -73,7 +73,7 @@
         <div class="shadow container-fluid card col-sm-4"
              style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px">
             <br>
-            <h5><strong><%=gpb.getCurrent_matter().getMateria()%>
+            <h5><strong><%=gpb.getCurrentMatter().getMateria()%>
             </strong></h5><br>
             <div style="background-color: white; border: 0px; border-radius: 5px; color:black; padding:20px;
                                     margin:1px;
@@ -89,8 +89,8 @@
                                     border-radius: 5px;">
                 <!-- for per voti -->
                 <%
-                    if (gpb.getCurrent_matter().getGradesForMatter() != null) {
-                        for (Grades g : gpb.getCurrent_matter().getGradesForMatter()) {
+                    if (gpb.getCurrentMatter().getGradesForMatter() != null) {
+                        for (Grades g : gpb.getCurrentMatter().getGradesForMatter()) {
                 %>
                 <strong>Mark:</strong> <strong style="font-size: 22px; color:lawngreen"><%=g.getVoto()%>
             </strong><br>

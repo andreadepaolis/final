@@ -1,5 +1,4 @@
 <%@ page import="bean.ProfessorBean" %>
-<%@ page import="utils.month" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="register.ProfessorRegister" %>
 <%@ page import="utils.MonthFactory" %>
@@ -10,6 +9,7 @@
 <%@ page import="utils.Toast" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DateFormat" %>
+<%@ page import="utils.Month" %>
 
 
 <%--
@@ -43,13 +43,13 @@
 
 
         ProfessorRegister register = (ProfessorRegister) session.getAttribute("register");
-        month m = register.getCurrent_month();
+        Month m = register.getCurrentMonth();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(new Date());
 
         MonthFactory mf = new MonthFactory();
-        month pr;
-        month sx;
+        Month pr;
+        Month sx;
         if (m.getIndex() == 1) {
             pr = mf.createMonth(12, m.getYear() - 1);
         } else {
@@ -60,7 +60,7 @@
         } else {
             sx = mf.createMonth(m.getIndex() + 1, m.getYear());
         }
-        String materia = register.getCurrent_matter();
+        String materia = register.getCurrentMatter();
 
 %>
 
@@ -114,13 +114,14 @@
                     <% }%>
                     <input type="hidden" name="cmd" value="mat">
                     <input type="hidden" name="month" value="<%=m.getIndex()%>">
-                    <input type="hidden" name="classe" value="<%=register.getCurrent_class()%>">
+                    <input type="hidden" name="classe" value="<%=register.getCurrentClass()%>">
                 </select>
                 <noscript><input type="submit" value="Submit"/></noscript>
             </form>
 
+
             <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="post">
-                <input type="hidden" name="cmd" value="m">
+                <input type="hidden" name="cmd" value="month">
                 <input type="hidden" name="monthIndex" value="<%=pr.getIndex()%>">
                 <input type="hidden" name="monthYear" value="<%=pr.getYear()%>">
                 <input class="buttonSave" type="submit" value="<">
@@ -129,7 +130,7 @@
             &nbsp;<%=m.getName()%> <%=m.getYear()%>&nbsp;
 
             <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="post">
-                <input type="hidden" name="cmd" value="m">
+                <input type="hidden" name="cmd" value="month">
                 <input type="hidden" name="monthIndex" value="<%=sx.getIndex()%>">
                 <input type="hidden" name="monthYear" value="<%=sx.getYear()%>">
                 <input class="buttonSave" type="submit" value=">">
@@ -209,6 +210,8 @@
 
 %>
             </table>
+        </div>
+
             <div class="col-sm-2"
                  style="background-color: transparent; border: 0px; color:white; padding: 0px 0px 0px 15px"
                  align="center">
@@ -313,6 +316,7 @@
             </div>
         </div>
     </div>
+
     <form action="ProfessorRegisterServlet" method="post" id="delete">
         <input type="hidden" name="rowIndex">
         <input type="hidden" name="colIndex">
@@ -440,7 +444,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-</div>
-</div>
 </body>
 </html>
