@@ -10,7 +10,6 @@ import register.ProfessorRegister;
 import utils.Month;
 import utils.MonthFactory;
 import utils.Toast;
-import utils.Month;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -186,7 +185,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
                  }
 
              } catch (Exception e) {
-                e.printStackTrace();
+
                  Toast t = new Toast(error, "check parameter e try again", 1);
                  request.setAttribute("toast", t);
                  rd.forward(request, response);
