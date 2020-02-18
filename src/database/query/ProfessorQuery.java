@@ -3,6 +3,8 @@ package database.query;
 import model.Absences;
 import model.Grades;
 import model.Homework;
+import utils.BasicExcpetion;
+import utils.CustomSQLException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,42 +15,45 @@ import java.util.logging.Logger;
 
 
 public abstract class ProfessorQuery {
+
+
+    private ProfessorQuery() throws BasicExcpetion {
+        throw new BasicExcpetion("Abstract class ");
+    }
     private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
-    public static ResultSet login(Statement stmt, int matricola, String password) {
+    public static ResultSet login(Statement stmt, int matricola, String password) throws CustomSQLException {
         String sql = String.format("SELECT * FROM professor WHERE matricola ='%d' AND password = '%s'", matricola, password);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
         }
     }
 
-    public static ResultSet getStudentsOfClass(Statement stmt, String classe) {
+    public static ResultSet getStudentsOfClass(Statement stmt, String classe) throws CustomSQLException {
         String sql = String.format("SELECT * FROM users WHERE class = '%s'", classe);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
+
         }
 
     }
 
-    public static ResultSet getHomework(Statement stmt, int professorId) {
+    public static ResultSet getHomework(Statement stmt, int professorId) throws CustomSQLException {
 
         String sql = String.format("SELECT * FROM Homework WHERE matricolaProfessore = '%d'",professorId);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
         }
 
     }
 
-    public static int saveNewHomework(Statement stmt, Homework h) {
+    public static int saveNewHomework(Statement stmt, Homework h) throws CustomSQLException {
 
         int mp = h.getMatricolaProfessore();
         String c = h.getClasse();
@@ -60,13 +65,12 @@ public abstract class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
     }
 
 
-    public static int saveNewGrades(Statement stmt, Grades g) {
+    public static int saveNewGrades(Statement stmt, Grades g) throws CustomSQLException {
 
         int ms = g.getMatricolaStudente();
         String nameP = g.getNomeProfessore();
@@ -80,53 +84,52 @@ public abstract class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
     }
 
-    public static ResultSet getClassi(Statement stmt, int professorid) {
+    public static ResultSet getClassi(Statement stmt, int professorid) throws CustomSQLException {
 
         String sql = String.format("SELECT * FROM classi WHERE matricolaProfessore = '%s'", professorid);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
+
         }
     }
 
-    public static ResultSet getMaterie(Statement stmt, int matricola) {
+    public static ResultSet getMaterie(Statement stmt, int matricola) throws CustomSQLException {
         String sql = String.format("SELECT * FROM materia WHERE matricolaProfessore = '%s'", matricola);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+                 throw new CustomSQLException(e);
+
         }
     }
 
-    public static ResultSet getUserGradesForMateria(Statement stmt, int matricola, String materia) {
+    public static ResultSet getUserGradesForMateria(Statement stmt, int matricola, String materia) throws CustomSQLException {
         String sql = String.format("SELECT * FROM grades WHERE matricolaStudente = '%s' AND materia = '%s'", matricola, materia);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
+
         }
     }
 
-    public static ResultSet getScheduleForProfessor(Statement stmt, int professorid) {
+    public static ResultSet getScheduleForProfessor(Statement stmt, int professorid) throws CustomSQLException {
         String sql = String.format("SELECT * FROM scheduleinfo WHERE matricolaProfessore = '%s'", professorid);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
+
         }
     }
 
-    public static int saveNewAbsences(Statement stmt, Absences a) {
+    public static int saveNewAbsences(Statement stmt, Absences a) throws CustomSQLException {
 
         int ms = a.getMatricolaStudente();
 
@@ -140,12 +143,11 @@ public abstract class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
     }
 
-    public static int deleteAbsences(Statement stmt, int matricola, Date d) {
+    public static int deleteAbsences(Statement stmt, int matricola, Date d) throws CustomSQLException {
 
 
         String sql = String.format("DELETE FROM Assenza WHERE matricolaStudente = '%s'AND data = '%tF'", matricola, d);
@@ -153,60 +155,51 @@ public abstract class ProfessorQuery {
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
-
-
     }
 
-    public static int deleteGrades(Statement stmt, int matricola, Date d, String currentMatter) {
+    public static int deleteGrades(Statement stmt, int matricola, Date d, String currentMatter) throws CustomSQLException {
         String sql = String.format("DELETE FROM Grades WHERE matricolaStudente='%s' AND data='%tF' AND materia='%s'", matricola,d,currentMatter);
 
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
     }
 
-    public static int deleteHomework(Statement stmt, String description) {
+    public static int deleteHomework(Statement stmt, String description) throws CustomSQLException {
         String sql = String.format("DELETE FROM Homework WHERE descrizione='%s'", description);
 
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
-
-
 
     }
 
-    public static ResultSet getArgument(Statement stmt, int matricola, String s) {
+    public static ResultSet getArgument(Statement stmt, int matricola, String s) throws CustomSQLException {
         String sql = String.format("SELECT * FROM arguments WHERE matricolaProfessore = '%s' AND class = '%s'", matricola,s);
         try {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
+            throw new CustomSQLException(e);
+
         }
     }
 
 
 
-    public static int saveNewArg(Statement stmt, int matricolaProfessore, String classe, String descprition, String materia, int index) {
+    public static int saveNewArg(Statement stmt, int matricolaProfessore, String classe, String descprition, String materia, int index) throws CustomSQLException {
 
         String sql = String.format("INSERT INTO arguments(matricolaProfessore,descrizione,class,materia,count) VALUES(%d,'%s','%s','%s',%d)", matricolaProfessore, descprition, classe, materia, index);
 
         try {
             return stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
-        return 0;
-
     }
 }

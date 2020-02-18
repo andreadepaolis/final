@@ -3,6 +3,7 @@ package database;
 import bean.StudentBean;
 import database.query.StudentQuery;
 import model.*;
+import utils.BasicExcpetion;
 import utils.CustomException;
 import utils.CustomSQLException;
 
@@ -18,52 +19,37 @@ import java.util.logging.Logger;
 public abstract class StudentDao {
 
     private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
-    private static String CLASS = "class";
-    private static String MATTER = "materia";
+    private static final String CLASS = "class";
+    private static final String MATTER = "materia";
 
-    public static StudentBean validate(int matricola, String password) throws SQLException {
+
+    private StudentDao() throws BasicExcpetion {
+        throw new BasicExcpetion("Abstract class ");
+    }
+
+    public static StudentBean validate(int matricola, String password) throws SQLException, BasicExcpetion {
 
 
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
-        try {
-            Statement stmt = con.createStatement();
+        Statement stmt = con.createStatement();
 
-            ResultSet rs = StudentQuery.login(stmt, matricola, password);
+        ResultSet rs = StudentQuery.login(stmt, matricola, password);
 
 
-            assert rs != null;
-            if (rs.first()) {
-                rs.first();
-                StudentBean u = new StudentBean();
-                u.setName(rs.getString("name"));
-                u.setMatricola(rs.getInt("matricola"));
-                u.setLastname(rs.getString("lastname"));
-                u.setClasse(rs.getString(CLASS));
-                return u;
-            } else {
-                return null;
+        assert rs != null;
+        if (rs.first()) {
+            rs.first();
+            StudentBean u = new StudentBean();
+            u.setName(rs.getString("name"));
+            u.setMatricola(rs.getInt("matricola"));
+            u.setLastname(rs.getString("lastname"));
+            u.setClasse(rs.getString(CLASS));
+            return u;
 
-            }
-
-        } catch (Exception e) {
-            LOGGER.info(e.toString());
-            return null;
-        }
-
-    }
-
-    public static ResultSet getGradesByClass(Statement stmt, int professorid) {
-
-        String sql = String.format("SELECT * FROM grades WHERE matricolaProfessore = '%s'", professorid);
-
-        try {
-            return stmt.executeQuery(sql);
-        } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            return null;
-        }
+        } else
+            throw new BasicExcpetion("Cannot found any student");
     }
 
     public static Student getUserById(int id) {
@@ -93,9 +79,9 @@ public abstract class StudentDao {
 
     }
 
-    public static List<Grades> getMyGrades(int id) {
-        Statement stmt = null;
-        Connection con = null;
+    public static List<Grades> getMyGrades(int id) throws CustomSQLException {
+        Statement stmt;
+        Connection con;
         List<Grades> allGrades = new ArrayList<>();
 
         try {
@@ -127,18 +113,19 @@ public abstract class StudentDao {
 
             } while (rs.next());
 
+            stmt.close();
             rs.close();
 
-        } catch (Exception s) {
-            LOGGER.info(s.toString());
+        } catch (SQLException s) {
+            throw new CustomSQLException(s);
         }
         return allGrades;
     }
 
-    public static List<Absences> getMyAssenze(int id) {
+    public static List<Absences> getMyAssenze(int id) throws CustomSQLException {
 
-        Statement stmt = null;
-        Connection con = null;
+        Statement stmt;
+        Connection con;
         List<Absences> allAssenze = new ArrayList<>();
 
         try {
@@ -169,17 +156,16 @@ public abstract class StudentDao {
 
             } while (rs.next());
 
-            // STEP 5.1: Clean-up dell'ambiente
             rs.close();
         } catch (Exception e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
+
         }
-        // STEP 5.2: Clean-up dell'ambiente
 
         return allAssenze;
     }
 
-    public static List<Homework> getHomework(String classe) {
+    public static List<Homework> getHomework(String classe) throws CustomSQLException {
 
         List<Homework> allHomework = new ArrayList<>();
 
@@ -208,13 +194,13 @@ public abstract class StudentDao {
 
 
         } catch (Exception e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
         }
         return allHomework;
 
     }
 
-    public static List<ScheduleInfo> getSchedule(String classe) {
+    public static List<ScheduleInfo> getSchedule(String classe) throws CustomSQLException, CustomException {
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
@@ -238,15 +224,18 @@ public abstract class StudentDao {
             }
 
 
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
         } catch (Exception e) {
-            LOGGER.info(e.toString());
+            throw new CustomException("getSchedule Fails", e);
+
         }
         return si;
     }
 
-    public static List<Grades> getMyGrades(int matricola, String matter) {
-        Statement stmt = null;
-        Connection con = null;
+    public static List<Grades> getMyGrades(int matricola, String matter) throws CustomSQLException, CustomException {
+        Statement stmt;
+        Connection con;
         List<Grades> allGrades = new ArrayList<>();
 
         try {
@@ -280,16 +269,19 @@ public abstract class StudentDao {
 
             rs.close();
 
-        } catch (Exception s) {
-            LOGGER.info(s.toString());
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
+        } catch (Exception e) {
+            throw new CustomException("Load grades fails", e);
+
         }
         return allGrades;
     }
 
-    public static List<String> getAllMatter(String myclasse) {
+    public static List<String> getAllMatter(String myclasse) throws CustomSQLException, CustomException {
 
-        Statement stmt = null;
-        Connection con = null;
+        Statement stmt;
+        Connection con;
         List<String> matter = new ArrayList<>();
 
         try {
@@ -315,17 +307,21 @@ public abstract class StudentDao {
 
             } while (rs.next());
 
+            stmt.close();
             rs.close();
 
-        } catch (Exception s) {
-            LOGGER.info(s.toString());
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
+        } catch (Exception e) {
+            throw new CustomException("Load Matter Fails", e);
+
         }
         return matter;
     }
 
-    public static String getPin(int id) {
-        Statement stmt = null;
-        Connection con = null;
+    public static String getPin(int id) throws CustomSQLException, CustomException {
+        Statement stmt;
+        Connection con;
         String pin = null;
         try {
 
@@ -347,14 +343,18 @@ public abstract class StudentDao {
             pin = rs.getString("pin");
 
             rs.close();
-        } catch (Exception s) {
-            LOGGER.info(s.toString());
+            stmt.close();
+
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
+        } catch (Exception e) {
+            throw new CustomException("getPin Fails", e);
         }
         return pin;
 
     }
 
-    public static int updateAbsence(Absences a) throws SQLException {
+    public static int updateAbsence(Absences a) throws CustomSQLException, CustomException {
         Connection con = DataBase.getInstance().getConnection();
         Statement stmt = null;
         int result = 0;
@@ -365,11 +365,10 @@ public abstract class StudentDao {
 
             stmt.close();
 
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
         } catch (Exception e) {
-            LOGGER.info(e.toString());
-        } finally {
-            if (stmt != null)
-                stmt.close();
+            throw new CustomException("Update Absences Fails", e);
         }
         return result;
     }
@@ -382,7 +381,7 @@ public abstract class StudentDao {
         try {
             Statement stmt = con.createStatement();
 
-            ResultSet rs = StudentQuery.getArgument(stmt, currentMatter,classe);
+            ResultSet rs = StudentQuery.getArgument(stmt, currentMatter, classe);
             if (rs == null)
                 return list;
 
@@ -392,7 +391,7 @@ public abstract class StudentDao {
             rs.first();
             do {
                 Argument arg = new Argument(rs.getInt("matricolaProfessore"), rs.getString("descrizione"), rs.getString(MATTER), rs.getString(CLASS), rs.getInt("count"));
-                if(arg.getMateria().contains(currentMatter))
+                if (arg.getMateria().contains(currentMatter))
                     list.add(arg);
 
             } while (rs.next());

@@ -9,6 +9,8 @@ import controller.ControllerLogin;
 import utils.CustomException;
 import utils.CustomSQLException;
 import utils.Toast;
+import utils.ToastException;
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -24,8 +26,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
+    private static final String TOAST = "toast";
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+
 
         ControllerLogin cl = new ControllerLogin();
         String matricola = request.getParameter("matricola");
@@ -50,16 +54,12 @@ public class LoginServlet extends HttpServlet {
 
             } else{
                 Toast t = new Toast("Error","invalid password or matricola",1);
-                request.setAttribute("toast",t);
+                request.setAttribute("tst",t);
                 rd.include(request, response);
             }
-            }catch(CustomSQLException ce ){
-                Toast t = new Toast("SQL error",ce.toString(),1);
-                request.setAttribute("toast",t);
-                rd.include(request, response);
-            } catch (CustomException e ){
-                Toast t = new Toast("Error",e.toString(),1);
-                request.setAttribute("toast",t);
+            }catch(ToastException t){
+                Toast tst = new Toast(t.getTitle(),t.getMessage(),1);
+                request.setAttribute(TOAST,tst);
                 rd.include(request, response);
             }
 
@@ -79,20 +79,15 @@ public class LoginServlet extends HttpServlet {
 
                 } else {
                     Toast t = new Toast("Error", "invalid password or matricola", 1);
-                    request.setAttribute("toast", t);
+                    request.setAttribute(TOAST, t);
                     rd.include(request,response);
 
                 }
-            } catch(CustomException c){
-
-                Toast t = new Toast("Error",c.getMessage(),1);
-                request.setAttribute("toast",t);
-                rd.include(request,response);
-
-            } catch (CustomSQLException se ){
-                Toast t = new Toast("SQL", se.getMessage(), 1);
-                request.setAttribute("toast", t);
+            } catch (ToastException e) {
+                Toast tst = new Toast(e.getTitle(),e.getMessage(),1);
+                request.setAttribute(TOAST,tst);
                 rd.include(request, response);
+
             }
 
         }

@@ -9,6 +9,7 @@ import model.*;
 import register.ProfessorRegister;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -16,30 +17,54 @@ import java.util.logging.Logger;
 public class ControllerHomeProfessor {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerHomeProfessor.class.getName());
+    private static final String ERR = "Error";
 
-    public ProfessorBean full(ProfessorBean p) throws CustomSQLException, CustomException {
+    public ProfessorBean full(ProfessorBean p) throws ToastException {
 
 
-        List<String> classi = ProfessorDao.getClassi(p.getMatricola());
+        List<String> classi;
+        try {
+            classi = ProfessorDao.getClassi(p.getMatricola());
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
 
         p.setClassi(classi);
 
         p.setCurrentClass(p.getClassi().get(0));
 
         List<String> matter = null;
-        matter = ProfessorDao.getMaterie(p.getMatricola());
+        try {
+
+            matter = ProfessorDao.getMaterie(p.getMatricola());
+
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
 
         p.setMatter(matter);
         p.setCurrentMatter(matter.get(0));
 
-        List<Argument> arguments = ProfessorDao.getArguments(p.getMatricola(), p.getClassi().get(0),matter.get(0));
+        List<Argument> arguments;
+        try {
+            arguments = ProfessorDao.getArguments(p.getMatricola(), p.getClassi().get(0), matter.get(0));
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+
+        }
+
         if (arguments != null) {
             List<Argument> sortedArg = this.sortByIndex(arguments);
             p.setArguments(sortedArg);
         }
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(p.getMatricola(), p.getClassi().get(0));
+        List<HomeworkBean> homeworks = new ArrayList<>();
+        try {
+            homeworks = ProfessorDao.getHomework(p.getMatricola(), p.getClassi().get(0));
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
         List<HomeworkBean> list = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
@@ -57,7 +82,12 @@ public class ControllerHomeProfessor {
         p.setHomework(sortedList);
 
 
-        List<ScheduleInfo> s = ProfessorDao.getSchedule(p.getMatricola());
+        List<ScheduleInfo> s = new ArrayList<>();
+        try {
+            s = ProfessorDao.getSchedule(p.getMatricola());
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
 
         p.setSchedule(s);
 
@@ -100,19 +130,28 @@ public class ControllerHomeProfessor {
         }
     }
 
-    public boolean save(HomeworkBean hmwbean) throws ParseException {
+    public boolean save(HomeworkBean hmwbean) throws ToastException {
 
         InputController input = InputController.getIstance();
-        if (!input.checkDate(hmwbean.getData()))
-            return false;
+        try {
+            if (!input.checkDate(hmwbean.getData()))
+                return false;
+        } catch (Exception e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
 
         Homework h = new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
-        int result = ProfessorDao.newHomework(h);
+        int result = 0;
+        try {
+            result = ProfessorDao.newHomework(h);
+        } catch (CustomException | CustomSQLException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
         return result > 0;
     }
 
 
-    public ProfessorRegister getFullRegister(String classe, Month m, String materia) {
+    public ProfessorRegister getFullRegister(String classe, Month m, String materia) throws ToastException {
         ProfessorRegister register = new ProfessorRegister();
         register.setCurrentClass(classe);
         register.setCurrentMatter(materia);
@@ -149,11 +188,10 @@ public class ControllerHomeProfessor {
             }
             register.setStudents(allStudentsBean);
             return register;
-        } catch (Exception e) {
-            LOGGER.info(e.toString());
-            return null;
-        }
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR,e.getMessage());
 
+        }
 
     }
 
@@ -174,9 +212,15 @@ public class ControllerHomeProfessor {
         return m;
     }
 
-    public StudentBean extractRandom(List<StudentBean> list) throws NoSuchAlgorithmException {
+    public StudentBean extractRandom(List<StudentBean> list) throws ToastException {
 
-        CustomRandom c = new CustomRandom();
+        CustomRandom c = null;
+        try {
+            c = new CustomRandom();
+        } catch (NoSuchAlgorithmException e) {
+            throw new ToastException(ERR, e.getMessage());
+
+        }
         return list.get(c.getRandom().nextInt(list.size()));
     }
 
@@ -194,7 +238,7 @@ public class ControllerHomeProfessor {
 
     }
 
-    public boolean deleteGrades(ProfessorRegister register, String colIndex, String rowIndex) throws CustomSQLException, CustomException {
+    public boolean deleteGrades(ProfessorRegister register, String colIndex, String rowIndex) throws ToastException {
         List<StudentBean> studentBean = register.getStudents();
         InputController inputCntl = InputController.getIstance();
 
@@ -205,48 +249,48 @@ public class ControllerHomeProfessor {
         int result = 0;
         try {
             result = ProfessorDao.deleteGrades(studentSelected.getMatricola(), d, register.getCurrentMatter());
-        } catch (CustomSQLException se) {
-            throw se;
-        } catch (CustomException e) {
-            throw e;
+        } catch (CustomSQLException | CustomException se) {
+            throw new ToastException(ERR, se.getMessage());
+
         }
         return result > 0;
     }
 
-    public List<HomeworkBean> updateHomeworkList(int professorid, String classe, String matter) {
+    public List<HomeworkBean> updateHomeworkList(int professorid, String classe, String matter) throws ToastException {
 
+        try {
+            List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, classe);
+            List<HomeworkBean> result = new ArrayList<>();
+            for (HomeworkBean h : homeworks) {
+                if (h.getMateria().equals(matter))
+                    result.add(h);
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, classe);
-        List<HomeworkBean> result = new ArrayList<>();
-        for (HomeworkBean h: homeworks) {
-            if(h.getMateria().equals(matter))
-                result.add(h);
-
+            }
+            return this.sortByDate(result);
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
         }
-        return this.sortByDate(result);
     }
 
-    public boolean removeHmw(HomeworkBean hmw) {
+    public boolean removeHmw(HomeworkBean hmw) throws ToastException {
 
         try {
 
             int result = ProfessorDao.deleteHomework(hmw.getDescription());
 
             return result > 0;
-        } catch (Exception e) {
-            return false;
 
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
         }
     }
 
-    public List<Argument> reloadArgument(int matricola, String classe,String matter) throws CustomSQLException, CustomException {
+    public List<Argument> reloadArgument(int matricola, String classe, String matter) throws ToastException {
         List<Argument> arguments = null;
         try {
-            arguments = ProfessorDao.getArguments(matricola, classe,matter);
-        } catch (CustomSQLException se) {
-            throw se;
-        } catch (CustomException e) {
-            throw e;
+            arguments = ProfessorDao.getArguments(matricola, classe, matter);
+        } catch (CustomSQLException | CustomException se) {
+            throw new ToastException(ERR, se.getMessage());
         }
         if (arguments != null) {
             return this.sortByIndex(arguments);
@@ -254,29 +298,32 @@ public class ControllerHomeProfessor {
         return arguments;
     }
 
-    public List<HomeworkBean> scrollHomework(int id, String s, Date currentDate) {
+    public List<HomeworkBean> scrollHomework(int id, String s, Date currentDate) throws ToastException {
 
 
-        List<HomeworkBean> homeworks = ProfessorDao.getHomework(id, s);
+        List<HomeworkBean> homeworks = new ArrayList<>();
+        try {
+            homeworks = ProfessorDao.getHomework(id, s);
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
 
         List<HomeworkBean> list = new ArrayList<>();
-        if (homeworks != null) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(currentDate);
-            cal.add(Calendar.DATE, -1);
-            Date min = cal.getTime();
-            cal.add(Calendar.DATE, +7);
-            Date max = cal.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        cal.add(Calendar.DATE, -1);
+        Date min = cal.getTime();
+        cal.add(Calendar.DATE, +7);
+        Date max = cal.getTime();
 
-            for (HomeworkBean h : homeworks) {
-                if (h.getData().before(max) && h.getData().after(min))
-                    list.add(h);
+        for (HomeworkBean h : homeworks) {
+            if (h.getData().before(max) && h.getData().after(min))
+                list.add(h);
 
 
-            }
-            return this.sortByDate(list);
-        } else
-            return list;
+        }
+        return this.sortByDate(list);
+
     }
 
     public int checkIndex(List<Argument> list) {
@@ -287,16 +334,26 @@ public class ControllerHomeProfessor {
         return list.size();
     }
 
-    public boolean saveArg(Argument arg) {
+    public boolean saveArg(Argument arg) throws ToastException {
 
         try {
-
             int result = ProfessorDao.saveArgument(arg);
 
             return result > 0;
-        } catch (Exception e) {
-            return false;
 
+        } catch (CustomException | SQLException e) {
+            throw new ToastException(ERR, e.getMessage());
+        }
+    }
+
+    public void saveAbsence(int matricola, String tipo, Date d) throws ToastException {
+
+        Absences a = new Absences(matricola, tipo, d, 1);
+        try{
+            ProfessorDao.saveAbsence(a);
+
+        } catch (CustomException | SQLException e) {
+            throw new ToastException(ERR, e.getMessage());
         }
     }
 }

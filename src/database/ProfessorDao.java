@@ -3,6 +3,7 @@ package database;
 import bean.HomeworkBean;
 import database.query.ProfessorQuery;
 import model.*;
+import utils.BasicExcpetion;
 import utils.CustomException;
 import utils.CustomSQLException;
 
@@ -22,8 +23,14 @@ public abstract class ProfessorDao {
 
     private static final String MAT = "materia";
     private static final String CLASS = "class";
+    private static final String err = "Error";
 
-    public static Professor validate(int matricola, String password) throws SQLException, CustomException {
+
+    private ProfessorDao() throws BasicExcpetion {
+        throw new BasicExcpetion("Abstract class ");
+    }
+
+    public static Professor validate(int matricola, String password) throws CustomSQLException, CustomException {
 
 
         DataBase db = DataBase.getInstance();
@@ -85,13 +92,13 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return list;
     }
 
 
-    public static List<String> getClassi(int matricola) {
+    public static List<String> getClassi(int matricola) throws CustomSQLException, CustomException {
 
         List<String> list = new ArrayList<>();
         Statement stmt;
@@ -120,12 +127,14 @@ public abstract class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
+        }catch (Exception e) {
+            throw new CustomException(err, e);
         }
         return list;
     }
 
-    public static List<HomeworkBean> getHomework(int professorId, String classe) {
+    public static List<HomeworkBean> getHomework(int professorId, String classe) throws CustomSQLException, CustomException {
 
         List<HomeworkBean> list = new ArrayList<>();
         Connection con = DataBase.getInstance().getConnection();
@@ -148,13 +157,16 @@ public abstract class ProfessorDao {
                         list.add(h);
                 } while (rs.next());
             }
-        } catch (Exception e) {
-            LOGGER.info(e.toString());
+        }catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }catch (Exception e) {
+            throw new CustomException(err, e);
         }
+
         return list;
     }
 
-    public static int newHomework(Homework h) {
+    public static int newHomework(Homework h) throws CustomException, CustomSQLException {
 
 
         Connection con = DataBase.getInstance().getConnection();
@@ -166,14 +178,16 @@ public abstract class ProfessorDao {
             result = ProfessorQuery.saveNewHomework(stmt, h);
 
 
-        } catch (Exception e) {
-            LOGGER.info(e.toString());
+        } catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }catch (Exception e) {
+            throw new CustomException(err, e);
         }
         return result;
 
     }
 
-    public static List<ScheduleInfo> getSchedule(int professorid) {
+    public static List<ScheduleInfo> getSchedule(int professorid) throws CustomSQLException, CustomException {
 
         List<ScheduleInfo> list = new ArrayList<>();
         Statement stmt = null;
@@ -186,6 +200,7 @@ public abstract class ProfessorDao {
             stmt = con.createStatement();
             ResultSet rs = ProfessorQuery.getScheduleForProfessor(stmt, professorid);
 
+            assert rs != null;
             if (!rs.first()) {
                 return list;
             }
@@ -200,12 +215,14 @@ public abstract class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
+        }catch (Exception e) {
+            throw new CustomException(err, e);
         }
         return list;
     }
 
-    public static List<Grades> getMedia(int matricola, String materia) {
+    public static List<Grades> getMedia(int matricola, String materia) throws CustomSQLException, CustomException {
 
         List<Grades> list = new ArrayList<>();
         Statement stmt = null;
@@ -232,7 +249,9 @@ public abstract class ProfessorDao {
             } while (rs.next());
 
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
+            throw new CustomSQLException(e);
+        }catch (Exception e) {
+            throw new CustomException(err, e);
         }
         return list;
     }
@@ -251,7 +270,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return result;
 
@@ -283,7 +302,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return list;
     }
@@ -301,7 +320,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         } finally {
             if (stmt != null)
                 stmt.close();
@@ -341,7 +360,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return result;
     }
@@ -359,7 +378,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return result;
     }
@@ -393,7 +412,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         }
         return list;
 
@@ -414,7 +433,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException("Error", e);
+            throw new CustomException(err, e);
         } finally {
             if (stmt != null)
                 stmt.close();

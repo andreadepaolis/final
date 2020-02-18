@@ -8,6 +8,7 @@ import model.Homework;
 import utils.CustomException;
 import utils.CustomSQLException;
 import utils.Toast;
+import utils.ToastException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,7 +48,7 @@ public class HomeStudentServlet extends HttpServlet {
                     s.setArg(list);
                     session.setAttribute(std, s);
                     rd.forward(request, response);
-                }catch (CustomException | CustomSQLException e){
+                }catch (ToastException e){
                     Toast t = new Toast("Error",e.getMessage(),1);
                     request.setAttribute("toast",t);
                     rd.forward(request, response);
@@ -98,8 +99,8 @@ public class HomeStudentServlet extends HttpServlet {
               rd.forward(request,response);
             }
 
-        }catch (Exception e){
-                    rd.forward(request,response);
+        }catch (ToastException e){
+
             }
         }
 

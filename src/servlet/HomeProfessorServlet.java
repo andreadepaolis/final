@@ -21,18 +21,23 @@ import java.util.*;
 
 @WebServlet("/HomeProfessorServlet")
 public class HomeProfessorServlet extends HttpServlet {
+
+
+   private static final String PROF = "professor";
+   private static final String TST = "toast";
+   private static final String ERR = "Error";
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String prof = "professor";
-    String tst = "toast";
-    String errr = "Error";
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeProfessor.jsp");
         try {
             HttpSession session = request.getSession(false);
-            if (session.getAttribute(prof) == null) {
-                throw new Exception("invalid session");
+            if (session.getAttribute(PROF) == null) {
+                throw new BasicExcpetion("invalid session");
             }
             String cmd = request.getParameter("cmd");
-            ProfessorBean p = (ProfessorBean) session.getAttribute(prof);
+            ProfessorBean p = (ProfessorBean) session.getAttribute(PROF);
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
 
@@ -43,7 +48,7 @@ public class HomeProfessorServlet extends HttpServlet {
                     p.setCurrentClass(newClass);
                     p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
                     p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getMatter().get(0)));
-                    session.setAttribute(prof,p);
+                    session.setAttribute(PROF,p);
                     rd.forward(request,response);
                     return;
 
@@ -55,7 +60,7 @@ public class HomeProfessorServlet extends HttpServlet {
                     p.setCurrentMatter(newMatter);
                     p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),newMatter));
                     p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),newMatter));
-                    session.setAttribute(prof,p);
+                    session.setAttribute(PROF,p);
                     rd.forward(request,response);
                     return;
 
@@ -71,16 +76,16 @@ public class HomeProfessorServlet extends HttpServlet {
 
                             if (chp.removeHmw(hmw)) {
                                 Toast t = new Toast("Removed", "Homework removed correctly", 2);
-                                request.setAttribute(tst, t);
+                                request.setAttribute(TST, t);
                                 p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
 
-                                session.setAttribute(prof, p);
+                                session.setAttribute(PROF, p);
                                 rd.include(request, response);
 
                             } else {
 
-                                Toast t = new Toast(errr, "Try again", 1);
-                                request.setAttribute(tst, t);
+                                Toast t = new Toast(ERR, "Try again", 1);
+                                request.setAttribute(TST, t);
                                 rd.include(request, response);
                             }
                         }
@@ -98,14 +103,14 @@ public class HomeProfessorServlet extends HttpServlet {
                     if (chp.save(hmwbean)) {
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
-                        request.setAttribute(tst, t);
+                        request.setAttribute(TST, t);
                         p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
 
-                        session.setAttribute(prof, p);
+                        session.setAttribute(PROF, p);
                         rd.include(request, response);
                     } else {
-                        Toast t = new Toast(errr, "there is an error", 1);
-                        request.setAttribute(tst, t);
+                        Toast t = new Toast(ERR, "there is an error", 1);
+                        request.setAttribute(TST, t);
                         rd.include(request, response);
                     }
                     break;
@@ -134,7 +139,7 @@ public class HomeProfessorServlet extends HttpServlet {
                             List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),new Date());
                             p.setHomework(h);
                         }
-                        session.setAttribute(prof,p);
+                        session.setAttribute(PROF,p);
                         rd.forward(request,response);
                         break;
 
@@ -151,12 +156,12 @@ public class HomeProfessorServlet extends HttpServlet {
 
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
-                        request.setAttribute(tst, t);
+                        request.setAttribute(TST, t);
                         p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
-                        session.setAttribute(prof, p);
+                        session.setAttribute(PROF, p);
                     } else{
-                        Toast t = new Toast(errr, "Cannot save", 1);
-                        request.setAttribute(tst, t);
+                        Toast t = new Toast(ERR, "Cannot save", 1);
+                        request.setAttribute(TST, t);
                     }
                     rd.forward(request,response);
                     break;
@@ -191,8 +196,8 @@ public class HomeProfessorServlet extends HttpServlet {
             }
 
         }catch(Exception e){
-            Toast t = new Toast(errr,e.getMessage(),1);
-            request.setAttribute(tst,t);
+            Toast t = new Toast(ERR,e.getMessage(),1);
+            request.setAttribute(TST,t);
             rd.include(request,response);
 
         }

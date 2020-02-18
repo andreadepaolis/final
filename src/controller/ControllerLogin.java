@@ -9,6 +9,7 @@ import model.Professor;
 import utils.BasicExcpetion;
 import utils.CustomException;
 import utils.CustomSQLException;
+import utils.ToastException;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -23,19 +24,19 @@ public class ControllerLogin {
         }
 
 
-        public StudentBean validateStudent(UserLoginBean u){
+        public StudentBean validateStudent(UserLoginBean u) throws ToastException {
 
             StudentBean s = null;
             try {
                 s = StudentDao.validate(u.getMatricola(),u.getPassword());
-            } catch (SQLException e) {
-                LOGGER.info(e.toString());
+            } catch (SQLException | BasicExcpetion e ) {
+                throw new ToastException("Login Error",e.getMessage());
             }
             return s;
 
         }
 
-    public ProfessorBean validateProfessor(UserLoginBean u) throws CustomException, CustomSQLException {
+    public ProfessorBean validateProfessor(UserLoginBean u) throws ToastException {
 
         Professor p;
         ProfessorBean pb = null;
@@ -50,10 +51,15 @@ public class ControllerLogin {
                 pb.setLastname(p.getLastname());
                 pb.setName(p.getName());
                 pb.setCurrentDate(new Date());
+            } else {
+                throw new BasicExcpetion("invalid matricola or password");
             }
 
-        } catch (SQLException e) {
-            throw new CustomSQLException(e);
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException("Login Error",e.getMessage());
+        } catch(Exception e){
+            throw new ToastException("Error",e.getMessage());
+
         }
         return pb;
      }

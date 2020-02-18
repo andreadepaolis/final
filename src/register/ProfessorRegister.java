@@ -83,7 +83,7 @@ public class ProfessorRegister implements Register {
     }
 
     @Override
-    public List<Grades> getMyGrades(int id) {
+    public List<Grades> getMyGrades(int id) throws CustomSQLException {
         List<Grades> result;
         result = StudentDao.getMyGrades(id);
         return result;
@@ -91,7 +91,7 @@ public class ProfessorRegister implements Register {
     }
 
     @Override
-    public List<Absences> getAbsences(int id) {
+    public List<Absences> getAbsences(int id) throws CustomSQLException {
         List<Absences> result;
         result = StudentDao.getMyAssenze(id);
         return result;
@@ -105,18 +105,13 @@ public class ProfessorRegister implements Register {
     @Override
     public List<Student> getAllUserForClass(String c) throws CustomSQLException, CustomException {
         List<Student> users;
-        try {
             users = ProfessorDao.getClasse(c);
-        } catch (CustomSQLException se) {
-            throw se;
-        } catch (CustomException e) {
-            throw e;
-        }
+
         return users;
     }
 
     @Override
-    public List<Grades> getMyGrades(int id, Month m, String materia) {
+    public List<Grades> getMyGrades(int id, Month m, String materia) throws CustomSQLException {
         List<Grades> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(), m.getIndex() - 1, 0);
@@ -136,7 +131,7 @@ public class ProfessorRegister implements Register {
     }
 
     @Override
-    public List<Absences> getAbsences(int id, Month m) {
+    public List<Absences> getAbsences(int id, Month m) throws CustomSQLException {
         List<Absences> result = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         start.set(m.getYear(), m.getIndex() - 1, 0);
@@ -155,16 +150,10 @@ public class ProfessorRegister implements Register {
 
     public int newGrades(int ms, String materia, int voto, String tipo, int professorid, String professor, Date data) throws CustomSQLException, CustomException {
         Grades g = new Grades(ms, materia, voto, tipo, professorid, professor, data);
-        try {
-            return ProfessorDao.saveGrades(g);
-        } catch (CustomSQLException se) {
-            throw se;
-        } catch (CustomException e) {
-            throw e;
-        }
+        return ProfessorDao.saveGrades(g);
     }
 
-    public double getMedia(int matricola, String materia) {
+    public double getMedia(int matricola, String materia) throws CustomException, CustomSQLException {
 
         double media = 0;
         List<Grades> voti = ProfessorDao.getMedia(matricola, materia);
