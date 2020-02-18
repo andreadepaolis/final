@@ -144,7 +144,7 @@
                                 <input type="hidden" name="cmd" value="deletehmw">
                                 <input type="hidden" name="desc" value="<%=hmw.getDescription()%>">
                             </form>
-                            <b><%=hmw.getClasse()%>
+                            <b><%=hmw.getMyclasse()%>
                             </b>, <%=hmw.getData()%>: <br><b><%=hmw.getMateria()%>
                         </b>: <%=hmw.getDescription()%>
                         </div>
