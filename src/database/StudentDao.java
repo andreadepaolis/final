@@ -357,18 +357,25 @@ public abstract class StudentDao {
     public static int updateAbsence(Absences a) throws CustomSQLException, CustomException {
         Connection con = DataBase.getInstance().getConnection();
         Statement stmt = null;
-        int result = 0;
+        int result;
         try {
             stmt = con.createStatement();
 
             result = StudentQuery.updateAbsences(stmt, a.getData(), a.getMatricolaStudente());
 
             stmt.close();
-
         } catch (SQLException se) {
             throw new CustomSQLException(se);
+
         } catch (Exception e) {
             throw new CustomException("Update Absences Fails", e);
+        } finally {
+            try {
+                assert stmt != null;
+                stmt.close();
+            } catch (SQLException | NullPointerException e) {
+                throw new CustomSQLException(e);
+            }
         }
         return result;
     }

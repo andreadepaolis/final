@@ -100,7 +100,8 @@ public class HomeStudentServlet extends HttpServlet {
             }
 
         }catch (ToastException e){
-
+            Toast t = new Toast("Error",e.getMessage(),1);
+            request.setAttribute("toast",t);
             }
         }
 

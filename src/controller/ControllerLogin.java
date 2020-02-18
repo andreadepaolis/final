@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 public class ControllerLogin {
 
-    private static final Logger LOGGER = Logger.getLogger(ControllerLogin.class.getName());
 
         public ControllerLogin(){
             //C

@@ -4,9 +4,7 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import model.Argument;
-import utils.BasicExcpetion;
-import utils.Month;
-import utils.MonthFactory;
+import utils.*;
 import register.ProfessorRegister;
 import utils.Toast;
 import javax.servlet.RequestDispatcher;
@@ -51,6 +49,7 @@ public class HomeProfessorServlet extends HttpServlet {
                     session.setAttribute(PROF,p);
                     rd.forward(request,response);
                     return;
+
 
                 }
 
@@ -191,6 +190,8 @@ public class HomeProfessorServlet extends HttpServlet {
                           response.sendRedirect("index.jsp");
                     }
 
+                    break;
+                } default:{
                     break;
                 }
             }

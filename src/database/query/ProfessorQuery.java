@@ -20,7 +20,6 @@ public abstract class ProfessorQuery {
     private ProfessorQuery() throws BasicExcpetion {
         throw new BasicExcpetion("Abstract class ");
     }
-    private static final Logger LOGGER = Logger.getLogger(ProfessorQuery.class.getName());
 
     public static ResultSet login(Statement stmt, int matricola, String password) throws CustomSQLException {
         String sql = String.format("SELECT * FROM professor WHERE matricola ='%d' AND password = '%s'", matricola, password);

@@ -72,6 +72,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
              } catch (Exception e) {
                  response.sendRedirect("index.jsp");
              }
+             break;
          }
 
          case "today": {

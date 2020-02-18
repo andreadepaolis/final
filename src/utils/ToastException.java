@@ -2,8 +2,8 @@ package utils;
 
 public class ToastException extends Exception {
 
-        private String message;
-        private String title;
+        private final String message;
+        private final String title;
         public ToastException(String title,String message){
             super();
             this.title = title;

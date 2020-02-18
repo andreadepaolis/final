@@ -6,50 +6,50 @@ import java.util.Date;
 public class HomeworkBean implements Serializable {
 
 
-    private int matricolaProfessore;
-    private String classe;
-    private String materia;
-    private String description;
+    private int matricolaprofessore;
+    private String myclasse;
+    private String mat;
+    private String desc;
     private Date data;
 
     public HomeworkBean(){
         //Bean
     }
 
-    public int getMatricolaProfessore() {
-        return matricolaProfessore;
+    public int getMatricolaprofessore() {
+        return matricolaprofessore;
     }
 
-    public String getClasse() {
-        return classe;
+    public String getMyclasse() {
+        return myclasse;
     }
 
     public String getMateria() {
-        return materia;
+        return mat;
     }
 
     public String getDescription() {
-        return description;
+        return desc;
     }
 
     public Date getData() {
         return data;
     }
 
-    public void setMatricolaProfessore(int matricolaProfessore) {
-        this.matricolaProfessore = matricolaProfessore;
+    public void setMatricolaprofessore(int matricolaprofessore) {
+        this.matricolaprofessore = matricolaprofessore;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.desc = description;
     }
 
-    public void setClasse(String classe) {
-        this.classe = classe;
+    public void setMyclasse(String myclasse) {
+        this.myclasse = myclasse;
     }
 
     public void setMateria(String materia) {
-        this.materia = materia;
+        this.mat = materia;
     }
 
     public void setData(Date data) {

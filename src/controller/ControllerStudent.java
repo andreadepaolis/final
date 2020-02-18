@@ -5,8 +5,6 @@ import model.Absences;
 import utils.CustomException;
 import utils.CustomSQLException;
 import utils.ToastException;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public class ControllerStudent {

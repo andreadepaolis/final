@@ -10,7 +10,6 @@ import register.ProfessorRegister;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -116,9 +115,9 @@ public class ControllerHomeProfessor {
         try {
             Date d = inpCntl.converDate(data);
             if (inpCntl.checkDate(d)) {
-                hwb.setMatricolaProfessore(matricolaProfessor);
+                hwb.setMatricolaprofessore(matricolaProfessor);
                 hwb.setData(d);
-                hwb.setClasse(classe);
+                hwb.setMyclasse(classe);
                 hwb.setMateria(materia);
                 hwb.setDescription(descrizione);
                 return hwb;
@@ -140,7 +139,7 @@ public class ControllerHomeProfessor {
             throw new ToastException(ERR, e.getMessage());
         }
 
-        Homework h = new Homework(hmwbean.getMatricolaProfessore(), hmwbean.getClasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
+        Homework h = new Homework(hmwbean.getMatricolaprofessore(), hmwbean.getMyclasse(), hmwbean.getMateria(), hmwbean.getDescription(), hmwbean.getData());
         int result = 0;
         try {
             result = ProfessorDao.newHomework(h);

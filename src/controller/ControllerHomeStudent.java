@@ -60,7 +60,7 @@ public class ControllerHomeStudent {
             s.setArg(temp2);
             return s;
         } catch (CustomSQLException | CustomException e ){
-            throw new ToastException("Error",e.getMessage());
+            throw new ToastException(ERR,e.getMessage());
 
         }
     }

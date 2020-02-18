@@ -23,7 +23,7 @@ public abstract class ProfessorDao {
 
     private static final String MAT = "materia";
     private static final String CLASS = "class";
-    private static final String err = "Error";
+    private static final String ERR = "Error";
 
 
     private ProfessorDao() throws BasicExcpetion {
@@ -92,7 +92,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
     }
@@ -129,7 +129,7 @@ public abstract class ProfessorDao {
         } catch (SQLException e) {
             throw new CustomSQLException(e);
         }catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
     }
@@ -147,20 +147,20 @@ public abstract class ProfessorDao {
             if (rs.first()) {
                 do {
                     HomeworkBean h = new HomeworkBean();
-                    h.setMatricolaProfessore(rs.getInt("matricolaProfessore"));
+                    h.setMatricolaprofessore(rs.getInt("matricolaProfessore"));
                     h.setDescription(rs.getString("descrizione"));
                     h.setMateria(rs.getString(MAT));
                     h.setData(rs.getDate("data"));
-                    h.setClasse(rs.getString(CLASS));
+                    h.setMyclasse(rs.getString(CLASS));
 
-                    if (h.getClasse().equals(classe))
+                    if (h.getMyclasse().equals(classe))
                         list.add(h);
                 } while (rs.next());
             }
         }catch (SQLException e) {
             throw new CustomSQLException(e);
         }catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
 
         return list;
@@ -181,7 +181,7 @@ public abstract class ProfessorDao {
         } catch (SQLException e) {
             throw new CustomSQLException(e);
         }catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return result;
 
@@ -217,7 +217,7 @@ public abstract class ProfessorDao {
         } catch (SQLException e) {
             throw new CustomSQLException(e);
         }catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
     }
@@ -251,7 +251,7 @@ public abstract class ProfessorDao {
         } catch (SQLException e) {
             throw new CustomSQLException(e);
         }catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
     }
@@ -270,7 +270,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return result;
 
@@ -302,7 +302,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
     }
@@ -320,7 +320,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         } finally {
             if (stmt != null)
                 stmt.close();
@@ -360,7 +360,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return result;
     }
@@ -378,7 +378,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return result;
     }
@@ -412,7 +412,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         }
         return list;
 
@@ -433,7 +433,7 @@ public abstract class ProfessorDao {
         } catch (SQLException se) {
             throw new CustomSQLException(se);
         } catch (Exception e) {
-            throw new CustomException(err, e);
+            throw new CustomException(ERR, e);
         } finally {
             if (stmt != null)
                 stmt.close();
