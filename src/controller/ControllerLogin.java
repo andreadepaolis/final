@@ -37,7 +37,7 @@ public class ControllerLogin {
 
     public ProfessorBean validateProfessor(UserLoginBean u) throws CustomException, CustomSQLException {
 
-        Professor p = null;
+        Professor p;
         ProfessorBean pb = null;
 
         try {
@@ -51,10 +51,6 @@ public class ControllerLogin {
                 pb.setName(p.getName());
                 pb.setCurrentDate(new Date());
             }
-
-        }catch (CustomException ce){
-            throw ce;
-
 
         } catch (SQLException e) {
             throw new CustomSQLException(e);

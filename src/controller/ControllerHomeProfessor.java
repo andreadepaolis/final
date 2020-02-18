@@ -22,25 +22,12 @@ public class ControllerHomeProfessor {
 
         List<String> classi = ProfessorDao.getClassi(p.getMatricola());
 
-        if (classi == null)
-            return null;
-
         p.setClassi(classi);
 
         p.setCurrentClass(p.getClassi().get(0));
 
         List<String> matter = null;
-        try {
-            matter = ProfessorDao.getMaterie(p.getMatricola());
-
-        } catch (CustomSQLException se) {
-            throw se;
-        } catch (CustomException e) {
-            throw e;
-        }
-
-        if (matter == null)
-            return null;
+        matter = ProfessorDao.getMaterie(p.getMatricola());
 
         p.setMatter(matter);
         p.setCurrentMatter(matter.get(0));

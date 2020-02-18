@@ -192,6 +192,7 @@ public abstract class StudentDao {
             ResultSet rs = StudentQuery.getHomework(stmt, classe);
 
 
+            assert rs != null;
             if (rs.first()) {
                 rs.first();
 
