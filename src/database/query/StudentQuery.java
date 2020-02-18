@@ -1,5 +1,7 @@
 package database.query;
 
+import utils.CustomSQLException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -100,4 +102,15 @@ public abstract class StudentQuery {
         }
         return 0;
         }
+
+    public static ResultSet getArgument(Statement stmt, String currentMatter,String classe) throws CustomSQLException {
+
+        String sql = String.format("SELECT * FROM Arguments WHERE materia = '%s' AND class = '%s'",currentMatter,classe);
+        try {
+            return stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            LOGGER.info(e.toString());
+            throw new CustomSQLException("SQL error",e);
+        }
     }
+}

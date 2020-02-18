@@ -18,6 +18,9 @@ public class StudentBean implements Serializable {
     private List<ScheduleInfo> schedule;
     private List<Homework> homework;
     private Date currentDate;
+    private String currentMatter;
+    private List<String> matter;
+    private List<Argument> arg;
 
     public StudentBean(){
         //Bean
@@ -96,5 +99,33 @@ public class StudentBean implements Serializable {
 
     public void setCurrentDate(Date currentDate) {
         this.currentDate = currentDate;
+    }
+
+    public void setCurrentMatter(String currentMatter) {
+        this.currentMatter = currentMatter;
+    }
+
+    public String getCurrent_matter() {
+        return currentMatter;
+    }
+
+    public void setMatter(List<String> matter) {
+        this.matter = matter;
+    }
+
+    public List<String> getMatter() {
+        return matter;
+    }
+
+    public String getCurrentMatter() {
+        return currentMatter;
+    }
+
+    public List<Argument> getArg() {
+        return arg;
+    }
+
+    public void setArg(List<Argument> arg) {
+        this.arg = arg;
     }
 }

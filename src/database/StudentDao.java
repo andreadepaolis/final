@@ -1,8 +1,11 @@
 package database;
 
 import bean.StudentBean;
+import database.query.ProfessorQuery;
 import database.query.StudentQuery;
 import model.*;
+import utils.CustomException;
+import utils.CustomSQLException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,8 +19,8 @@ import java.util.logging.Logger;
 public abstract class StudentDao {
 
     private static final Logger LOGGER = Logger.getLogger(StudentDao.class.getName());
-    private static String clss = "class";
-    private static String mattr = "materia";
+    private static String CLASS = "class";
+    private static String MATTER = "materia";
 
     public static StudentBean validate(int matricola, String password) throws SQLException {
 
@@ -38,7 +41,7 @@ public abstract class StudentDao {
                 u.setName(rs.getString("name"));
                 u.setMatricola(rs.getInt("matricola"));
                 u.setLastname(rs.getString("lastname"));
-                u.setClasse(rs.getString(clss));
+                u.setClasse(rs.getString(CLASS));
                 return u;
             } else {
                 return null;
@@ -113,7 +116,7 @@ public abstract class StudentDao {
             // riposizionamento del cursore
             rs.first();
             do {
-                String materia = rs.getString(mattr);
+                String materia = rs.getString(MATTER);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
                 String tipo = rs.getString("tipo");
@@ -195,7 +198,7 @@ public abstract class StudentDao {
 
                 do {
 
-                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"), rs.getString(clss), rs.getString(mattr), rs.getString("descrizione"), rs.getDate("data"));
+                    Homework hmw = new Homework(rs.getInt("matricolaProfessore"), rs.getString(CLASS), rs.getString(MATTER), rs.getString("descrizione"), rs.getDate("data"));
                     allHomework.add(hmw);
                 } while (rs.next());
 
@@ -227,7 +230,7 @@ public abstract class StudentDao {
                 rs.first();
 
                 do {
-                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"), rs.getInt("hours"), rs.getString(mattr), rs.getString(clss));
+                    ScheduleInfo sch = new ScheduleInfo(rs.getInt("day"), rs.getInt("hours"), rs.getString(MATTER), rs.getString(CLASS));
                     si.add(sch);
                 } while (rs.next());
 
@@ -263,7 +266,7 @@ public abstract class StudentDao {
             // riposizionamento del cursore
             rs.first();
             do {
-                String materia = rs.getString(mattr);
+                String materia = rs.getString(MATTER);
                 int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
                 String tipo = rs.getString("tipo");
@@ -306,7 +309,7 @@ public abstract class StudentDao {
             // riposizionamento del cursore
             rs.first();
             do {
-                String currentMatter = rs.getString(mattr);
+                String currentMatter = rs.getString(MATTER);
                 if (!matter.contains(currentMatter))
                     matter.add(currentMatter);
 
@@ -369,5 +372,44 @@ public abstract class StudentDao {
                 stmt.close();
         }
         return result;
+    }
+
+    public static List<Argument> getArgumentsForMatter(String currentMatter, String classe) throws CustomSQLException, CustomException {
+
+        Connection con = DataBase.getInstance().getConnection();
+
+        List<Argument> list = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement();
+
+            ResultSet rs = StudentQuery.getArgument(stmt, currentMatter,classe);
+            if (rs == null)
+                return list;
+
+            if (!rs.first()) {
+                return list;
+            }
+            rs.first();
+            do {
+                Argument arg = new Argument(rs.getInt("matricolaProfessore"), rs.getString("descrizione"), rs.getString(MATTER), rs.getString(CLASS), rs.getInt("count"));
+                if(arg.getMateria().contains(currentMatter))
+                    list.add(arg);
+
+            } while (rs.next());
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException se) {
+            LOGGER.info("SQL error");
+            se.printStackTrace();
+            throw new CustomSQLException("SQL Error", se);
+        } catch (Exception e) {
+            LOGGER.info(e.toString());
+            throw new CustomException("Error", e);
+        }
+        return list;
+
+
     }
 }

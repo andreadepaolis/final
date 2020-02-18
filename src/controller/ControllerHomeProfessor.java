@@ -296,6 +296,7 @@ public class ControllerHomeProfessor {
 
         if (list == null)
             return 0;
+
         return list.size();
     }
 

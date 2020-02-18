@@ -3,7 +3,11 @@ package servlet;
 import bean.GradesPageBean;
 import bean.StudentBean;
 import controller.ControllerHomeStudent;
+import model.Argument;
 import model.Homework;
+import utils.CustomException;
+import utils.CustomSQLException;
+import utils.Toast;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,6 +38,21 @@ public class HomeStudentServlet extends HttpServlet {
             StudentBean s = (StudentBean)session.getAttribute(std);
             String cmd = request.getParameter("cmd");
 
+            if(cmd.equals("matter")){
+
+                try {
+                    String mat = request.getParameter("matt");
+                    s.setCurrentMatter(mat);
+                    List<Argument> list = chs.reload(s.getCurrentMatter(), s.getClasse());
+                    s.setArg(list);
+                    session.setAttribute(std, s);
+                    rd.forward(request, response);
+                }catch (CustomException | CustomSQLException e){
+                    Toast t = new Toast("Error",e.getMessage(),1);
+                    request.setAttribute("toast",t);
+                    rd.forward(request, response);
+                }
+            }
 
             if(cmd.equals("Grades")){
 

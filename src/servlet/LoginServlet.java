@@ -34,19 +34,31 @@ public class LoginServlet extends HttpServlet {
         UserLoginBean u = cl.generateBean(matricola,password);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
         if(cmd.equals("user")){
+            try {
+
             StudentBean s = cl.validateStudent(u);
             if(s != null){
                 ControllerHomeStudent cntl = new ControllerHomeStudent();
 
-                s = cntl.full(s);
-                s.setCurrentDate(new Date());
-                HttpSession session = request.getSession();
-                session.setAttribute("student",s);
-                session.setMaxInactiveInterval(30 * 60);
-                response.sendRedirect("HomeStudent.jsp");
+                    s = cntl.full(s);
+                    s.setCurrentDate(new Date());
+                    HttpSession session = request.getSession();
+                    session.setAttribute("student", s);
+                    session.setMaxInactiveInterval(30 * 60);
+                    response.sendRedirect("HomeStudent.jsp");
+
 
             } else{
                 Toast t = new Toast("Error","invalid password or matricola",1);
+                request.setAttribute("toast",t);
+                rd.include(request, response);
+            }
+            }catch(CustomSQLException ce ){
+                Toast t = new Toast("SQL error",ce.toString(),1);
+                request.setAttribute("toast",t);
+                rd.include(request, response);
+            } catch (CustomException e ){
+                Toast t = new Toast("Error",e.toString(),1);
                 request.setAttribute("toast",t);
                 rd.include(request, response);
             }

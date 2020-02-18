@@ -4,9 +4,12 @@ import bean.GradesPageBean;
 import bean.MatterBean;
 import bean.StudentBean;
 import database.StudentDao;
+import model.Argument;
 import model.Grades;
 import model.Homework;
 import model.ScheduleInfo;
+import utils.CustomException;
+import utils.CustomSQLException;
 
 import java.util.*;
 
@@ -16,23 +19,22 @@ public class ControllerHomeStudent {
         //C
     }
 
-    public StudentBean full(StudentBean s) {
-
+    public StudentBean full(StudentBean s) throws CustomSQLException, CustomException {
 
         List<Homework> homeworks = StudentDao.getHomework(s.getClasse());
 
         List<Homework> list = new ArrayList<>();
         if (homeworks != null) {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE,-1);
+            cal.add(Calendar.DATE, -1);
             Date min = cal.getTime();
             cal.add(Calendar.DATE, +7);
             Date max = cal.getTime();
 
-            for(Homework h: homeworks){
-               if(h.getData().before(max) && h.getData().after(min)){
-                   list.add(h);
-               }
+            for (Homework h : homeworks) {
+                if (h.getData().before(max) && h.getData().after(min)) {
+                    list.add(h);
+                }
 
             }
             List<Homework> sortedList = this.sortByDate(list);
@@ -42,7 +44,17 @@ public class ControllerHomeStudent {
         List<ScheduleInfo> schedule = StudentDao.getSchedule(s.getClasse());
 
         s.setSchedule(schedule);
+        List<String> temp = new ArrayList<>();
+        for (ScheduleInfo sc : s.getSchedule()) {
+            if (!temp.contains(sc.getMateria())) {
+                temp.add(sc.getMateria());
+            }
+        }
+        s.setMatter(temp);
+        s.setCurrentMatter(temp.get(0));
 
+        List<Argument> temp2 = StudentDao.getArgumentsForMatter(s.getCurrentMatter(), s.getClasse());
+        s.setArg(temp2);
         return s;
     }
 
@@ -147,5 +159,10 @@ public class ControllerHomeStudent {
             return media/count;
         else
              return 0;
+    }
+
+    public List<Argument> reload(String currentMatter, String classe) throws CustomException, CustomSQLException {
+
+        return StudentDao.getArgumentsForMatter(currentMatter, classe);
     }
 }
