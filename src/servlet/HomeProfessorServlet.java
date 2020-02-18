@@ -4,6 +4,7 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import model.Argument;
+import utils.BasicExcpetion;
 import utils.Month;
 import utils.MonthFactory;
 import register.ProfessorRegister;
@@ -177,7 +178,7 @@ public class HomeProfessorServlet extends HttpServlet {
                         ProfessorRegister register = chp.getFullRegister(classe, m, materia);
 
 
-                        if (register == null) throw new Exception("erorre registrio");
+                        if (register == null) throw new BasicExcpetion("Critical Error");
 
                         session.setAttribute("register", register);
                         response.sendRedirect("professorRegister.jsp");
@@ -190,7 +191,7 @@ public class HomeProfessorServlet extends HttpServlet {
             }
 
         }catch(Exception e){
-            Toast t = new Toast(errr,"there is an error",1);
+            Toast t = new Toast(errr,e.getMessage(),1);
             request.setAttribute(tst,t);
             rd.include(request,response);
 

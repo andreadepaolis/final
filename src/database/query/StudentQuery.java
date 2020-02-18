@@ -110,7 +110,7 @@ public abstract class StudentQuery {
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
             LOGGER.info(e.toString());
-            throw new CustomSQLException("SQL error",e);
+            throw new CustomSQLException(e);
         }
     }
 }

@@ -53,13 +53,11 @@ public class ControllerLogin {
             }
 
         }catch (CustomException ce){
-            LOGGER.info(ce.toString());
-            throw new CustomException(ce.getMessage(),ce);
+            throw ce;
 
 
         } catch (SQLException e) {
-            LOGGER.info(e.toString());
-            throw new CustomSQLException(e.getMessage(),e);
+            throw new CustomSQLException(e);
         }
         return pb;
      }

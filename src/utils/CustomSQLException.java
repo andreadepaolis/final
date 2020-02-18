@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class CustomSQLException extends SQLException {
 
-    public CustomSQLException(String message, Throwable err){
-        super(message,err);
+    public CustomSQLException(Throwable err){
+        super("SQL Error",err);
     }
 }

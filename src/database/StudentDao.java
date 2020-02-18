@@ -1,7 +1,6 @@
 package database;
 
 import bean.StudentBean;
-import database.query.ProfessorQuery;
 import database.query.StudentQuery;
 import model.*;
 import utils.CustomException;
@@ -401,11 +400,8 @@ public abstract class StudentDao {
             stmt.close();
 
         } catch (SQLException se) {
-            LOGGER.info("SQL error");
-            se.printStackTrace();
-            throw new CustomSQLException("SQL Error", se);
+            throw new CustomSQLException(se);
         } catch (Exception e) {
-            LOGGER.info(e.toString());
             throw new CustomException("Error", e);
         }
         return list;

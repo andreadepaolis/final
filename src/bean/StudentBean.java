@@ -105,10 +105,6 @@ public class StudentBean implements Serializable {
         this.currentMatter = currentMatter;
     }
 
-    public String getCurrent_matter() {
-        return currentMatter;
-    }
-
     public void setMatter(List<String> matter) {
         this.matter = matter;
     }
