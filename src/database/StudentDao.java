@@ -374,7 +374,7 @@ public abstract class StudentDao {
                 assert stmt != null;
                 stmt.close();
             } catch (SQLException | NullPointerException e) {
-                throw new CustomSQLException(e);
+                //void
             }
         }
         return result;

@@ -9,7 +9,7 @@ public class HomeworkBean implements Serializable {
     private int matricolaprofessore;
     private String myclasse;
     private String mat;
-    private String desc;
+    private String description;
     private Date data;
 
     public HomeworkBean(){
@@ -29,7 +29,7 @@ public class HomeworkBean implements Serializable {
     }
 
     public String getDescription() {
-        return desc;
+        return description;
     }
 
     public Date getData() {
@@ -41,7 +41,7 @@ public class HomeworkBean implements Serializable {
     }
 
     public void setDescription(String description) {
-        this.desc = description;
+        this.description = description;
     }
 
     public void setMyclasse(String myclasse) {
