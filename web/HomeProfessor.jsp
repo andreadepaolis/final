@@ -50,7 +50,7 @@
     int start = 9;
     String flag = "";
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String today = dateFormat.format(new Date());
+    String today = dateFormat.format(p.getCurrentDate());
 
 %>
 <ul class="row col-sm-12" style="padding: 0px 15px">
@@ -109,7 +109,7 @@
                             <input type="hidden" name="cmd" value="hmw">
                             <input type="hidden" name="temp" value="dec">
                         </form>
-                        <%=p.getCurrentDate()%>
+                        <%=today%>
                         <form style="padding:0px 5px" action="HomeProfessorServlet" method="post">
                             <input class="buttonSave" type="submit" value=">">
                             <input type="hidden" name="cmd" value="hmw">
@@ -290,7 +290,7 @@
                         <div class="col-sm-3">
                             <input type="hidden" name="cmd" value="change_matter">
                             <select name="current_matter" onchange='this.form.submit()'>
-                                <option selected disabled hidden> Select Matter</option>
+                                <option selected disabled hidden> <%=p.getCurrentMatter()%></option>
 
                                     <% for (String s : p.getMatter()) { %>
                                     <option value="<%=s%>">

@@ -2,6 +2,7 @@
 <%@ page import="model.Homework" %>
 <%@ page import="model.ScheduleInfo" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="model.Argument" %>
 <%--
   Created by IntelliJ IDEA.
   User: andrea
@@ -34,7 +35,8 @@
 
 %>
 <ul class="col-sm-12" style="padding: 0px 15px">
-    <li><a><strong><%=s.getLastname()%></strong></a></li>
+    <li><a><strong><%=s.getLastname()%>
+    </strong></a></li>
     <li><a style="border-bottom: 5px white solid;" href="HomeStudent.jsp">Home</a></li>
     <li>
         <form action="HomeStudentServlet" method="post">
@@ -92,7 +94,7 @@
     background-color: white !important;
     border-radius: 5px;">
             <%
-                if (s.getHomework() != null && s.getHomework().size()>0) {
+                if (s.getHomework() != null && s.getHomework().size() > 0) {
                     for (Homework hmw : s.getHomework()) {
 
 
@@ -148,14 +150,57 @@
 
         </table>
         <br>
-        <%
-            } else {
 
-                response.sendRedirect("index.jsp");
-                return;
-            }
-        %>
+    </div>
+    <div class="shadow card col-sm-12"
+         style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px;">
+
+        <div style="margin:1px; color:black;
+    padding:3px;
+    width: 100%;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-x: auto;
+    text-align:justify;
+    font-size: 13px;
+    background-color: white !important;
+    border-radius: 5px;">
+
+                <%  if(s.getArg().size() > 0){
+                    for(Argument arg : s.getArg()){%>
+
+                        Mat: <%=arg.getMateria()%>
+                        Lezione: <%=arg.getIndex()%>
+                        <%=arg.getDescprition()%>
+
+                    <br>
+                <%}}else{%>
+            No Arguments avaiable
+
+<%}%>
+
+        </div>
+        <form action="HomeStudentServlet" method="post">
+                <input type="hidden" name="cmd" value="matter">
+            <select name="matt" onchange='this.form.submit()'>
+                <option selected disabled hidden> <%=s.getCurrentMatter()%></option>
+
+                <% for (String mat : s.getMatter()) { %>
+                <option value="<%=mat%>">
+                    <%=mat%>
+                </option>
+                <% }%>
+            </select>
+            <noscript><input type="submit" value="Submit"/></noscript>
+        </form>
     </div>
 </div>
+<%
+    } else {
+
+        response.sendRedirect("index.jsp");
+        return;
+    }
+%>
 </body>
 </html>
