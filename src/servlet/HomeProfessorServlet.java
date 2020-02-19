@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/HomeProfessorServlet")
 public class HomeProfessorServlet extends HttpServlet {
@@ -149,6 +150,13 @@ public class HomeProfessorServlet extends HttpServlet {
                 ProfessorRegister register = chp.getRegister(p);
                 session.setAttribute("register", register);
                 response.sendRedirect("professorRegister.jsp");
+            }else if("deleteArg".equals(cmd)){
+
+                String sIndex = request.getParameter("index");
+                List<Argument> list = chp.removeArg(p.getArguments(),sIndex);
+                p.setArguments(list);
+                session.setAttribute(PROF, p);
+                rd.forward(request, response);
 
             } else {
                 throw new ToastException(ERR, "Invalid request");

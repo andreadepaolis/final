@@ -422,9 +422,6 @@ public class ControllerHomeProfessor {
             if (!inpCnt.checkDate(d))
                 throw new BasicExcpetion("Validation mark value fails");
 
-
-
-
             Grades g = new Grades(matricola, materia, voto, tipo, matricolaPr, lastname, d);
             if (!inpCnt.checkInRange(voto, 0, 10)) {
                 throw new BasicExcpetion("Validation mark value fails");
@@ -446,8 +443,30 @@ public class ControllerHomeProfessor {
         Date d = inpCnt.converDate(date);
         if (d == null || !inpCnt.checkDate(d)) {
 
-            throw new ToastException("ERR","Invalid Date");
+            throw new ToastException(ERR,"Invalid Date");
         }
         this.saveAbsence(matricola, tipo, d);
+    }
+
+
+    public List<Argument> removeArg(List<Argument> arguments, String sIndex) throws ToastException {
+
+        try {
+            int index = Integer.parseInt(sIndex);
+            for(Argument a : arguments){
+                if(a.getIndex() == index) {
+                    ProfessorDao.deleteArguments(a.getDescprition());
+                    arguments.remove(a);
+                }
+            }
+            return arguments;
+
+        }catch (NumberFormatException e){
+            throw  new ToastException(ERR,"somwthing gone wrong");
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR,e.getMessage());
+        } catch (Exception e){
+            return arguments;
+        }
     }
 }

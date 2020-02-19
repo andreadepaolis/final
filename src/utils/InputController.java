@@ -12,6 +12,7 @@ public class InputController {
         private static InputController inputController;
     
         public InputController() {
+            //controller
         }
 
         public static InputController getIstance(){

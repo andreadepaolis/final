@@ -196,4 +196,14 @@ public interface ProfessorQuery {
             throw new CustomSQLException(e);
         }
     }
+
+    static int deleteArguments(Statement stmt, String desc) throws CustomSQLException {
+        String sql = String.format("DELETE FROM arguments WHERE descrizione='%s'", desc);
+
+        try {
+            return stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new CustomSQLException(e);
+        }
+    }
 }

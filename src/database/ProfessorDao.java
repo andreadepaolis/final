@@ -452,4 +452,22 @@ public abstract class ProfessorDao {
         return result;
 
     }
+
+    public static void deleteArguments(String desc) throws CustomSQLException, CustomException {
+
+
+        try {
+            Connection con = DataBase.getInstance().getConnection();
+
+            Statement stmt = con.createStatement();
+
+             ProfessorQuery.deleteArguments(stmt, desc);
+
+
+        } catch (SQLException se) {
+            throw new CustomSQLException(se);
+        } catch (Exception e) {
+            throw new CustomException(ERR, e);
+        }
+    }
 }
