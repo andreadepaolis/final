@@ -355,4 +355,14 @@ public class ControllerHomeProfessor {
             throw new ToastException(ERR, e.getMessage());
         }
     }
+
+    public void findAndRemove(List<HomeworkBean> homework, String descprition) throws ToastException {
+
+
+          for(HomeworkBean h : homework){
+              if(h.getDescription().equals(descprition)) {
+                  this.removeHmw(h);
+              }
+          }
+    }
 }

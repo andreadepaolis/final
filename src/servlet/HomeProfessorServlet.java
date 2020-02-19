@@ -43,28 +43,17 @@ public class HomeProfessorServlet extends HttpServlet {
 
                 case "deletehmw": {
                     String descprition = request.getParameter("desc");
-                    for (HomeworkBean hmw : p.getHomework()) {
+                    chp.findAndRemove(p.getHomework(), descprition);
 
-                        if (descprition.equals(hmw.getDescription())) {
+                    Toast t = new Toast("Success", "Homework removed correctly", 2);
+                    request.setAttribute(TST, t);
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
+                    session.setAttribute(PROF, p);
+                    rd.include(request, response);
 
-                            if (chp.removeHmw(hmw)) {
-                                Toast t = new Toast("Removed", "Homework removed correctly", 2);
-                                request.setAttribute(TST, t);
-                                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
 
-                                session.setAttribute(PROF, p);
-                                rd.include(request, response);
+                     break;
 
-                            } else {
-
-                                Toast t = new Toast(ERR, "Try again", 1);
-                                request.setAttribute(TST, t);
-                                rd.include(request, response);
-                            }
-                        }
-                    }
-
-                    break;
                 }
                 case "newhw": {
                     String classe = request.getParameter("classe");
@@ -73,7 +62,7 @@ public class HomeProfessorServlet extends HttpServlet {
                     String description = request.getParameter("descrizione");
                     HomeworkBean hmwbean = chp.generateHomeworkBean(classe, description, materia, data, p.getMatricola());
 
-                    if (chp.save(hmwbean)) {
+                    chp.save(hmwbean);
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(TST, t);
@@ -81,11 +70,7 @@ public class HomeProfessorServlet extends HttpServlet {
 
                         session.setAttribute(PROF, p);
                         rd.include(request, response);
-                    } else {
-                        Toast t = new Toast(ERR, "there is an error", 1);
-                        request.setAttribute(TST, t);
-                        rd.include(request, response);
-                    }
+
                     break;
                 }
                 case "hmw":{
@@ -93,25 +78,31 @@ public class HomeProfessorServlet extends HttpServlet {
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(p.getCurrentDate());
                         String temp = request.getParameter("temp");
-                        if(temp.equals("inc")){
+                    switch (temp) {
+                        case "inc": {
 
                             cal.add(Calendar.DATE, +7);
                             p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),p.getCurrentDate());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), p.getCurrentDate());
                             p.setHomework(h);
 
 
-                        }else if(temp.equals("dec")){
+                            break;
+                        }
+                        case "dec": {
                             cal.add(Calendar.DATE, -7);
                             p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),p.getCurrentDate());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), p.getCurrentDate());
                             p.setHomework(h);
+                            break;
                         }
-                        else if(temp.equals("today")){
+                        case "today": {
                             p.setCurrentDate(new Date());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(),p.getCurrentClass(),new Date());
+                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), new Date());
                             p.setHomework(h);
+                            break;
                         }
+                    }
                         session.setAttribute(PROF,p);
                         rd.forward(request,response);
                         break;
@@ -125,17 +116,13 @@ public class HomeProfessorServlet extends HttpServlet {
                     String description = request.getParameter("description");
                     int index = chp.checkIndex(p.getArguments());
                     Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrentClass(),index+1);
-                    if(chp.saveArg(arg)) {
+                    chp.saveArg(arg);
 
 
                         Toast t = new Toast("Saved", "Homeword saved correctly", 2);
                         request.setAttribute(TST, t);
                         p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
                         session.setAttribute(PROF, p);
-                    } else{
-                        Toast t = new Toast(ERR, "Cannot save", 1);
-                        request.setAttribute(TST, t);
-                    }
                     rd.forward(request,response);
                     break;
                 }
@@ -150,7 +137,6 @@ public class HomeProfessorServlet extends HttpServlet {
             Toast t = new Toast(ERR,e.getMessage(),1);
             request.setAttribute(TST,t);
             rd.include(request,response);
-
         }
         
     }
