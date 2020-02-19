@@ -29,7 +29,7 @@
 
     <li><a href="HomeStudent.jsp">Home</a></li>
     <li>
-        <form action="HomeStudentServlet" method="post">
+        <form action="HomeStudentServlet" method="get">
             <input class="buttonNav" style="padding:14px 16px" name="cmd" type="submit" value="Grades">
         </form>
     </li>
