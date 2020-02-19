@@ -1,7 +1,4 @@
-<%@ page import="model.Professor" %>
-<%@ page import="java.util.List" %>
-<%@ page import="javax.lang.model.type.ArrayType" %>
-<%@ page import="java.util.Vector" %>
+
 <%@ page import="bean.ProfessorBean" %>
 <%@ page import="model.ScheduleInfo" %>
 <%@ page import="utils.Toast" %>
@@ -58,7 +55,7 @@
     </strong></a></li>
     <li><a style="border-bottom: 5px white solid;" href="HomeProfessor.jsp">Home</a></li>
     <li><a style="padding:0px">
-        <form action="HomeProfessorServlet" method="post">
+        <form action="HomeProfessorServlet" method="get">
             <input class="buttonNav" style="padding:14px 16px" name="cmd" type="submit" value="Register">
         </form>
     </a></li>
@@ -91,7 +88,7 @@
                 <br>
                 <div style="padding:0px 15px 15px 15px">
                     <div class="row col-sm-12" style="padding:0px">
-                        <form style="padding:0px 5px" action="HomeProfessorServlet" method="post">
+                        <form style="padding:0px 5px" action="HomeProfessorServlet" method="get">
                             <input type="hidden" name="cmd" value="change_class">
                             <select name="current_class" onchange='this.form.submit()'>
                                 <option selected disabled hidden><%=p.getCurrentClass()%>
@@ -286,7 +283,7 @@
 
                         </form>
 
-                        <form action="HomeProfessorServlet" method="post">
+                        <form action="HomeProfessorServlet" method="get">
                         <div class="col-sm-3">
                             <input type="hidden" name="cmd" value="change_matter">
                             <select name="current_matter" onchange='this.form.submit()'>
