@@ -88,7 +88,7 @@
                                     border-radius: 5px;">
                 <!-- for per voti -->
                 <%
-                    if (gpb.getCurrentMatter().getGradesForMatter() != null) {
+                    if (gpb.getCurrentMatter().getGradesForMatter().size() > 0) {
                         for (Grades g : gpb.getCurrentMatter().getGradesForMatter()) {
                             if (g.getVoto() < 6) {
                 %>
@@ -104,8 +104,7 @@
                 <!-- fine for per voti-->
                 <%
                     }
-                } else {
-                %>
+                } else {%>
                 No grades available
                 <%}%>
             </div>
