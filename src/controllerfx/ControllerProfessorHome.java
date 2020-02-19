@@ -52,7 +52,6 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
 
     private ProfessorBean professor;
 
-    public ControllerProfessorHome(){ }
 
 
     public void addHomework() throws ToastException {
@@ -60,8 +59,8 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         String materia = this.comboSubject.getValue().toString();
         String data = this.dateHomework.getValue().toString();
         String description = this.homeworkDescription.getText();
-        ControllerHomeProfessor chp = new ControllerHomeProfessor();
-        HomeworkBean hmwbean = chp.generateHomeworkBean(classe,description,materia,data,this.professor.getMatricola());
+        ControllerHomeProfessor chpHomework = new ControllerHomeProfessor();
+        HomeworkBean hmwbean = chpHomework.generateHomeworkBean(classe,description,materia,data,this.professor.getMatricola());
         this.chp.save(hmwbean);
         this.areaCompiti.appendText(hmwbean.getClasse() + " " + hmwbean.getData() + " " + hmwbean.getMateria() + "\n");
         this.areaCompiti.appendText(hmwbean.getDescription());
@@ -141,7 +140,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         }
     }
 
-    public void logout(ActionEvent actionEvent) throws IOException {
+    public void logout() throws IOException {
         this.professor = null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
         AnchorPane pane = loader.load();

@@ -2,8 +2,6 @@ package controllerfx;
 
 import bean.GradesPageBean;
 import bean.MatterBean;
-import bean.StudentBean;
-import controller.ControllerHomeStudent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -60,13 +58,13 @@ public class ControllerGradesStudentFX extends ControllerScenes implements Initi
         }
     }
 
-    public void goToHome(ActionEvent actionEvent) throws IOException {
+    public void goToHome() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/homeStudent.fxml"));
         AnchorPane pane = loader.load();
         rootGradesStudent.getChildren().setAll(pane);
     }
 
-    public void goToLogout(ActionEvent actionEvent) throws IOException {
+    public void goToLogout() throws IOException {
         this.setStudent(null);
         this.setGradesStudent(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
@@ -74,7 +72,7 @@ public class ControllerGradesStudentFX extends ControllerScenes implements Initi
         rootGradesStudent.getChildren().setAll(pane);
     }
 
-    public void goToAbsences(ActionEvent actionEvent) throws ToastException, IOException {
+    public void goToAbsences() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/absencesStudent.fxml"));
         AnchorPane pane = loader.load();
         rootGradesStudent.getChildren().setAll(pane);

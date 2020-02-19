@@ -31,8 +31,6 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
     public TextField matricolaStudente;
     public PasswordField passwordStudente;
 
-    public ControllerLogin(){} //Costruttore di default
-
     @FXML
     private AnchorPane root;
 
@@ -82,7 +80,7 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
     }
 
     @FXML
-    public void checkLoginProf(ActionEvent actionEvent) throws Exception {
+    public void checkLoginProf() throws IOException {
         String matricola = matricolaProf.getText();
         String password = passwordProf.getText();
         UserLoginBean user = generateBean(matricola , password);
@@ -105,7 +103,7 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
         this.passwordStudente.setText("password");
     }
 
-    public void loginStudent(ActionEvent actionEvent) throws IOException, ToastException {
+    public void loginStudent() throws IOException, ToastException {
         String matricola = matricolaStudente.getText();
         String password = passwordStudente.getText();
         UserLoginBean user = generateBean(matricola , password);

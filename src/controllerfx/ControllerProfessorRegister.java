@@ -50,12 +50,11 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
     private ProfessorRegister registro;
     private ProfessorBean professor;
-    private String today;
     private Month pr;
     private Month sx;
 
+    private final String URLREGISTRO = "../viewFX/profRegistro.fxml";
 
-    public ControllerProfessorRegister(){}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,7 +64,6 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
         Month m = this.registro.getCurrentMonth();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        this.today = dateFormat.format(new Date());
 
         MonthFactory mf = new MonthFactory();
         if(m.getIndex() == 1) {
@@ -78,7 +76,6 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         } else {
             this.sx = mf.createMonth(m.getIndex()+1,m.getYear());
         }
-        String materia = this.registro.getCurrentMatter();
 
         for(String i : this.professor.getMatter()){
             this.comboMateria.getItems().add(i);
@@ -106,7 +103,6 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         this.labelName.setText("Benvenuto Prof. " + this.professor.getLastname());
 
 
-        //List<ScheduleInfo> schedule = this.professor.getSchedule();
 
         TableColumn materiaCol = new TableColumn("MATERIA");
         materiaCol.setCellValueFactory(new PropertyValueFactory<>("materia"));
@@ -131,19 +127,10 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         tableVoti.setItems(values);
 
         this.curMese.setText(this.registro.getCurrentMonth().getName() + " "+ this.registro.getCurrentMonth().getYear());
-        for(StudentBean u: registro.getUsers()){
-            //System.out.println(u.getName() + " " + u.getLastname() +":\n");
-            if(u.getGrades()!= null) {
-                for (Grades g : u.getGrades()) {
-                    //System.out.println("   " + g.getNomeProfessore() + " " + g.getData() + " " + g.getVoto() + g.getMateria() + "\n");
-                }
-            }
-        }
-        System.out.println(this.registro.getCurrentClass());
 
     }
 
-    public void addVoto(ActionEvent actionEvent) throws IOException, CustomException, CustomSQLException, ToastException {
+    public void addVoto() throws IOException, CustomException, CustomSQLException, ToastException {
 
             int voto = Integer.parseInt(textVoto.getText());
             String tipo = (String) votoTipologia.getValue();
@@ -152,8 +139,8 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             int matricola = ((StudentBean) votoStudente.getValue()).getMatricola();
             int matricolaProfessore = this.professor.getMatricola();
             String nomeProfessore = this.professor.getLastname();
-            InputController inp_cnt = new InputController();
-            Date d = inp_cnt.converDate(votoData.getValue().toString());
+            InputController inpCnt = new InputController();
+            Date d = inpCnt.converDate(votoData.getValue().toString());
 
             Grades g = new Grades(matricola, materia, voto , tipo, matricolaProfessore, nomeProfessore, d);
             int result = ProfessorDao.saveGrades(g);
@@ -171,7 +158,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
             ProfessorRegister register = chp.getFullRegister(classeProf, m, materiaProf);
             this.setRegister(register);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
             AnchorPane pane = loader.load();
             rootProfRegistro.getChildren().setAll(pane);
     }
@@ -182,12 +169,12 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
             String tipo = String.valueOf(assenzaTipologia.getValue());
             int matricola = ((StudentBean) assenzaStudente.getValue()).getMatricola();
-            InputController inp_cnt = new InputController();
-            Date d = inp_cnt.converDate(assenzaData.getValue().toString());
+            InputController inpCnt = new InputController();
+            Date d = inpCnt.converDate(assenzaData.getValue().toString());
 
             Absences a = new Absences(matricola, tipo, d, 1);
 
-            int result = ProfessorDao.saveAbsence(a);
+            ProfessorDao.saveAbsence(a);
 
 
             Calendar cal = GregorianCalendar.getInstance();
@@ -203,52 +190,52 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
             ProfessorRegister register = chp.getFullRegister(classeProf, m, materiaProf);
             this.setRegister(register);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
             AnchorPane pane = loader.load();
             rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void goToPrevMese(ActionEvent actionEvent) throws IOException, ToastException {
+    public void goToPrevMese() throws IOException, ToastException {
         String month = String.valueOf(this.pr.getIndex());
         String year = String.valueOf(this.pr.getYear());
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         Month m = chp.getMonth(year, month);
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), m , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void goToNextMese(ActionEvent actionEvent) throws IOException, ToastException {
+    public void goToNextMese() throws IOException, ToastException {
         String month = String.valueOf(this.sx.getIndex());
         String year = String.valueOf(this.sx.getYear());
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         Month m = chp.getMonth(year, month);
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), m , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void goToToday(ActionEvent actionEvent) throws IOException {
+    public void goToToday() throws IOException {
         Calendar cal = Calendar.getInstance();
         MonthFactory mf = new MonthFactory();
         Month m = mf.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
         this.registro.setCurrentMonth(m);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void goToHomePage(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/professorHome.fxml"));
+    public void goToHomePage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void goToLogout(ActionEvent actionEvent) throws IOException {
+    public void goToLogout() throws IOException {
         this.setProfessor(null);
         this.setRegister(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
@@ -257,22 +244,22 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     }
 
 
-    public void cambiaClasse(ActionEvent actionEvent) throws IOException, ToastException {
+    public void cambiaClasse() throws IOException, ToastException {
         String currClasse = (String) comboClasse.getValue();
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         this.registro = chp.getFullRegister(currClasse, this.registro.getCurrentMonth() , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void changeMatter(ActionEvent actionEvent) throws IOException, ToastException {
+    public void changeMatter() throws IOException, ToastException {
         String currMateria = (String) comboMateria.getValue();
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), this.registro.getCurrentMonth() , currMateria);
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
