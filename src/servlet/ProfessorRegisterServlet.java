@@ -53,24 +53,20 @@ public class ProfessorRegisterServlet extends HttpServlet {
                         chp.deleteAbsence(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
                     else
                         chp.deleteGrades(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
-
+                    Toast t = new Toast("Succes", "delete correctly", 2);
+                    request.setAttribute(TOAST, t);
 
                 } else if ("newAbsence".equals(cmd)) {
 
-
                     String tipo = request.getParameter("tipo");
 
-                    int matricola = Integer.parseInt(request.getParameter("matricola"));
-                    InputController inpCnt = InputController.getIstance();
-                    Date d = inpCnt.converDate(request.getParameter("data"));
-                    if (d == null || !inpCnt.checkDate(d)) {
+                    String matricola = request.getParameter("matricola");
+                    String d = request.getParameter("data");
+                    chp.updateAbsence(tipo,matricola,d);
+                    Toast t = new Toast("OK!", "Absence saved correctly", 2);
+                    request.setAttribute(TOAST, t);
 
-                        Toast t = new Toast(ERROR, "Invalid Date", 1);
-                        request.setAttribute(TOAST, t);
-                        rd.forward(request, response);
-                        return;
-                    }
-                    chp.saveAbsence(matricola, tipo, d);
+
 
                 } else if ("ng".equals(cmd)) {
                     ProfessorBean p = (ProfessorBean) session.getAttribute(PR);
@@ -82,7 +78,7 @@ public class ProfessorRegisterServlet extends HttpServlet {
                     String d = request.getParameter("data");
                     chp.generateGradesAndSave(stvoto,tipo,materia,matricola,p.getMatricola(),p.getLastname(),d);
 
-                    Toast t = new Toast("ok", "saved correctly", 2);
+                    Toast t = new Toast("Ok!", " Grades saved correctly", 2);
                     request.setAttribute(TOAST, t);
 
 

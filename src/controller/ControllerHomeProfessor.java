@@ -438,4 +438,16 @@ public class ControllerHomeProfessor {
         }
 
     }
+
+    public void updateAbsence(String tipo, String smatricola, String date) throws ToastException {
+
+        InputController inpCnt = InputController.getIstance();
+        int matricola = Integer.parseInt(smatricola);
+        Date d = inpCnt.converDate(date);
+        if (d == null || !inpCnt.checkDate(d)) {
+
+            throw new ToastException("ERR","Invalid Date");
+        }
+        this.saveAbsence(matricola, tipo, d);
+    }
 }

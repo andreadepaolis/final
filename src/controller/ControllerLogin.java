@@ -45,9 +45,9 @@ public class ControllerLogin {
             if (p != null) {
 
                 pb = new ProfessorBean();
-                pb.setMatricola(p.getMatricola());
-                pb.setLastname(p.getLastname());
-                pb.setName(p.getName());
+                pb.setMatricola(p.getpMatricola());
+                pb.setLastname(p.getpLastname());
+                pb.setName(p.getpName());
                 pb.setCurrentDate(new Date());
             } else {
                 throw new BasicExcpetion("invalid matricola or password");

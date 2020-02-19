@@ -2,39 +2,39 @@ package model;
 
 public class Professor {
 
-    private String name;
-    private String lastname;
-    private int matricola;
+    private String pName;
+    private String pLastname;
+    private int pMatricola;
 
 
-    public Professor(String name, String lastname,int matricola){
-        this.name = name;
-        this.lastname = lastname;
-        this.matricola = matricola;
+    public Professor(String pName, String pLastname, int pMatricola){
+        this.pName = pName;
+        this.pLastname = pLastname;
+        this.pMatricola = pMatricola;
     }
 
-    public String getName() {
-        return name;
+    public String getpName() {
+        return pName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getpLastname() {
+        return pLastname;
     }
 
-    public int getMatricola() {
-        return matricola;
+    public int getpMatricola() {
+        return pMatricola;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setpLastname(String pLastname) {
+        this.pLastname = pLastname;
     }
 
-    public void setMatricola(int matricola) {
-        this.matricola = matricola;
+    public void setpMatricola(int pMatricola) {
+        this.pMatricola = pMatricola;
     }
 
 }

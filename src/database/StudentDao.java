@@ -98,17 +98,17 @@ public abstract class StudentDao {
 
             if (!rs.first()) {
                 return allGrades;
-
             }
 
             // riposizionamento del cursore
             rs.first();
             do {
-                String materia = rs.getString(MATTER);
-                int voto = rs.getInt("voto");
                 String professor = rs.getString("nomeProfessore");
                 String tipo = rs.getString("tipo");
                 Date data = rs.getDate("data");
+                String materia = rs.getString(MATTER);
+                int voto = rs.getInt("voto");
+
 
                 Grades g = new Grades(materia, voto, tipo, professor, data);
 
