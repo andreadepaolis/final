@@ -9,7 +9,7 @@ public class MatterBean implements Serializable {
 
     private String materia;
     private String professor;
-    private float media;
+    private double media;
     private List<Grades> gradesForMatter;
 
 
@@ -34,7 +34,7 @@ public class MatterBean implements Serializable {
         return professor;
     }
 
-    public float getMedia() {
+    public double getMedia() {
         return media;
     }
 
@@ -46,7 +46,7 @@ public class MatterBean implements Serializable {
         this.gradesForMatter = gradesForMatter;
     }
 
-    public void setMedia(float media) {
+    public void setMedia(double media) {
         this.media = media;
     }
 }

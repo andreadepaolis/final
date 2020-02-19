@@ -143,19 +143,20 @@ public class ControllerHomeStudent {
             if (matter != null) {
                 for (String m : matter) {
                     MatterBean mb = new MatterBean();
-                    float media;
+                    double media;
                     mb.setMateria(m);
                     List<Grades> g = StudentDao.getMyGrades(matricola, m);
                     if (g != null) {
                         media = this.avg(g);
                     } else
                         media = 0;
+
                     mb.setMedia(media);
                     mb.setGradesForMatter(g);
                     list.add(mb);
                 }
             }
-            return list;
+            return this.sortByDateMatterList(list);
 
         }catch (CustomSQLException | CustomException e){
 
@@ -163,21 +164,31 @@ public class ControllerHomeStudent {
         }
     }
 
-    private float avg(List<Grades> g){
+    private List<MatterBean> sortByDateMatterList(List<MatterBean> list) {
 
-        float media = 0;
+        for (MatterBean m:list) {
+
+            m.getGradesForMatter().sort(Comparator.comparing(Grades::getData));
+
+        }
+        return list;
+    }
+
+    private double avg(List<Grades> g){
+
+        double media = 0;
         int count = 0;
         for(Grades temp : g){
             media += temp.getVoto();
             count ++;
         }
         if(count != 0)
-            return media/count;
+            return Math.round(media/count * 10) / 10.0;
         else
              return 0;
     }
 
-    public List<Argument> reload(String currentMatter, String classe) throws ToastException {
+    private List<Argument> reload(String currentMatter, String classe) throws ToastException {
 
         try {
             return StudentDao.getArgumentsForMatter(currentMatter, classe);

@@ -4,9 +4,11 @@ import bean.HomeworkBean;
 import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import model.Argument;
-import utils.*;
 import register.ProfessorRegister;
+import utils.BasicExcpetion;
 import utils.Toast;
+import utils.ToastException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
 
 @WebServlet("/HomeProfessorServlet")
 public class HomeProfessorServlet extends HttpServlet {
