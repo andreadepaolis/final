@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="438.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerFX.ControllerProfessorHome">
+   <children>
+      <GridPane layoutX="171.0" layoutY="129.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <GridPane layoutX="43.0" layoutY="125.0" prefHeight="400.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="177.0" layoutY="6.0" text="Vedi Compiti" />
+                              <Label layoutX="22.0" layoutY="164.0" text="Classe" />
+                              <Label layoutX="149.0" layoutY="164.0" text="Subject" />
+                              <Label layoutX="278.0" layoutY="164.0" text="Date" />
+                              <DatePicker fx:id="dateHomework" layoutX="278.0" layoutY="178.0" prefHeight="25.0" prefWidth="120.0" />
+                              <ComboBox fx:id="comboSubject" layoutX="149.0" layoutY="178.0" prefWidth="120.0" />
+                              <ComboBox fx:id="comboClasse" layoutX="21.0" layoutY="178.0" prefWidth="120.0" />
+                              <TextArea fx:id="areaCompiti" layoutX="41.0" layoutY="30.0" prefHeight="125.0" prefWidth="350.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <TextArea fx:id="homeworkDescription" layoutX="40.0" layoutY="33.0" prefHeight="125.0" prefWidth="350.0" />
+                              <Button fx:id="butSave" layoutX="190.0" layoutY="164.0" mnemonicParsing="false" onAction="#addHomework" text="SAVE" />
+                              <Label layoutX="176.0" layoutY="14.0" text="Scrivi compiti" />
+                           </children></AnchorPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <GridPane layoutX="50.0" layoutY="137.0" prefHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tableSchedule" layoutX="10.0" layoutY="40.0" prefHeight="150.0" prefWidth="350.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Orario" />
+                                    <TableColumn prefWidth="75.0" text="LUN" />
+                                    <TableColumn prefWidth="75.0" text="MAR" />
+                                    <TableColumn prefWidth="75.0" text="MER" />
+                                    <TableColumn prefWidth="75.0" text="GIO" />
+                                    <TableColumn prefWidth="75.0" text="VEN" />
+                                    <TableColumn prefWidth="75.0" text="SAB" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="butRegistro" layoutX="292.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToRegistro" prefWidth="60.0" text="Registro" />
+                              <Button layoutX="210.0" layoutY="6.0" mnemonicParsing="false" prefWidth="60.0" text="Home" />
+                              <Button layoutX="373.0" layoutY="6.0" mnemonicParsing="false" prefWidth="60.0" text="Logout" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label layoutX="154.0" layoutY="6.0" text="Guarda argomenti trattati" />
+                              <TextArea layoutX="50.0" layoutY="25.0" prefHeight="150.0" prefWidth="248.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

@@ -27,7 +27,7 @@ class DataBase {
             if (con == null) {
                 String password = "password";
                 String userName = "root";
-                String url = "jdbc:mysql://localhost:3306/project12";
+                String url = "jdbc:mysql://localhost:3306/project12?serverTimezone=Europe/Rome";
                 con = DriverManager.getConnection(url, userName, password);
             }
             return con;
