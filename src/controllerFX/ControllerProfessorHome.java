@@ -1,4 +1,4 @@
-package controllerFX;
+package controllerfx;
 
 import bean.HomeworkBean;
 import bean.ProfessorBean;

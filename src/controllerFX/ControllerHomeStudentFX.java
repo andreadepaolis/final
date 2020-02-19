@@ -1,4 +1,4 @@
-package controllerFX;
+package controllerfx;
 
 import bean.GradesPageBean;
 import bean.StudentBean;
@@ -15,10 +15,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import model.Grades;
 import model.Homework;
 import model.ScheduleInfo;
-import model.Student;
 import utils.OrariInfo;
 import utils.ToastException;
 
@@ -27,7 +25,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 

@@ -1,18 +1,10 @@
-package controllerFX;
+package controllerfx;
 
 import bean.GradesPageBean;
 import bean.ProfessorBean;
 import bean.StudentBean;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Grades;
-import model.Professor;
 import register.ProfessorRegister;
-import register.Register;
-
-import java.io.IOException;
 
 public class ControllerScenes {
     private Stage primaryStage;

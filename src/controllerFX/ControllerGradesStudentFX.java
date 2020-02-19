@@ -1,4 +1,4 @@
-package controllerFX;
+package controllerfx;
 
 import bean.GradesPageBean;
 import bean.MatterBean;

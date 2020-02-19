@@ -1,4 +1,4 @@
-package controllerFX;
+package controllerfx;
 
 import bean.ProfessorBean;
 import bean.StudentBean;
@@ -15,7 +15,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Professor;
-import model.Student;
 import utils.BasicExcpetion;
 import utils.CustomException;
 import utils.ToastException;
