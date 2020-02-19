@@ -204,7 +204,7 @@ public class HomeProfessorServlet extends HttpServlet {
                     break;
                 }
                 default:{
-                    throw  new ToastException(ERR,"invalid request");
+                    throw  new ToastException(ERR,"Invalid request");
                 }
             }
 

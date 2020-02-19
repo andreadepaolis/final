@@ -48,23 +48,21 @@ public class HomeStudentServlet extends HttpServlet {
 
                 String temp = request.getParameter("temp");
                 switch (temp) {
-                    case "inc": {
-
-                        chs.updateHomework(s, 1);
-
+                    case "inc":
+                        s = chs.updateHomework(s, 1);
                         break;
-                    }
-                    case "dec": {
+
+                    case "dec":
                         s = chs.updateHomework(s, -1);
+                        break;
 
-                        break;
-                    }
-                    case "today": {
+                    case "today":
                         s = chs.updateHomework(s, 0);
-                    }
-                    default: {
                         break;
-                    }
+
+                    default:
+                        break;
+
                 }
                 session.setAttribute(STD, s);
                 rd.forward(request, response);
@@ -89,7 +87,6 @@ public class HomeStudentServlet extends HttpServlet {
 
 
             if (cmd.equals("Grades")) {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeStudent.jsp");
                 ControllerHomeStudent chs = new ControllerHomeStudent();
                 GradesPageBean page = chs.fullGradesPage(s);
                 session.setAttribute("gradesPage", page);
