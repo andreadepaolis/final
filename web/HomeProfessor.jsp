@@ -258,11 +258,20 @@
                                     background-color: white !important;
                                     border-radius: 5px;">
                         <% if (p.getArguments() != null && p.getArguments().size() > 0) {
-                            for (Argument arg : p.getArguments()) {%>
-
-                        <b>Lezione <%=arg.getIndex()%>
+                            int count = 0;
+                            for (Argument arg : p.getArguments()) {
+                                count++;
+                        %>
+                        <form action="HomeProfessorServlet" method="get">
+                                <span class="close" align="right"><input
+                                        style="background-color: transparent; border:0px" type="submit" value="&times"></span>
+                            <input type="hidden" name="cmd" value="deleteArg">
+                            <input type="hidden" name="index" value="<%=arg.getIndex()%>">
+                        </form>
+                        <b>Lezione <%=count%>
                         </b>:<br> <%=arg.getDescprition()%><br>
                         <hr style="margin:8px">
+
                         <%
                             }
                         } else {
