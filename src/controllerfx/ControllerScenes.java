@@ -3,38 +3,33 @@ package controllerfx;
 import bean.GradesPageBean;
 import bean.ProfessorBean;
 import bean.StudentBean;
-import javafx.stage.Stage;
 import register.ProfessorRegister;
 
 public class ControllerScenes {
-    private Stage primaryStage;
-    private String currentURL;
-    private static ProfessorBean professor;
-    private static ProfessorRegister register;
-    private static StudentBean student;
-    private static GradesPageBean grades;
+    public static ProfessorBean professor;
+    public static ProfessorRegister register;
+    public static StudentBean student;
+    public static GradesPageBean grades;
 
-    public ControllerScenes(){}
+    public ProfessorBean getCurrentProfessor(){ return professor; }
 
-    public ProfessorBean getCurrentProfessor(){ return this.professor; }
-
-    public void setProfessor(ProfessorBean professor){
-        this.professor = professor;
+    public void setProfessor(ProfessorBean professore){
+        professor = professore;
     }
 
     public ProfessorRegister getCurrentRegister() {
         return register;
     }
 
-    public void setRegister(ProfessorRegister register){
-        this.register = register;
+    public void setRegister(ProfessorRegister registro){
+        register = registro;
     }
 
-    public StudentBean getCurrentStudent(){ return this.student;}
+    public StudentBean getCurrentStudent(){ return student;}
 
-    public void setStudent(StudentBean student){this.student = student;}
+    public void setStudent(StudentBean studente){student = studente;}
 
-    public GradesPageBean getCurrentGradesPage(){ return this.grades;}
+    public GradesPageBean getCurrentGradesPage(){ return grades;}
 
-    public void setGradesStudent(GradesPageBean grades){this.grades = grades;}
+    public void setGradesStudent(GradesPageBean voti){grades = voti;}
 }
