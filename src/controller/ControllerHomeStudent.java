@@ -186,4 +186,22 @@ public class ControllerHomeStudent {
         }
 
     }
+
+    public StudentBean updateHomework(StudentBean s, int i) throws ToastException {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(s.getCurrentDate());
+        cal.add(Calendar.DATE, i);
+        s.setCurrentDate(cal.getTime());
+        List<Homework> h = this.scrollHomework(s.getClasse(), s.getCurrentDate());
+        s.setHomework(h);
+        return s;
+    }
+
+    public StudentBean changeMatter(StudentBean s, String mat) throws ToastException {
+
+        s.setCurrentMatter(mat);
+        s.setArg(this.reload(s.getCurrentMatter(), s.getClasse()));
+        return s;
+    }
 }

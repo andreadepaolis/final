@@ -101,6 +101,8 @@ public class HomeProfessorServlet extends HttpServlet {
                             List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), new Date());
                             p.setHomework(h);
                             break;
+                        } default:{
+                            throw new ToastException(ERR,"invalid request");
                         }
                     }
                         session.setAttribute(PROF,p);
