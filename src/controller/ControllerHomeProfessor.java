@@ -365,4 +365,32 @@ public class ControllerHomeProfessor {
               }
           }
     }
+
+    public ProfessorBean updateHomeworkView(ProfessorBean p,int amount) throws ToastException {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(p.getCurrentDate());
+        cal.add(Calendar.DATE, amount);
+        p.setCurrentDate(cal.getTime());
+        List<HomeworkBean> h = this.scrollHomework(p.getMatricola(), p.getCurrentClass(), p.getCurrentDate());
+        p.setHomework(h);
+        return p;
+    }
+
+    public ProfessorRegister getRegister(ProfessorBean p) throws ToastException {
+
+
+        Calendar cal = Calendar.getInstance();
+        MonthFactory f = new MonthFactory();
+        Date d = new Date();
+        cal.setTime(d);
+        Month m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+
+        String materia = p.getMatter().get(0);
+        String classe = p.getClassi().get(0);
+        ProfessorRegister register = this.getFullRegister(classe, m, materia);
+
+        if (register == null) throw new ToastException(ERR,"Critical Error");
+        return register;
+    }
 }

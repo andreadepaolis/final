@@ -39,100 +39,70 @@ public class HomeProfessorServlet extends HttpServlet {
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
 
-            switch (cmd) {
+            if ("deletehmw".equals(cmd)) {
+                String descprition = request.getParameter("desc");
+                chp.findAndRemove(p.getHomework(), descprition);
 
-                case "deletehmw": {
-                    String descprition = request.getParameter("desc");
-                    chp.findAndRemove(p.getHomework(), descprition);
-
-                    Toast t = new Toast("Success", "Homework removed correctly", 2);
-                    request.setAttribute(TST, t);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
-                    session.setAttribute(PROF, p);
-                    rd.include(request, response);
+                Toast t = new Toast("Success", "Homework removed correctly", 2);
+                request.setAttribute(TST, t);
+                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
+                session.setAttribute(PROF, p);
+                rd.include(request, response);
 
 
-                     break;
+            } else if ("newhw".equals(cmd)) {
+                String classe = request.getParameter("classe");
+                String materia = request.getParameter("materia");
+                String data = request.getParameter("data");
+                String description = request.getParameter("descrizione");
+                HomeworkBean hmwbean = chp.generateHomeworkBean(classe, description, materia, data, p.getMatricola());
 
-                }
-                case "newhw": {
-                    String classe = request.getParameter("classe");
-                    String materia = request.getParameter("materia");
-                    String data = request.getParameter("data");
-                    String description = request.getParameter("descrizione");
-                    HomeworkBean hmwbean = chp.generateHomeworkBean(classe, description, materia, data, p.getMatricola());
+                chp.save(hmwbean);
 
-                    chp.save(hmwbean);
+                Toast t = new Toast("Saved", "Homeword saved correctly", 2);
+                request.setAttribute(TST, t);
+                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
 
-                        Toast t = new Toast("Saved", "Homeword saved correctly", 2);
-                        request.setAttribute(TST, t);
-                        p.setHomework(chp.updateHomeworkList(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
+                session.setAttribute(PROF, p);
+                rd.include(request, response);
+            } else if ("hmw".equals(cmd)) {
 
-                        session.setAttribute(PROF, p);
-                        rd.include(request, response);
-
-                    break;
-                }
-                case "hmw":{
-
-                        Calendar cal = Calendar.getInstance();
-                        cal.setTime(p.getCurrentDate());
-                        String temp = request.getParameter("temp");
-                    switch (temp) {
-                        case "inc": {
-
-                            cal.add(Calendar.DATE, +7);
-                            p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), p.getCurrentDate());
-                            p.setHomework(h);
-
-
-                            break;
-                        }
-                        case "dec": {
-                            cal.add(Calendar.DATE, -7);
-                            p.setCurrentDate(cal.getTime());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), p.getCurrentDate());
-                            p.setHomework(h);
-                            break;
-                        }
-                        case "today": {
-                            p.setCurrentDate(new Date());
-                            List<HomeworkBean> h = chp.scrollHomework(p.getMatricola(), p.getCurrentClass(), new Date());
-                            p.setHomework(h);
-                            break;
-                        } default:{
-                            throw new ToastException(ERR,"invalid request");
-                        }
-                    }
-                        session.setAttribute(PROF,p);
-                        rd.forward(request,response);
+                String temp = request.getParameter("temp");
+                switch (temp) {
+                    case "inc":
+                        p = chp.updateHomeworkView(p,+7);
                         break;
 
+                    case "dec":
+                        p = chp.updateHomeworkView(p,-7);
+
+                        break;
+
+                    case "today":
+                        p = chp.updateHomeworkView(p,0);
+                        break;
+
+                    default:
+                        throw new ToastException(ERR, "invalid request");
+
                 }
-
-                case "newArg":{
-
-
-                    String materia = p.getCurrentMatter();
-                    String description = request.getParameter("description");
-                    int index = chp.checkIndex(p.getArguments());
-                    Argument arg = new Argument(p.getMatricola(),description,materia,p.getCurrentClass(),index+1);
-                    chp.saveArg(arg);
-
-
-                        Toast t = new Toast("Saved", "Homeword saved correctly", 2);
-                        request.setAttribute(TST, t);
-                        p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getCurrentMatter()));
-                        session.setAttribute(PROF, p);
-                    rd.forward(request,response);
-                    break;
-                }
+                session.setAttribute(PROF, p);
+                rd.forward(request, response);
+            } else if ("newArg".equals(cmd)) {
+                String materia = p.getCurrentMatter();
+                String description = request.getParameter("description");
+                int index = chp.checkIndex(p.getArguments());
+                Argument arg = new Argument(p.getMatricola(), description, materia, p.getCurrentClass(), index + 1);
+                chp.saveArg(arg);
 
 
-                default:{
-                    throw  new ToastException(ERR,"invalid request");
-                }
+                Toast t = new Toast("Saved", "Homeword saved correctly", 2);
+                request.setAttribute(TST, t);
+                p.setArguments(chp.reloadArgument(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
+                session.setAttribute(PROF, p);
+                rd.forward(request, response);
+            } else {
+                throw new ToastException(ERR, "invalid request");
             }
 
         }catch(Exception e){
@@ -157,55 +127,30 @@ public class HomeProfessorServlet extends HttpServlet {
             ProfessorBean p = (ProfessorBean) session.getAttribute(PROF);
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
-            switch (cmd) {
+            if ("change_class".equals(cmd)) {
+                String newClass = request.getParameter("current_class");
+                p.setCurrentClass(newClass);
+                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), p.getCurrentMatter()));
+                p.setArguments(chp.reloadArgument(p.getMatricola(), p.getCurrentClass(), p.getMatter().get(0)));
+                session.setAttribute(PROF, p);
+                rd.forward(request, response);
 
-                case "change_class":{
-                    String newClass = request.getParameter("current_class");
-                    p.setCurrentClass(newClass);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getMatter().get(0)));
-                    session.setAttribute(PROF,p);
-                    rd.forward(request,response);
-                    return;
-
-
-                }
-
-                case "change_matter":{
-
-                    String newMatter = request.getParameter("current_matter");
-                    p.setCurrentMatter(newMatter);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),newMatter));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),newMatter));
-                    session.setAttribute(PROF,p);
-                    rd.forward(request,response);
-                    return;
-
-                }
-                case "Register": {
-                    //mont //1 materia //1 classe e il registro
-
-                    Calendar cal = Calendar.getInstance();
-                    MonthFactory f = new MonthFactory();
-                    Date d = new Date();
-                    cal.setTime(d);
-                    Month m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
-
-                    String materia = p.getMatter().get(0);
-                    String classe = p.getClassi().get(0);
-                        ProfessorRegister register = chp.getFullRegister(classe, m, materia);
+            } else if ("change_matter".equals(cmd)) {
+                String newMatter = request.getParameter("current_matter");
+                p.setCurrentMatter(newMatter);
+                p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(), newMatter));
+                p.setArguments(chp.reloadArgument(p.getMatricola(), p.getCurrentClass(), newMatter));
+                session.setAttribute(PROF, p);
+                rd.forward(request, response);
 
 
-                        if (register == null) throw new ToastException(ERR,"Critical Error");
-
-                        session.setAttribute("register", register);
-                        response.sendRedirect("professorRegister.jsp");
-
-                    break;
-                }
-                default:{
-                    throw  new ToastException(ERR,"Invalid request");
-                }
+            } else if ("Register".equals(cmd)) {//mont //1 materia //1 classe e il registro
+                ProfessorRegister register = chp.getRegister(p);
+                session.setAttribute("register", register);
+                response.sendRedirect("professorRegister.jsp");
+                
+            } else {
+                throw new ToastException(ERR, "Invalid request");
             }
 
 
