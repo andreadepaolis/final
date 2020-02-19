@@ -102,7 +102,7 @@
                 &nbsp;&nbsp;
             </form>
 
-            <form action="ProfessorRegisterServlet" method="post">
+            <form action="ProfessorRegisterServlet" method="get">
                 <select name="materia" onchange='this.form.submit()'>
                     <option selected disabled hidden> Materia</option>
                     <% for (String s : p.getMatter()) { %>
@@ -134,7 +134,7 @@
                 <input class="buttonSave" type="submit" value=">">
             </form>
 
-            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="post">
+            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="get">
                 <input type="hidden" name="cmd" value="today">
                 <input class="buttonSave" type="submit" value="Today">
             </form>
@@ -240,7 +240,7 @@
             <div class="col-sm-2"
                  style="background-color: transparent; border: 0px; color:white; padding: 0px 0px 0px 15px"
                  align="center">
-                <form action="ProfessorRegisterServlet" method="post">
+                <form action="ProfessorRegisterServlet" method="get">
                     <br><br>
                     <div align="center" class="col-sm-12"><h5>Extract a random student:</h5></div>
                     <br>
