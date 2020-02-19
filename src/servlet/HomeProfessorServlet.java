@@ -41,32 +41,6 @@ public class HomeProfessorServlet extends HttpServlet {
 
             switch (cmd) {
 
-                case "change_class":{
-                    String newClass = request.getParameter("current_class");
-                    p.setCurrentClass(newClass);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getMatter().get(0)));
-                    session.setAttribute(PROF,p);
-                    rd.forward(request,response);
-                    return;
-
-
-                }
-
-                case "change_matter":{
-
-                    String newMatter = request.getParameter("current_matter");
-                    p.setCurrentMatter(newMatter);
-                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),newMatter));
-                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),newMatter));
-                    session.setAttribute(PROF,p);
-                    rd.forward(request,response);
-                    return;
-
-                }
-
-
-
                 case "deletehmw": {
                     String descprition = request.getParameter("desc");
                     for (HomeworkBean hmw : p.getHomework()) {
@@ -167,32 +141,8 @@ public class HomeProfessorServlet extends HttpServlet {
                 }
 
 
-                case "Register": {
-                    //mont //1 materia //1 classe e il registro
-
-                    Calendar cal = Calendar.getInstance();
-                    MonthFactory f = new MonthFactory();
-                    Date d = new Date();
-                    cal.setTime(d);
-                    Month m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
-
-                    String materia = p.getMatter().get(0);
-                    String classe = p.getClassi().get(0);
-                    try {
-                        ProfessorRegister register = chp.getFullRegister(classe, m, materia);
-
-
-                        if (register == null) throw new BasicExcpetion("Critical Error");
-
-                        session.setAttribute("register", register);
-                        response.sendRedirect("professorRegister.jsp");
-                    } catch (Exception e) {
-                          response.sendRedirect("index.jsp");
-                    }
-
-                    break;
-                } default:{
-                    break;
+                default:{
+                    throw  new ToastException(ERR,"invalid request");
                 }
             }
 
@@ -206,7 +156,77 @@ public class HomeProfessorServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       //doGet
 
+
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeProfessor.jsp");
+        try {
+            HttpSession session = request.getSession(false);
+            if (session.getAttribute(PROF) == null) {
+                response.sendRedirect("index.jsp");
+            }
+            String cmd = request.getParameter("cmd");
+            ProfessorBean p = (ProfessorBean) session.getAttribute(PROF);
+            ControllerHomeProfessor chp = new ControllerHomeProfessor();
+
+            switch (cmd) {
+
+                case "change_class":{
+                    String newClass = request.getParameter("current_class");
+                    p.setCurrentClass(newClass);
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),p.getCurrentMatter()));
+                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),p.getMatter().get(0)));
+                    session.setAttribute(PROF,p);
+                    rd.forward(request,response);
+                    return;
+
+
+                }
+
+                case "change_matter":{
+
+                    String newMatter = request.getParameter("current_matter");
+                    p.setCurrentMatter(newMatter);
+                    p.setHomework(chp.updateHomeworkList(p.getMatricola(), p.getCurrentClass(),newMatter));
+                    p.setArguments(chp.reloadArgument(p.getMatricola(),p.getCurrentClass(),newMatter));
+                    session.setAttribute(PROF,p);
+                    rd.forward(request,response);
+                    return;
+
+                }
+                case "Register": {
+                    //mont //1 materia //1 classe e il registro
+
+                    Calendar cal = Calendar.getInstance();
+                    MonthFactory f = new MonthFactory();
+                    Date d = new Date();
+                    cal.setTime(d);
+                    Month m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+
+                    String materia = p.getMatter().get(0);
+                    String classe = p.getClassi().get(0);
+                        ProfessorRegister register = chp.getFullRegister(classe, m, materia);
+
+
+                        if (register == null) throw new ToastException(ERR,"Critical Error");
+
+                        session.setAttribute("register", register);
+                        response.sendRedirect("professorRegister.jsp");
+
+                    break;
+                }
+                default:{
+                    throw  new ToastException(ERR,"invalid request");
+                }
+            }
+
+
+        } catch (ToastException te){
+
+            Toast t = new Toast(te.getTitle(), te.getMessage(), 1);
+            request.setAttribute(TST, t);
+            rd.forward(request,response);
+
+        }
     }
 }

@@ -29,7 +29,7 @@ public abstract class StudentDao {
 
     public static StudentBean validate(int matricola, String password) throws SQLException, BasicExcpetion {
 
-
+        try{
         DataBase db = DataBase.getInstance();
         Connection con = db.getConnection();
 
@@ -50,14 +50,17 @@ public abstract class StudentDao {
 
         } else
             throw new BasicExcpetion("Cannot found any student");
+    } catch(BasicExcpetion e){
+         throw new BasicExcpetion(e.getMessage());
+        }
     }
 
     public static Student getUserById(int id) {
 
         DataBase db = DataBase.getInstance();
-        Connection con = db.getConnection();
 
         try {
+            Connection con = db.getConnection();
             Statement stmt = con.createStatement();
 
             ResultSet rs = StudentQuery.getById(stmt, id);
@@ -170,9 +173,10 @@ public abstract class StudentDao {
         List<Homework> allHomework = new ArrayList<>();
 
         DataBase db = DataBase.getInstance();
-        Connection con = db.getConnection();
 
         try {
+            Connection con = db.getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = StudentQuery.getHomework(stmt, classe);
@@ -202,11 +206,12 @@ public abstract class StudentDao {
 
     public static List<ScheduleInfo> getSchedule(String classe) throws CustomSQLException, CustomException {
         DataBase db = DataBase.getInstance();
-        Connection con = db.getConnection();
 
         List<ScheduleInfo> si = new ArrayList<>();
 
         try {
+            Connection con = db.getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = StudentQuery.getSchedule(stmt, classe);
@@ -322,7 +327,7 @@ public abstract class StudentDao {
     public static String getPin(int id) throws CustomSQLException, CustomException {
         Statement stmt;
         Connection con;
-        String pin = null;
+        String pin;
         try {
 
             DataBase db = DataBase.getInstance();
@@ -355,10 +360,12 @@ public abstract class StudentDao {
     }
 
     public static int updateAbsence(Absences a) throws CustomSQLException, CustomException {
-        Connection con = DataBase.getInstance().getConnection();
         Statement stmt = null;
         int result;
         try {
+
+            Connection con = DataBase.getInstance().getConnection();
+
             stmt = con.createStatement();
 
             result = StudentQuery.updateAbsences(stmt, a.getData(), a.getMatricolaStudente());
@@ -382,10 +389,11 @@ public abstract class StudentDao {
 
     public static List<Argument> getArgumentsForMatter(String currentMatter, String classe) throws CustomSQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
 
         List<Argument> list = new ArrayList<>();
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = StudentQuery.getArgument(stmt, currentMatter, classe);

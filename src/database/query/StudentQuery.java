@@ -12,7 +12,7 @@ public interface  StudentQuery {
 
 
 
-     static ResultSet login(Statement stmt, int matricola, String password) throws SQLException {
+     static ResultSet login(Statement stmt, int matricola, String password) throws CustomSQLException {
         String sql = String.format("SELECT * FROM users where matricola ='%d' AND password = '%s'", matricola, password);
         try {
             return stmt.executeQuery(sql);

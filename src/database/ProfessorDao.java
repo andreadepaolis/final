@@ -34,10 +34,11 @@ public abstract class ProfessorDao {
 
 
         DataBase db = DataBase.getInstance();
-        Connection con = db.getConnection();
 
 
         try {
+            Connection con = db.getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.login(stmt, matricola, password);
@@ -54,7 +55,7 @@ public abstract class ProfessorDao {
             throw new CustomSQLException(s);
 
         } catch (Exception e) {
-            throw new CustomException("Login error", e);
+            throw new CustomException(e.getMessage(), e);
 
         }
         return null;
@@ -137,8 +138,9 @@ public abstract class ProfessorDao {
     public static List<HomeworkBean> getHomework(int professorId, String classe) throws CustomSQLException, CustomException {
 
         List<HomeworkBean> list = new ArrayList<>();
-        Connection con = DataBase.getInstance().getConnection();
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.getHomework(stmt, professorId);
@@ -169,10 +171,11 @@ public abstract class ProfessorDao {
     public static int newHomework(Homework h) throws CustomException, CustomSQLException {
 
 
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewHomework(stmt, h);
@@ -258,10 +261,11 @@ public abstract class ProfessorDao {
 
     public static int saveGrades(Grades g) throws CustomSQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewGrades(stmt, g);
@@ -278,10 +282,11 @@ public abstract class ProfessorDao {
 
     public static List<Student> getClasse(String classe) throws CustomSQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
 
         List<Student> list = new ArrayList<>();
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.getStudentsOfClass(stmt, classe);
@@ -331,10 +336,11 @@ public abstract class ProfessorDao {
 
     public static int deleteAbsence(int matricola, Date d) {
 
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             result = ProfessorQuery.deleteAbsences(stmt, matricola, d);
@@ -349,11 +355,13 @@ public abstract class ProfessorDao {
 
     public static int deleteGrades(int matricola, Date d, String currentMatter) throws CustomSQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
+
 
             result = ProfessorQuery.deleteGrades(stmt, matricola, d, currentMatter);
 
@@ -366,10 +374,11 @@ public abstract class ProfessorDao {
     }
 
     public static int deleteHomework(String description) throws CustomSQLException, CustomException {
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             result = ProfessorQuery.deleteHomework(stmt, description);
@@ -385,10 +394,11 @@ public abstract class ProfessorDao {
 
     public static List<Argument> getArguments(int matricola, String s,String matter) throws CustomSQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
 
         List<Argument> list = new ArrayList<>();
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             Statement stmt = con.createStatement();
 
             ResultSet rs = ProfessorQuery.getArgument(stmt, matricola, s);
@@ -420,11 +430,12 @@ public abstract class ProfessorDao {
 
     public static int saveArgument(Argument arg) throws SQLException, CustomException {
 
-        Connection con = DataBase.getInstance().getConnection();
         int result = 0;
         Statement stmt = null;
 
         try {
+            Connection con = DataBase.getInstance().getConnection();
+
             stmt = con.createStatement();
 
             result = ProfessorQuery.saveNewArg(stmt, arg.getMatricolaProfessore(), arg.getClasse(), arg.getDescprition(), arg.getMateria(), arg.getIndex());

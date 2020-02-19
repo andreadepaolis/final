@@ -4,6 +4,7 @@ import bean.StudentBean;
 import controller.ControllerStudent;
 import model.Absences;
 import utils.Toast;
+import utils.ToastException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,8 +71,11 @@ public class ParentalControlServlet extends HttpServlet {
 
 
 
-         } catch(Exception e){
-            response.sendRedirect("index.jsp");
+         } catch(ToastException t){
+
+            Toast ts = new Toast(t.getTitle(),t.getMessage(),1);
+            request.setAttribute(tst,ts);
+            rd.include(request,response);
         }
     }
 

@@ -1,8 +1,11 @@
 package database;
 
+import utils.BasicExcpetion;
+import utils.CustomSQLException;
+
 import java.sql.*;
 
-public class DataBase {
+class DataBase {
 
     private static DataBase db;
     private  Connection con ;
@@ -18,7 +21,7 @@ public class DataBase {
         return db;
     }
 
-    Connection getConnection() {
+    Connection getConnection() throws  SQLException {
 
         try {
             String driver = "com.mysql.cj.jdbc.Driver";
@@ -30,8 +33,8 @@ public class DataBase {
                 con = DriverManager.getConnection(url, userName, password);
             }
             return con;
-        } catch (Exception e) {
-            return con;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new SQLException(e);
         }
     }
 
