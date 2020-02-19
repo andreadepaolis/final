@@ -148,7 +148,7 @@ public class HomeProfessorServlet extends HttpServlet {
                 ProfessorRegister register = chp.getRegister(p);
                 session.setAttribute("register", register);
                 response.sendRedirect("professorRegister.jsp");
-                
+
             } else {
                 throw new ToastException(ERR, "Invalid request");
             }

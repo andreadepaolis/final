@@ -393,4 +393,22 @@ public class ControllerHomeProfessor {
         if (register == null) throw new ToastException(ERR,"Critical Error");
         return register;
     }
+
+    public ProfessorRegister updateView(ProfessorRegister register) {
+
+        Calendar cal = Calendar.getInstance();
+        MonthFactory mf = new MonthFactory();
+        Month m = mf.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+        register.setCurrentMonth(m);
+        return register;
+    }
+
+    public void saveGrades(Grades g) throws ToastException {
+
+        try {
+            ProfessorDao.saveGrades(g);
+        } catch (CustomSQLException | CustomException e) {
+            throw new ToastException(ERR,e.getMessage());
+        }
+    }
 }
