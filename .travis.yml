@@ -10,5 +10,5 @@ addons:
         secure: "132e236bb49cf2eb6421582e72768c548a934c49"
 
 script:
-- ant build
+- ant
 - sonar-scanner
