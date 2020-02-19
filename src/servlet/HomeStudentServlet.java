@@ -5,8 +5,6 @@ import bean.StudentBean;
 import controller.ControllerHomeStudent;
 import model.Argument;
 import model.Homework;
-import utils.CustomException;
-import utils.CustomSQLException;
 import utils.Toast;
 import utils.ToastException;
 

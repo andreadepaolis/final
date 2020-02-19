@@ -1,7 +1,5 @@
 package database;
 
-import utils.BasicExcpetion;
-import utils.CustomSQLException;
 
 import java.sql.*;
 
