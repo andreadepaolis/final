@@ -403,12 +403,39 @@ public class ControllerHomeProfessor {
         return register;
     }
 
-    public void saveGrades(Grades g) throws ToastException {
+    private void saveGrades(Grades g) throws ToastException {
 
         try {
             ProfessorDao.saveGrades(g);
         } catch (CustomSQLException | CustomException e) {
             throw new ToastException(ERR,e.getMessage());
         }
+    }
+
+    public void generateGradesAndSave(String stvoto, String tipo, String materia, String smatricola, int matricolaPr, String lastname, String data) throws ToastException {
+
+        try {
+            int voto = Integer.parseInt(stvoto);
+            int matricola = Integer.parseInt(smatricola);
+            InputController inpCnt = InputController.getIstance();
+            Date d = inpCnt.converDate(data);
+            if (!inpCnt.checkDate(d))
+                throw new BasicExcpetion("Validation mark value fails");
+
+
+
+
+            Grades g = new Grades(matricola, materia, voto, tipo, matricolaPr, lastname, d);
+            if (!inpCnt.checkInRange(voto, 0, 10)) {
+                throw new BasicExcpetion("Validation mark value fails");
+            }
+            this.saveGrades(g);
+
+        } catch (ToastException | BasicExcpetion e) {
+            throw  new ToastException(ERR,e.getMessage());
+        } catch (NumberFormatException e){
+            throw  new ToastException(ERR,"invalid vote");
+        }
+
     }
 }

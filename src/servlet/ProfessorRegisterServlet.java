@@ -4,7 +4,6 @@ import bean.ProfessorBean;
 import bean.StudentBean;
 import controller.ControllerHomeProfessor;
 import utils.*;
-import database.ProfessorDao;
 import model.*;
 import register.ProfessorRegister;
 
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,68 +55,35 @@ public class ProfessorRegisterServlet extends HttpServlet {
                         chp.deleteGrades(register, request.getParameter("colIndex"), request.getParameter("rowIndex"));
 
 
-
-
-                } else if ("random".equals(cmd)) {
-                    List<StudentBean> list = register.getStudents();
-                    StudentBean extracted;
-
-                    extracted = chp.extractRandom(list);
-
-                    request.setAttribute("random_student", extracted);
-                    rd.include(request, response);
-                    return;
-
                 } else if ("newAbsence".equals(cmd)) {
 
 
-                        String tipo = request.getParameter("tipo");
+                    String tipo = request.getParameter("tipo");
 
-                        int matricola = Integer.parseInt(request.getParameter("matricola"));
-                        InputController inpCnt = InputController.getIstance();
-                        Date d = inpCnt.converDate(request.getParameter("data"));
-                        if (d == null || !inpCnt.checkDate(d)) {
+                    int matricola = Integer.parseInt(request.getParameter("matricola"));
+                    InputController inpCnt = InputController.getIstance();
+                    Date d = inpCnt.converDate(request.getParameter("data"));
+                    if (d == null || !inpCnt.checkDate(d)) {
 
-                            Toast t = new Toast(ERROR, "Invalid Date", 1);
-                            request.setAttribute(TOAST, t);
-                            rd.forward(request, response);
-                            return;
-                        }
-                        chp.saveAbsence(matricola, tipo, d);
+                        Toast t = new Toast(ERROR, "Invalid Date", 1);
+                        request.setAttribute(TOAST, t);
+                        rd.forward(request, response);
+                        return;
+                    }
+                    chp.saveAbsence(matricola, tipo, d);
 
                 } else if ("ng".equals(cmd)) {
                     ProfessorBean p = (ProfessorBean) session.getAttribute(PR);
 
-                        int voto = Integer.parseInt(request.getParameter("voto"));
+                    String stvoto = request.getParameter("voto");
+                    String tipo = request.getParameter("tipo");
+                    String materia = request.getParameter("materia");
+                    String matricola = request.getParameter("matricola");
+                    String d = request.getParameter("data");
+                    chp.generateGradesAndSave(stvoto,tipo,materia,matricola,p.getMatricola(),p.getLastname(),d);
 
-                        String tipo = request.getParameter("tipo");
-                        String materia = request.getParameter("materia");
-                        int matricola = Integer.parseInt(request.getParameter("matricola"));
-                        int matricolaProfessore = p.getMatricola();
-                        String nomeProfessore = p.getLastname();
-                        InputController inpCnt = InputController.getIstance();
-                        Date d = inpCnt.converDate(request.getParameter("data"));
-                        if (d == null || !inpCnt.checkDate(d)) {
-
-                            Toast t = new Toast("Invalid Date", "Date is out from current year", 1);
-                            request.setAttribute(TOAST, t);
-                            rd.forward(request, response);
-                            return;
-
-                        }
-
-                        Grades g = new Grades(matricola, materia, voto, tipo, matricolaProfessore, nomeProfessore, d);
-                        if (!inpCnt.checkInRange(voto, 0, 10) || !inpCnt.checkInt(voto)) {
-                            Toast t = new Toast(ERROR, "invalid vote", 1);
-                            request.setAttribute(TOAST, t);
-                            rd.forward(request, response);
-                            return;
-                        }
-                         chp.saveGrades(g);
-
-                            Toast t = new Toast("ok", "saved correctly", 2);
-                            request.setAttribute(TOAST, t);
-
+                    Toast t = new Toast("ok", "saved correctly", 2);
+                    request.setAttribute(TOAST, t);
 
 
                 } else {
@@ -127,8 +92,8 @@ public class ProfessorRegisterServlet extends HttpServlet {
                 doGet(request, response);
 
             }
-        }catch (ToastException ts){
-            Toast t = new Toast(ts.getTitle(),ts.getMessage(),1);
+        } catch (ToastException ts) {
+            Toast t = new Toast(ts.getTitle(), ts.getMessage(), 1);
             request.setAttribute(TOAST, t);
             rd.forward(request, response);
 
@@ -145,25 +110,34 @@ public class ProfessorRegisterServlet extends HttpServlet {
         String cmd = request.getParameter("cmd");
         try {
 
-        if (cmd.equals("month")) {
+            if (cmd.equals("month")) {
                 String month = request.getParameter("monthIndex");
                 String year = request.getParameter("monthYear");
                 Month m = chp.getMonth(year, month);
                 register.setCurrentMonth(m);
                 session.setAttribute(REGISTER, register);
-        }
-        else if ("today".equals(cmd)) {
-            register = chp.updateView(register);
+            } else if ("random".equals(cmd)) {
+                List<StudentBean> list = register.getStudents();
+                StudentBean extracted;
+
+                extracted = chp.extractRandom(list);
+
+                request.setAttribute("random_student", extracted);
+                rd.include(request, response);
+                return;
+
+            } else if ("today".equals(cmd)) {
+                register = chp.updateView(register);
+                session.setAttribute(REGISTER, register);
+            }
+            register = chp.getFullRegister(register.getCurrentClass(), register.getCurrentMonth(), register.getCurrentMatter());
             session.setAttribute(REGISTER, register);
-    }
-            register = chp.getFullRegister(register.getCurrentClass(),register.getCurrentMonth(),register.getCurrentMatter());
-            session.setAttribute(REGISTER,register);
-            rd.include(request,response);
+            rd.include(request, response);
         } catch (ToastException e) {
             Toast t = new Toast(ERROR, e.getMessage(), 1);
             request.setAttribute(TOAST, t);
-             }
         }
+    }
 
 }
 

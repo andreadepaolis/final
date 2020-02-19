@@ -69,14 +69,13 @@ public class InputController {
         }
     }
 
-    public boolean checkInt(int voto) {
-
-        return true;
-    }
-
     public boolean checkDate(Date d) throws ToastException {
         String date1="01/08/2020";
         String date2 = "01/09/2019";
+        if(d == null)
+            throw new ToastException("Invalid Date","Date is null");
+
+
         try {
             Date end = new SimpleDateFormat("dd/MM/yyyy").parse(date1);
             Date start = new SimpleDateFormat("dd/MM/yyyy").parse(date2);
