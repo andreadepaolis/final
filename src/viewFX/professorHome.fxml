@@ -74,13 +74,13 @@
                               </TableView>
                               <Button fx:id="butRegistro" layoutX="292.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToRegistro" prefWidth="60.0" text="Registro" />
                               <Button layoutX="210.0" layoutY="6.0" mnemonicParsing="false" prefWidth="60.0" text="Home" />
-                              <Button layoutX="373.0" layoutY="6.0" mnemonicParsing="false" prefWidth="60.0" text="Logout" />
+                              <Button layoutX="373.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefWidth="60.0" text="Logout" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <Label layoutX="154.0" layoutY="6.0" text="Guarda argomenti trattati" />
-                              <TextArea layoutX="50.0" layoutY="25.0" prefHeight="150.0" prefWidth="248.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                              <TextArea fx:id="textAreaArgomenti" layoutX="50.0" layoutY="25.0" prefHeight="150.0" prefWidth="248.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                            </children>
                         </AnchorPane>
                      </children>

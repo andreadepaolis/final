@@ -89,7 +89,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         for(String i : this.professor.getClassi()){
             this.comboClasse.getItems().add(i);
         }
-        this.comboClasse.getSelectionModel().selectFirst();
+        this.comboClasse.getSelectionModel().select(this.registro.getCurrentClass());
         for(StudentBean i : this.registro.getStudents()){
             this.votoStudente.getItems().add(i);
             this.assenzaStudente.getItems().add(i);
@@ -132,13 +132,14 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
         this.curMese.setText(this.registro.getCurrentMonth().getName() + " "+ this.registro.getCurrentMonth().getYear());
         for(StudentBean u: registro.getUsers()){
-            System.out.println(u.getName() + " " + u.getLastname() +":\n");
+            //System.out.println(u.getName() + " " + u.getLastname() +":\n");
             if(u.getGrades()!= null) {
                 for (Grades g : u.getGrades()) {
-                    System.out.println("   " + g.getNomeProfessore() + " " + g.getData() + " " + g.getVoto() + g.getMateria() + "\n");
+                    //System.out.println("   " + g.getNomeProfessore() + " " + g.getData() + " " + g.getVoto() + g.getMateria() + "\n");
                 }
             }
         }
+        System.out.println(this.registro.getCurrentClass());
 
     }
 
@@ -248,9 +249,30 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     }
 
     public void goToLogout(ActionEvent actionEvent) throws IOException {
-        this.professor = null;
-        this.registro = null;
+        this.setProfessor(null);
+        this.setRegister(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
+        AnchorPane pane = loader.load();
+        rootProfRegistro.getChildren().setAll(pane);
+    }
+
+
+    public void cambiaClasse(ActionEvent actionEvent) throws IOException, ToastException {
+        String currClasse = (String) comboClasse.getValue();
+        ControllerHomeProfessor chp = new ControllerHomeProfessor();
+        this.registro = chp.getFullRegister(currClasse, this.registro.getCurrentMonth() , this.registro.getCurrentMatter());
+        this.setRegister(this.registro);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
+        AnchorPane pane = loader.load();
+        rootProfRegistro.getChildren().setAll(pane);
+    }
+
+    public void changeMatter(ActionEvent actionEvent) throws IOException, ToastException {
+        String currMateria = (String) comboMateria.getValue();
+        ControllerHomeProfessor chp = new ControllerHomeProfessor();
+        this.registro = chp.getFullRegister(this.registro.getCurrentClass(), this.registro.getCurrentMonth() , currMateria);
+        this.setRegister(this.registro);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/profRegistro.fxml"));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }

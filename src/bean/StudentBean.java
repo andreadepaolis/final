@@ -124,4 +124,9 @@ public class StudentBean implements Serializable {
     public void setArg(List<Argument> arg) {
         this.arg = arg;
     }
+
+    @Override
+    public String toString(){
+        return this.name + " " + this.lastname;
+    }
 }

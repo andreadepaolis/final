@@ -64,9 +64,9 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
         if(prof != null){
 
             pb = new ProfessorBean();
-            pb.setMatricola(prof.getpMatricola());
-            pb.setLastname(prof.getpLastname());
-            pb.setName(prof.getpName());
+            pb.setMatricola(prof.getMatricola());
+            pb.setLastname(prof.getLastname());
+            pb.setName(prof.getName());
         }
 
         return pb;
@@ -101,7 +101,7 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.matricolaProf.setText("9999");
-        this.passwordProf.setText("pollo");
+        this.passwordProf.setText("pass");
         this.matricolaStudente.setText("1234");
         this.passwordStudente.setText("password");
     }

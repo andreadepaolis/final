@@ -19,10 +19,13 @@ import model.Grades;
 import model.Homework;
 import model.ScheduleInfo;
 import model.Student;
+import utils.OrariInfo;
 import utils.ToastException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +55,7 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
             }
         }
 
+        /*
         TableColumn colOrario = new TableColumn("ORARIO");
         colOrario.setCellValueFactory(new PropertyValueFactory<>("hours"));
         TableColumn colGiorno = new TableColumn("GIORNO");
@@ -67,10 +71,32 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         for(ScheduleInfo schedule: this.student.getSchedule()){
             values.add(schedule);
         }
+        tableSchedule.setItems(values);*/
+
+        List<ScheduleInfo> schedule = this.student.getSchedule();
+
+        TableColumn giornoCol = new TableColumn("GIORNO");
+        giornoCol.setCellValueFactory(new PropertyValueFactory<>("day"));
+        TableColumn oraCol = new TableColumn("ORA");
+        oraCol.setCellValueFactory(new PropertyValueFactory<>("hours"));
+        TableColumn materiaCol = new TableColumn("MATERIA");
+        materiaCol.setCellValueFactory(new PropertyValueFactory<>("materia"));
+        TableColumn classeCol = new TableColumn("CLASSE");
+        classeCol.setCellValueFactory(new PropertyValueFactory<>("classe"));
+
+        tableSchedule.getColumns().clear();
+        tableSchedule.getColumns().addAll(giornoCol , oraCol , materiaCol , classeCol);
+
+        ObservableList<OrariInfo> values = FXCollections.observableArrayList();
+        for(ScheduleInfo campo : schedule){
+            OrariInfo orariInfo = new OrariInfo(campo);
+            values.add(orariInfo);
+        }
         tableSchedule.setItems(values);
 
-        labelDataHomework.setText(String.valueOf(this.student.getCurrentDate()));
-
+        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        String strDate = dateFormat.format(this.student.getCurrentDate());
+        labelDataHomework.setText(strDate);
     }
 
     public void goDayBefore(ActionEvent actionEvent) throws ToastException, IOException {
@@ -113,6 +139,13 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         GradesPageBean page = chs.fullGradesPage(this.student);
         this.setGradesStudent(page);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/absencesStudent.fxml"));
+        AnchorPane pane = loader.load();
+        rootHomeStudent.getChildren().setAll(pane);
+    }
+
+    public void logout(ActionEvent actionEvent) throws IOException {
+        this.setStudent(null);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
         AnchorPane pane = loader.load();
         rootHomeStudent.getChildren().setAll(pane);
     }

@@ -5,16 +5,19 @@ import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import model.Argument;
 import model.ScheduleInfo;
 import register.ProfessorRegister;
 import utils.MonthFactory;
 import utils.Month;
+import utils.OrariInfo;
 import utils.ToastException;
 
 import java.io.IOException;
@@ -23,6 +26,7 @@ import java.util.*;
 
 public class ControllerProfessorHome extends ControllerScenes implements Initializable{
 
+    public TextArea textAreaArgomenti;
     private ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
     @FXML
@@ -44,7 +48,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
     private TextArea homeworkDescription;
 
     @FXML
-    private TableView<ScheduleInfo> tableSchedule;
+    private TableView<OrariInfo> tableSchedule;
 
     private ProfessorBean professor;
 
@@ -59,7 +63,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         HomeworkBean hmwbean = chp.generateHomeworkBean(classe,description,materia,data,this.professor.getMatricola());
         this.chp.save(hmwbean);
-        this.areaCompiti.appendText(hmwbean.getMyclasse() + " " + hmwbean.getData() + " " + hmwbean.getMateria() + "\n");
+        this.areaCompiti.appendText(hmwbean.getClasse() + " " + hmwbean.getData() + " " + hmwbean.getMateria() + "\n");
         this.areaCompiti.appendText(hmwbean.getDescription());
         this.areaCompiti.appendText("\n \n");
     }
@@ -96,7 +100,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         List<HomeworkBean> homeworks = this.professor.getHomework();
         this.areaCompiti.setText("");
         for(HomeworkBean homework : homeworks) {
-            this.areaCompiti.appendText(homework.getClass() + " " + homework.getData() + " " + homework.getMateria() + "\n");
+            this.areaCompiti.appendText(homework.getClasse() + " " + homework.getData() + " " + homework.getMateria() + "\n");
             this.areaCompiti.appendText(homework.getDescription());
             this.areaCompiti.appendText("\n \n");
         }
@@ -122,10 +126,25 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         tableSchedule.getColumns().clear();
         tableSchedule.getColumns().addAll(giornoCol , oraCol , materiaCol , classeCol);
 
-        ObservableList<ScheduleInfo> values = FXCollections.observableArrayList();
+        ObservableList<OrariInfo> values = FXCollections.observableArrayList(); //ScheduleInfo va cambiata con OrariInfo
         for(ScheduleInfo campo : schedule){
-            values.add(campo);
+            OrariInfo orariInfo = new OrariInfo(campo);
+            values.add(orariInfo);
         }
         tableSchedule.setItems(values);
+
+        this.textAreaArgomenti.setText("");
+        int numberLesson = 1;
+        for(Argument argoment :this.professor.getArguments()){
+            this.textAreaArgomenti.appendText("Lezione " + numberLesson +":\n");
+            this.textAreaArgomenti.appendText(argoment.getDescprition() + "\n");
+        }
+    }
+
+    public void logout(ActionEvent actionEvent) throws IOException {
+        this.professor = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
+        AnchorPane pane = loader.load();
+        root.getChildren().setAll(pane);
     }
 }

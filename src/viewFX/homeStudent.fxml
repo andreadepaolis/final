@@ -5,7 +5,7 @@
 
 <AnchorPane fx:id="rootHomeStudent" prefHeight="463.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerFX.ControllerHomeStudentFX">
    <children>
-      <Button layoutX="846.0" layoutY="14.0" mnemonicParsing="false" prefWidth="70.0" text="Logout" />
+      <Button layoutX="846.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefWidth="70.0" text="Logout" />
       <Button layoutX="768.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAbsences" prefWidth="70.0" text="Absences" />
       <Button layoutX="690.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToGrades" prefWidth="70.0" text="Grades" />
       <Button layoutX="612.0" layoutY="14.0" mnemonicParsing="false" prefWidth="70.0" text="Home" />

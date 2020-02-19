@@ -11,8 +11,8 @@
          <children>
             <Label layoutX="3.0" layoutY="-8.0" text="Classe" />
             <Label layoutX="121.0" layoutY="-8.0" text="Materia" />
-            <ComboBox fx:id="comboClasse" layoutX="3.0" layoutY="6.0" prefHeight="25.0" prefWidth="89.0" />
-            <ComboBox fx:id="comboMateria" layoutX="118.0" layoutY="6.0" prefHeight="25.0" prefWidth="89.0" />
+            <ComboBox fx:id="comboClasse" layoutX="3.0" layoutY="6.0" onAction="#cambiaClasse" prefHeight="25.0" prefWidth="89.0" />
+            <ComboBox fx:id="comboMateria" layoutX="118.0" layoutY="6.0" onAction="#changeMatter" prefHeight="25.0" prefWidth="89.0" />
             <Button fx:id="prevMese" layoutX="236.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToPrevMese" prefHeight="25.0" prefWidth="28.0" text="&lt;" />
             <Button fx:id="nextMese" layoutX="372.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToNextMese" prefHeight="25.0" prefWidth="28.0" text="&gt;" />
             <Label fx:id="curMese" layoutX="274.0" layoutY="10.0" prefHeight="17.0" prefWidth="98.0" text="Label" textAlignment="CENTER" />
