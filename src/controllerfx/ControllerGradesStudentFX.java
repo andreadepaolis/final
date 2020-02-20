@@ -4,6 +4,7 @@ import bean.GradesPageBean;
 import bean.MatterBean;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,11 +18,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerGradesStudentFX extends ControllerScenes implements Initializable {
-
-    protected VBox vBoxMateria;
-    protected TextArea textAreaVoti;
-    protected TextArea textAreaReport;
-    protected AnchorPane rootGradesStudent;
+    @FXML
+    private VBox vBoxMateria;
+    @FXML
+    private TextArea textAreaVoti;
+    @FXML
+    private TextArea textAreaReport;
+    @FXML
+    private AnchorPane rootGradesStudent;
     private GradesPageBean pageGrades;
 
     @Override

@@ -25,7 +25,8 @@ import java.util.*;
 
 public class ControllerProfessorHome extends ControllerScenes implements Initializable{
 
-    protected TextArea textAreaArgomenti;
+    @FXML
+    private TextArea textAreaArgomenti;
     private ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
     @FXML
@@ -93,7 +94,6 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         try {
             this.professor = this.chp.full(this.professor);
         } catch (Exception e) {
-            e.printStackTrace();
         }
         List<HomeworkBean> homeworks = this.professor.getHomework();
         this.areaCompiti.setText("");

@@ -30,11 +30,15 @@ import java.util.ResourceBundle;
 
 public class ControllerHomeStudentFX extends ControllerScenes implements Initializable {
     @FXML
-    public Label labelWelcomeStudent;
-    protected TextArea tabelHomework;
-    protected TableView tableSchedule;
-    protected Label labelDataHomework;
-    protected AnchorPane rootHomeStudent;
+    private Label labelWelcomeStudent;
+    @FXML
+    private TextArea tabelHomework;
+    @FXML
+    private TableView tableSchedule;
+    @FXML
+    private Label labelDataHomework;
+    @FXML
+    private AnchorPane rootHomeStudent;
 
 
 
