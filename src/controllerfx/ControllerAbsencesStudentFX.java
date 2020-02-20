@@ -16,7 +16,7 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*if(this.student.getAbsences() != null) {
+        if(this.student.getAbsences() != null) {
             for (Absences absences : this.student.getAbsences()) {
                 AnchorPane ancora = new AnchorPane();
                 Label labelData = new Label("Data: " + absences.getData());
@@ -25,6 +25,6 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
                 ancora.getChildren().add(labelTipo);
                 containerAssenze.getChildren().add(ancora);
             }
-        }*/
+        }
     }
 }

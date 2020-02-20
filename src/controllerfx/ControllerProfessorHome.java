@@ -5,7 +5,6 @@ import bean.ProfessorBean;
 import controller.ControllerHomeProfessor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -69,7 +68,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
 
 
     public void goToRegistro() throws IOException, ToastException {
-        Calendar cal = GregorianCalendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         MonthFactory f = new MonthFactory();
         Date d = new Date();
         Month m;

@@ -37,11 +37,10 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
     public Label labelDataHomework;
     public AnchorPane rootHomeStudent;
 
-    private StudentBean student;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.student = this.getCurrentStudent();
         labelWelcomeStudent.setText("Benvenuto " + this.getCurrentStudent().getName());
         List<Homework> hmw = this.student.getHomework();
         tabelHomework.setText("");
@@ -51,24 +50,6 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
                 tabelHomework.appendText(homework.getDescription() + "\n");
             }
         }
-
-        /*
-        TableColumn colOrario = new TableColumn("ORARIO");
-        colOrario.setCellValueFactory(new PropertyValueFactory<>("hours"));
-        TableColumn colGiorno = new TableColumn("GIORNO");
-        colGiorno.setCellValueFactory(new PropertyValueFactory<>("day"));
-        TableColumn colMateria = new TableColumn("MATERIA");
-        colMateria.setCellValueFactory(new PropertyValueFactory<>("materia"));
-
-
-        tableSchedule.getColumns().clear();
-        tableSchedule.getColumns().addAll(colOrario , colGiorno , colMateria);
-
-        ObservableList<ScheduleInfo> values = FXCollections.observableArrayList();
-        for(ScheduleInfo schedule: this.student.getSchedule()){
-            values.add(schedule);
-        }
-        tableSchedule.setItems(values);*/
 
         List<ScheduleInfo> schedule = this.student.getSchedule();
 
@@ -91,12 +72,12 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         }
         tableSchedule.setItems(values);
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = dateFormat.format(this.student.getCurrentDate());
         labelDataHomework.setText(strDate);
     }
 
-    public void goDayBefore(ActionEvent actionEvent) throws ToastException, IOException {
+    public void goDayBefore() throws ToastException, IOException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.student.getCurrentDate());
@@ -109,7 +90,7 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         rootHomeStudent.getChildren().setAll(pane);
     }
 
-    public void goToDayAfter(ActionEvent actionEvent) throws ToastException, IOException {
+    public void goToDayAfter() throws ToastException, IOException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.student.getCurrentDate());
@@ -134,8 +115,8 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
     public void goToAbsences() throws ToastException, IOException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         GradesPageBean page = chs.fullGradesPage(this.student);
-        StudentBean student = chs.full(this.student);
-        this.setStudent(student);
+        StudentBean studente = chs.full(this.student);
+        this.setStudent(studente);
         this.setGradesStudent(page);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/absencesStudent.fxml"));
         AnchorPane pane = loader.load();

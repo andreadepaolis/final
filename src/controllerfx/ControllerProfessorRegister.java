@@ -53,7 +53,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     private Month pr;
     private Month sx;
 
-    private final String URLREGISTRO = "../viewFX/profRegistro.fxml";
+    private final String urlRegistro = "../viewFX/profRegistro.fxml";
 
 
     @Override
@@ -63,7 +63,6 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
 
         Month m = this.registro.getCurrentMonth();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         MonthFactory mf = new MonthFactory();
         if(m.getIndex() == 1) {
@@ -143,9 +142,9 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             Date d = inpCnt.converDate(votoData.getValue().toString());
 
             Grades g = new Grades(matricola, materia, voto , tipo, matricolaProfessore, nomeProfessore, d);
-            int result = ProfessorDao.saveGrades(g);
+            ProfessorDao.saveGrades(g);
 
-            Calendar cal = GregorianCalendar.getInstance();
+            Calendar cal = Calendar.getInstance();
             MonthFactory f = new MonthFactory();
             Date giornoD = new Date();
             Month m;
@@ -158,12 +157,12 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
             ProfessorRegister register = chp.getFullRegister(classeProf, m, materiaProf);
             this.setRegister(register);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
             AnchorPane pane = loader.load();
             rootProfRegistro.getChildren().setAll(pane);
     }
 
-    public void addAbsence(ActionEvent actionEvent) throws IOException, SQLException, CustomException, ToastException {
+    public void addAbsence() throws IOException, SQLException, CustomException, ToastException {
 
 
 
@@ -177,7 +176,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             ProfessorDao.saveAbsence(a);
 
 
-            Calendar cal = GregorianCalendar.getInstance();
+            Calendar cal = Calendar.getInstance();
             MonthFactory f = new MonthFactory();
             Date giornoD = new Date();
             Month m;
@@ -190,7 +189,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
             ProfessorRegister register = chp.getFullRegister(classeProf, m, materiaProf);
             this.setRegister(register);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
             AnchorPane pane = loader.load();
             rootProfRegistro.getChildren().setAll(pane);
     }
@@ -202,7 +201,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         Month m = chp.getMonth(year, month);
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), m , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
@@ -214,7 +213,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         Month m = chp.getMonth(year, month);
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), m , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
@@ -224,13 +223,13 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         MonthFactory mf = new MonthFactory();
         Month m = mf.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
         this.registro.setCurrentMonth(m);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
 
     public void goToHomePage() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
@@ -249,7 +248,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         this.registro = chp.getFullRegister(currClasse, this.registro.getCurrentMonth() , this.registro.getCurrentMatter());
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
@@ -259,7 +258,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         ControllerHomeProfessor chp = new ControllerHomeProfessor();
         this.registro = chp.getFullRegister(this.registro.getCurrentClass(), this.registro.getCurrentMonth() , currMateria);
         this.setRegister(this.registro);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(urlRegistro));
         AnchorPane pane = loader.load();
         rootProfRegistro.getChildren().setAll(pane);
     }
