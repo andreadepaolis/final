@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 public class ControllerProfessorHome extends ControllerScenes implements Initializable{
 
-    private static final Logger LOGGER =Logger.getLogger(ControllerHomeProfessor.class.getName());
+    private static final Logger LOGGER =Logger.getLogger(ControllerProfessorHome.class.getName());
 
     @FXML
     private TextArea textAreaArgomenti;
