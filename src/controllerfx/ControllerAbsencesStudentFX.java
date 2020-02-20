@@ -1,13 +1,10 @@
 package controllerfx;
 
-import bean.StudentBean;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Absences;
-import model.Student;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

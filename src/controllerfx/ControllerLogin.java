@@ -6,7 +6,6 @@ import bean.UserLoginBean;
 import controller.ControllerHomeStudent;
 import database.ProfessorDao;
 import database.StudentDao;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

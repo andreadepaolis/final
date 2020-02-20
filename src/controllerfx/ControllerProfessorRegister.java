@@ -6,7 +6,6 @@ import controller.ControllerHomeProfessor;
 import database.ProfessorDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,8 +20,6 @@ import utils.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ControllerProfessorRegister extends ControllerScenes implements Initializable {
@@ -53,7 +50,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     private Month pr;
     private Month sx;
 
-    private final String urlRegistro = "../viewFX/profRegistro.fxml";
+    private final static String urlRegistro = "../viewFX/profRegistro.fxml";
 
 
     @Override

@@ -27,9 +27,8 @@ public class OrariInfo {
             case 4:
                 this.day = "VENERDI";
                 break;
-            case 5:
+            default:
                 this.day = "SABATO";
-                break;
         }
 
         this.hours = schedule.getHours() + ":00";
