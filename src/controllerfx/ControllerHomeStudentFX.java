@@ -122,7 +122,7 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         rootHomeStudent.getChildren().setAll(pane);
     }
 
-    public void goToGrades(ActionEvent actionEvent) throws IOException, ToastException {
+    public void goToGrades() throws IOException, ToastException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         GradesPageBean page = chs.fullGradesPage(this.student);
         this.setGradesStudent(page);
@@ -131,16 +131,18 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         rootHomeStudent.getChildren().setAll(pane);
     }
 
-    public void goToAbsences(ActionEvent actionEvent) throws ToastException, IOException {
+    public void goToAbsences() throws ToastException, IOException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         GradesPageBean page = chs.fullGradesPage(this.student);
+        StudentBean student = chs.full(this.student);
+        this.setStudent(student);
         this.setGradesStudent(page);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/absencesStudent.fxml"));
         AnchorPane pane = loader.load();
         rootHomeStudent.getChildren().setAll(pane);
     }
 
-    public void logout(ActionEvent actionEvent) throws IOException {
+    public void logout() throws IOException {
         this.setStudent(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
         AnchorPane pane = loader.load();

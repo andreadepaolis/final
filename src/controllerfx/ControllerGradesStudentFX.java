@@ -2,7 +2,6 @@ package controllerfx;
 
 import bean.GradesPageBean;
 import bean.MatterBean;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Grades;
-import utils.ToastException;
 
 import java.io.IOException;
 import java.net.URL;
