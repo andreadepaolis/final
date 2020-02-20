@@ -22,8 +22,11 @@ import utils.ToastException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ControllerProfessorHome extends ControllerScenes implements Initializable{
+
+    private static final Logger LOGGER =Logger.getLogger(ControllerHomeProfessor.class.getName());
 
     @FXML
     private TextArea textAreaArgomenti;
@@ -94,6 +97,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         try {
             this.professor = this.chp.full(this.professor);
         } catch (Exception e) {
+            LOGGER.info(e.toString());
         }
         List<HomeworkBean> homeworks = this.professor.getHomework();
         this.areaCompiti.setText("");
