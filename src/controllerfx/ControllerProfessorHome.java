@@ -25,7 +25,7 @@ import java.util.*;
 
 public class ControllerProfessorHome extends ControllerScenes implements Initializable{
 
-    public TextArea textAreaArgomenti;
+    protected TextArea textAreaArgomenti;
     private ControllerHomeProfessor chp = new ControllerHomeProfessor();
 
     @FXML

@@ -27,8 +27,8 @@ import java.util.ResourceBundle;
 
 public class ControllerLogin extends ControllerScenes implements Initializable {
 
-    public TextField matricolaStudente;
-    public PasswordField passwordStudente;
+    protected TextField matricolaStudente;
+    protected PasswordField passwordStudente;
 
     @FXML
     private AnchorPane root;

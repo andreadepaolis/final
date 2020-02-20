@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerAbsencesStudentFX extends ControllerScenes implements Initializable {
-    public VBox containerAssenze;
+    protected VBox containerAssenze;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

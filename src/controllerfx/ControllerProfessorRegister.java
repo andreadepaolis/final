@@ -26,23 +26,41 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
 
     @FXML
     public AnchorPane rootProfRegistro;
+    @FXML
     public TableView tableVoti;
+    @FXML
     public ComboBox comboClasse;
+    @FXML
     public ComboBox comboMateria;
+    @FXML
     public Button prevMese;
+    @FXML
     public Button nextMese;
+    @FXML
     public Label curMese;
+    @FXML
     public Button buttToday;
+    @FXML
     public ComboBox votoStudente;
+    @FXML
     public ComboBox votoMateria;
+    @FXML
     public ComboBox votoTipologia;
+    @FXML
     public DatePicker votoData;
+    @FXML
     public Button votoConferma;
+    @FXML
     public ComboBox assenzaStudente;
+    @FXML
     public ComboBox assenzaTipologia;
+    @FXML
     public DatePicker assenzaData;
+    @FXML
     public Button assenzaConferma;
+    @FXML
     public Label labelName;
+    @FXML
     public TextField textVoto;
 
     private ProfessorRegister registro;

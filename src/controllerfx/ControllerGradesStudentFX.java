@@ -18,10 +18,10 @@ import java.util.ResourceBundle;
 
 public class ControllerGradesStudentFX extends ControllerScenes implements Initializable {
 
-    public VBox vBoxMateria;
-    public TextArea textAreaVoti;
-    public TextArea textAreaReport;
-    public AnchorPane rootGradesStudent;
+    protected VBox vBoxMateria;
+    protected TextArea textAreaVoti;
+    protected TextArea textAreaReport;
+    protected AnchorPane rootGradesStudent;
     private GradesPageBean pageGrades;
 
     @Override
