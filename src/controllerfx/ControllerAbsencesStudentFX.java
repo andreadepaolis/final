@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Absences;
@@ -25,7 +24,6 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         StudentBean studente = this.getCurrentStudent();
-        System.out.println(studente.getName());
         ControllerStudent cs = new ControllerStudent();
         try {
             List<Absences> list = cs.loadAbsences(studente.getMatricola());
