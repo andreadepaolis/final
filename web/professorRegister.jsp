@@ -120,7 +120,7 @@
             </form>
 
 
-            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="post">
+            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="get">
                 <input type="hidden" name="cmd" value="month">
                 <input type="hidden" name="monthIndex" value="<%=pr.getIndex()%>">
                 <input type="hidden" name="monthYear" value="<%=pr.getYear()%>">
@@ -129,7 +129,7 @@
 
             &nbsp;<%=m.getName()%> <%=m.getYear()%>&nbsp;
 
-            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="post">
+            <form style="padding:0px 5px" action="ProfessorRegisterServlet" method="get">
                 <input type="hidden" name="cmd" value="month">
                 <input type="hidden" name="monthIndex" value="<%=sx.getIndex()%>">
                 <input type="hidden" name="monthYear" value="<%=sx.getYear()%>">
