@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="499.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerFX.ControllerGradesStudentFX">
+<AnchorPane fx:id="rootGradesStudent" prefHeight="499.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerfx.ControllerGradesStudentFX">
    <children>
       <AnchorPane layoutX="38.0" layoutY="71.0" prefHeight="417.0" prefWidth="241.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0">
          <children>

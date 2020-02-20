@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerFX.ControllerAbsencesStudentFX">
+<AnchorPane prefHeight="472.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerfx.ControllerAbsencesStudentFX">
    <children>
-      <Label layoutX="272.0" layoutY="34.0" text="Ciaoooonnnneeee" />
+      <Label fx:id="labelTitolo" layoutX="231.0" layoutY="75.0" text="Gestisci le tue assenze:" />
+      <VBox fx:id="containerAssenze" layoutX="231.0" layoutY="92.0" prefHeight="278.0" prefWidth="524.0" />
    </children>
 </AnchorPane>

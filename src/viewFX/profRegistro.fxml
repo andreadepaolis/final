@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="rootProfRegistro" prefHeight="414.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerFX.ControllerProfessorRegister">
+<AnchorPane fx:id="rootProfRegistro" prefHeight="414.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerfx.ControllerProfessorRegister">
    <children>
       <Label fx:id="labelName" layoutX="286.0" layoutY="14.0" text="Label" />
       <TableView fx:id="tableVoti" layoutX="50.0" layoutY="86.0" prefHeight="125.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
