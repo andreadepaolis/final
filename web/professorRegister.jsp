@@ -85,11 +85,11 @@
     <div class="shadow" style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px">
         <br>
         <div class="container-fluid row" style="margin:0px">
-            <div style="color:white"><h5>Register <%=p.getCurrentClass()%></h5></div>
+            <div style="color:white"><h5>Register</h5></div>
             <div style="width:50px"></div>
             <form action="ProfessorRegisterServlet" method="post">
                 <select name="classe" onchange='this.form.submit()'>
-                    <option selected disabled hidden> Class</option>
+                    <option selected disabled hidden>Class</option>
                     <%
                         for (String t : p.getClassi()) {
                     %>
@@ -104,9 +104,9 @@
                 &nbsp;&nbsp;
             </form>
 
-            <form action="ProfessorRegisterServlet" method="get">
+            <form action="ProfessorRegisterServlet" method="post">
                 <select name="materia" onchange='this.form.submit()'>
-                    <option selected disabled hidden> Materia</option>
+                    <option selected disabled hidden> Subject</option>
                     <% for (String s : p.getMatter()) { %>
                     <option value="<%=s%>">
                         <%=s%>
@@ -147,7 +147,7 @@
 
                 <tr>
                     <td style="text-align: left">
-                        <b>Students</b>
+                        <b>Students </b>
                     </td>
 
                     <%for (int i = 1; i < m.getDay() + 1; i++) {%>

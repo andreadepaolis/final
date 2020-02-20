@@ -88,6 +88,20 @@
                 <br>
                 <div style="padding:0px 15px 15px 15px">
                     <div class="row col-sm-12" style="padding:0px">
+                        <form action="HomeProfessorServlet" method="get">
+                                <input type="hidden" name="cmd" value="change_matter">
+                                <select name="current_matter" onchange='this.form.submit()'>
+                                    <option selected disabled hidden> <%=p.getCurrentMatter()%></option>
+
+                                    <% for (String s : p.getMatter()) { %>
+                                    <option value="<%=s%>">
+                                        <%=s%>
+                                    </option>
+                                    <% }%>
+                                </select>
+                                <noscript><input type="submit" value="Submit"/></noscript>
+
+                        </form>
                         <form style="padding:0px 5px" action="HomeProfessorServlet" method="get">
                             <input type="hidden" name="cmd" value="change_class">
                             <select name="current_class" onchange='this.form.submit()'>
@@ -283,7 +297,7 @@
                     <br>
                     <div class="col-sm-12 row" style="padding:0px">
 
-                        <form class="col-sm-7" style="padding:0px" action="HomeProfessorServlet" method="post">
+                        <form class="col-sm-12" style="padding:0px" action="HomeProfessorServlet" method="post">
 
                             <input type="hidden" name="cmd" value="newArg">
                             <input class="col-sm-12"
@@ -292,22 +306,6 @@
 
                         </form>
 
-                        <form action="HomeProfessorServlet" method="get">
-                        <div class="col-sm-3">
-                            <input type="hidden" name="cmd" value="change_matter">
-                            <select name="current_matter" onchange='this.form.submit()'>
-                                <option selected disabled hidden> <%=p.getCurrentMatter()%></option>
-
-                                    <% for (String s : p.getMatter()) { %>
-                                    <option value="<%=s%>">
-                                        <%=s%>
-                                    </option>
-                                    <% }%>
-                                </select>
-                            <noscript><input type="submit" value="Submit"/></noscript>
-
-                            </div>
-                            </form>
                     </div>
                 </div>
             </div>
