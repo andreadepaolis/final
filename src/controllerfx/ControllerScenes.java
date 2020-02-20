@@ -13,7 +13,7 @@ public class ControllerScenes {
 
     public ProfessorBean getCurrentProfessor(){ return professor; }
 
-    public void setProfessor(ProfessorBean professore){
+    public static void setProfessor(ProfessorBean professore){
         professor = professore;
     }
 
@@ -21,15 +21,15 @@ public class ControllerScenes {
         return register;
     }
 
-    public void setRegister(ProfessorRegister registro){
+    public static void setRegister(ProfessorRegister registro){
         register = registro;
     }
 
     public StudentBean getCurrentStudent(){ return student;}
 
-    public void setStudent(StudentBean studente){student = studente;}
+    public static void setStudent(StudentBean studente){student = studente;}
 
     public GradesPageBean getCurrentGradesPage(){ return grades;}
 
-    public void setGradesStudent(GradesPageBean voti){grades = voti;}
+    public static void setGradesStudent(GradesPageBean voti){grades = voti;}
 }

@@ -50,7 +50,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     private Month pr;
     private Month sx;
 
-    private final static String URLREGISTRO = "../viewFX/profRegistro.fxml";
+    private static final String URLREGISTRO = "../viewFX/profRegistro.fxml";
 
 
     @Override
