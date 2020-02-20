@@ -159,22 +159,24 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
             Grades g = new Grades(matricola, materia, voto , tipo, matricolaProfessore, nomeProfessore, d);
             ProfessorDao.saveGrades(g);
 
-            Calendar cal = Calendar.getInstance();
+            String classeProf = this.professor.getClassi().get(0);
+            String materiaProf = this.professor.getMatter().get(0);
+
             MonthFactory f = new MonthFactory();
             Date giornoD = new Date();
             Month m;
+            Calendar cal = Calendar.getInstance();
             cal.setTime(giornoD);
             m = f.createMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
 
-            String materiaProf = this.professor.getMatter().get(0);
-            String classeProf = this.professor.getClassi().get(0);
+
 
             ControllerHomeProfessor chp = new ControllerHomeProfessor();
             ProfessorRegister register = chp.getFullRegister(classeProf, m, materiaProf);
-            this.setRegister(register);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(URLREGISTRO));
             AnchorPane pane = loader.load();
             rootProfRegistro.getChildren().setAll(pane);
+            this.setRegister(register);
     }
 
     public void addAbsence() throws IOException, SQLException, CustomException, ToastException {

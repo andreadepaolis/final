@@ -56,14 +56,15 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
 
         List<ScheduleInfo> schedule = this.student.getSchedule();
 
-        TableColumn giornoCol = new TableColumn("GIORNO");
-        giornoCol.setCellValueFactory(new PropertyValueFactory<>("day"));
+
         TableColumn oraCol = new TableColumn("ORA");
         oraCol.setCellValueFactory(new PropertyValueFactory<>("hours"));
-        TableColumn materiaCol = new TableColumn("MATERIA");
-        materiaCol.setCellValueFactory(new PropertyValueFactory<>("materia"));
         TableColumn classeCol = new TableColumn("CLASSE");
         classeCol.setCellValueFactory(new PropertyValueFactory<>("classe"));
+        TableColumn giornoCol = new TableColumn("GIORNO");
+        giornoCol.setCellValueFactory(new PropertyValueFactory<>("day"));
+        TableColumn materiaCol = new TableColumn("MATERIA");materiaCol.setCellValueFactory(new PropertyValueFactory<>("materia"));
+
 
         tableSchedule.getColumns().clear();
         tableSchedule.getColumns().addAll(giornoCol , oraCol , materiaCol , classeCol);
