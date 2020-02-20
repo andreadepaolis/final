@@ -6,10 +6,10 @@ import bean.StudentBean;
 import register.ProfessorRegister;
 
 public class ControllerScenes {
-    public static ProfessorBean professor;
-    public static ProfessorRegister register;
-    public static StudentBean student;
-    public static GradesPageBean grades;
+    protected static ProfessorBean professor;
+    protected static ProfessorRegister register;
+    protected static StudentBean student;
+    protected static GradesPageBean grades;
 
     public ProfessorBean getCurrentProfessor(){ return professor; }
 
