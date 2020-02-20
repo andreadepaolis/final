@@ -63,9 +63,9 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
         if(prof != null){
 
             pb = new ProfessorBean();
-            pb.setMatricola(prof.getMatricola());
-            pb.setLastname(prof.getLastname());
-            pb.setName(prof.getName());
+            pb.setMatricola(prof.getpMatricola());
+            pb.setLastname(prof.getpLastname());
+            pb.setName(prof.getpName());
         }
 
         return pb;

@@ -65,7 +65,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         ControllerHomeProfessor chpHomework = new ControllerHomeProfessor();
         HomeworkBean hmwbean = chpHomework.generateHomeworkBean(classe,description,materia,data,this.professor.getMatricola());
         this.chp.save(hmwbean);
-        this.areaCompiti.appendText(hmwbean.getClasse() + " " + hmwbean.getData() + " " + hmwbean.getMateria() + "\n");
+        this.areaCompiti.appendText(hmwbean.getMyclasse() + " " + hmwbean.getData() + " " + hmwbean.getMateria() + "\n");
         this.areaCompiti.appendText(hmwbean.getDescription());
         this.areaCompiti.appendText("\n \n");
     }
@@ -102,7 +102,7 @@ public class ControllerProfessorHome extends ControllerScenes implements Initial
         List<HomeworkBean> homeworks = this.professor.getHomework();
         this.areaCompiti.setText("");
         for(HomeworkBean homework : homeworks) {
-            this.areaCompiti.appendText(homework.getClasse() + " " + homework.getData() + " " + homework.getMateria() + "\n");
+            this.areaCompiti.appendText(homework.getMyclasse() + " " + homework.getData() + " " + homework.getMateria() + "\n");
             this.areaCompiti.appendText(homework.getDescription());
             this.areaCompiti.appendText("\n \n");
         }
