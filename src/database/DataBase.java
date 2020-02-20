@@ -1,5 +1,7 @@
 package database;
 
+import utils.CustomSQLException;
+
 import java.sql.*;
 
 public class DataBase {
@@ -18,7 +20,7 @@ public class DataBase {
         return db;
     }
 
-    Connection getConnection() {
+    Connection getConnection() throws CustomSQLException {
 
         try {
             String driver = "com.mysql.cj.jdbc.Driver";
@@ -31,7 +33,7 @@ public class DataBase {
             }
             return con;
         } catch (Exception e) {
-            return con;
+            throw new CustomSQLException(e);
         }
     }
 

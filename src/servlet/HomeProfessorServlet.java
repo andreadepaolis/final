@@ -107,7 +107,13 @@ public class HomeProfessorServlet extends HttpServlet {
                 throw new ToastException(ERR, "invalid request");
             }
 
-        }catch(Exception e){
+        }catch (ToastException te) {
+
+            Toast t = new Toast(te.getTitle(), te.getMessage(), 1);
+            request.setAttribute(TST, t);
+            rd.forward(request, response);
+        }
+        catch(Exception e){
             Toast t = new Toast(ERR,e.getMessage(),1);
             request.setAttribute(TST,t);
             rd.include(request,response);
@@ -162,12 +168,17 @@ public class HomeProfessorServlet extends HttpServlet {
                 throw new ToastException(ERR, "Invalid request");
             }
 
-
         } catch (ToastException te){
 
             Toast t = new Toast(te.getTitle(), te.getMessage(), 1);
             request.setAttribute(TST, t);
             rd.forward(request,response);
+
+        }   catch (Exception e){
+            Toast t = new Toast(ERR, e.getMessage(), 1);
+            request.setAttribute(TST, t);
+            rd.forward(request, response);
+
 
         }
     }

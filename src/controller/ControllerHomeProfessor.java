@@ -260,8 +260,14 @@ public class ControllerHomeProfessor {
         try {
             List<HomeworkBean> homeworks = ProfessorDao.getHomework(professorid, classe);
             List<HomeworkBean> result = new ArrayList<>();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            cal.add(Calendar.DATE, -1);
+            Date min = cal.getTime();
+            cal.add(Calendar.DATE, +7);
+            Date max = cal.getTime();
             for (HomeworkBean h : homeworks) {
-                if (h.getMateria().equals(matter))
+                if (h.getMateria().equals(matter) && h.getData().before(max) && h.getData().after(min))
                     result.add(h);
 
             }
@@ -470,3 +476,4 @@ public class ControllerHomeProfessor {
         }
     }
 }
+

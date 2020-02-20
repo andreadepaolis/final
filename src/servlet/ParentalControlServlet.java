@@ -77,6 +77,13 @@ public class ParentalControlServlet extends HttpServlet {
             request.setAttribute(tst,ts);
             rd.include(request,response);
         }
+        catch (Exception e){
+            Toast t = new Toast("ERR", e.getMessage(), 1);
+            request.setAttribute(tst, t);
+            rd.forward(request, response);
+
+
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -41,6 +41,7 @@ public class GradesStudentServlet extends HttpServlet {
             }
 
         }catch (Exception e){
+
             rd.forward(request,response);
         }
     }

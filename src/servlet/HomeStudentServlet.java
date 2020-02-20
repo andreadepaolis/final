@@ -21,6 +21,8 @@ import java.io.IOException;
 public class HomeStudentServlet extends HttpServlet {
 
     private static final String STD = "student";
+    private static final String ERROR = "Error";
+    private static final String TOAST = "toast";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -70,11 +72,19 @@ public class HomeStudentServlet extends HttpServlet {
 
         } catch (ToastException e) {
             Toast t = new Toast(e.getTitle(), e.getMessage(), 1);
-            request.setAttribute("toast", t);
+            request.setAttribute(TOAST, t);
+        }
+        catch (Exception e){
+            Toast t = new Toast(ERROR, e.getMessage(), 1);
+            request.setAttribute(TOAST, t);
+            rd.forward(request, response);
+
+
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeStudent.jsp");
 
         try {
             HttpSession session = request.getSession(false);
@@ -96,7 +106,17 @@ public class HomeStudentServlet extends HttpServlet {
 
         } catch (ToastException e) {
             Toast t = new Toast(e.getTitle(), e.getMessage(), 1);
-            request.setAttribute("toast", t);
+            request.setAttribute(TOAST, t);
+            rd.forward(request, response);
+
         }
+        catch (Exception e){
+            Toast t = new Toast(ERROR, e.getMessage(), 1);
+            request.setAttribute(TOAST, t);
+            rd.forward(request, response);
+
+
+        }
+
     }
 }

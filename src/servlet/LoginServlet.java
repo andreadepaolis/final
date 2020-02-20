@@ -9,9 +9,6 @@ import controller.ControllerLogin;
 import utils.Toast;
 import utils.ToastException;
 
-import java.io.IOException;
-import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Date;
 
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+    private static final String ERROR = "Error";
 
     private static final String TOAST = "toast";
     protected void doPost(HttpServletRequest request,
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 
             } else{
                 Toast t = new Toast("Error","invalid password or matricola",1);
-                request.setAttribute("tst",t);
+                request.setAttribute(TOAST,t);
                 rd.include(request, response);
             }
             }catch(ToastException t){
@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute(TOAST,tst);
                 rd.include(request, response);
             }
+
 
 
         } else if(cmd.equals("professor")){
@@ -85,6 +86,13 @@ public class LoginServlet extends HttpServlet {
                 Toast tst = new Toast(e.getTitle(),e.getMessage(),1);
                 request.setAttribute(TOAST,tst);
                 rd.include(request, response);
+
+            }
+            catch (Exception e){
+                Toast t = new Toast("Error", e.getMessage(), 1);
+                request.setAttribute(TOAST, t);
+                rd.forward(request, response);
+
 
             }
 

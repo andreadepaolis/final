@@ -3,9 +3,10 @@ package servlet;
 import bean.ProfessorBean;
 import bean.StudentBean;
 import controller.ControllerHomeProfessor;
-import utils.*;
-import model.*;
 import register.ProfessorRegister;
+import utils.Month;
+import utils.Toast;
+import utils.ToastException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
 import java.util.List;
 
 @WebServlet("/ProfessorRegisterServlet")
@@ -93,6 +93,12 @@ public class ProfessorRegisterServlet extends HttpServlet {
             request.setAttribute(TOAST, t);
             rd.forward(request, response);
 
+        } catch (Exception e){
+            Toast t = new Toast(ERROR, e.getMessage(), 1);
+            request.setAttribute(TOAST, t);
+            rd.forward(request, response);
+
+
         }
 
     }
@@ -132,6 +138,12 @@ public class ProfessorRegisterServlet extends HttpServlet {
         } catch (ToastException e) {
             Toast t = new Toast(ERROR, e.getMessage(), 1);
             request.setAttribute(TOAST, t);
+        }catch (Exception e){
+            Toast t = new Toast(ERROR, e.getMessage(), 1);
+            request.setAttribute(TOAST, t);
+            rd.forward(request, response);
+
+
         }
     }
 
