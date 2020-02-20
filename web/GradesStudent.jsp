@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Title</title>
-    <title>Student's Home</title>
+    <title>Mark</title>
     <link rel="stylesheet" href="css/toast.css" type="text/css">
     <link rel="stylesheet" href="css/app.css" type="text/css">
     <link rel="stylesheet" href="css/navbar.css" type="text/css">

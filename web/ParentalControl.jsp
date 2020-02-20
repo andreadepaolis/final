@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Absence</title>
     <title>Student's Home</title>
     <link rel="stylesheet" href="css/toast.css" type="text/css">
     <link rel="stylesheet" href="css/app.css" type="text/css">
