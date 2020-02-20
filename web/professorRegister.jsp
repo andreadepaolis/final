@@ -85,6 +85,8 @@
     <div class="shadow" style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px">
         <br>
         <div class="container-fluid row" style="margin:0px">
+            <div style="color:white"><h5>Register <%=p.getCurrentClass()%></h5></div>
+            <div style="width:50px"></div>
             <form action="ProfessorRegisterServlet" method="post">
                 <select name="classe" onchange='this.form.submit()'>
                     <option selected disabled hidden> Class</option>

@@ -63,6 +63,7 @@
     <div class="shadow card col-sm-6"
          style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px;">
         <br>
+        <div align="center"><h5>Homework</h5></div>
         <div class="row">
             <form style="padding:0px 5px" action="HomeStudentServlet" method="post">
                 <input class="buttonSave" type="submit" value="<">
@@ -120,7 +121,7 @@
          style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px">
         <br>
         <div align="center"><h5>Schedule</h5></div>
-        <br>
+        <br><br>
         <table style="border: 1px black solid; background-color:white; color:black; width: 100%; font-size: 14px"
                class="col-sm-12">
             <tr align="center">
@@ -152,38 +153,16 @@
         <br>
 
     </div>
+
+</div>
+<div class="col-sm-12" style="padding:0px 35px">
     <div class="shadow card col-sm-12"
-         style="background-color: #53a8db; border-radius: 5px;color:white; padding:0px 20px;">
-
-        <div style="margin:1px; color:black;
-    padding:3px;
-    width: 100%;
-    height: 300px;
-    overflow-x: hidden;
-    overflow-x: auto;
-    text-align:justify;
-    font-size: 13px;
-    background-color: white !important;
-    border-radius: 5px;">
-
-                <%  if(s.getArg().size() > 0){
-                    for(Argument arg : s.getArg()){%>
-
-                        Mat: <%=arg.getMateria()%>
-                        Lezione: <%=arg.getIndex()%>
-                        <%=arg.getDescprition()%>
-
-                    <br>
-                <%}}else{%>
-            No Arguments avaiable
-
-<%}%>
-
-        </div>
+         style="background-color: #53a8db; border-radius: 5px;color:white; padding:20px">
         <form action="HomeStudentServlet" method="post">
-                <input type="hidden" name="cmd" value="matter">
+            <input type="hidden" name="cmd" value="matter">
             <select name="matt" onchange='this.form.submit()'>
-                <option selected disabled hidden> <%=s.getCurrentMatter()%></option>
+                <option selected disabled hidden><%=s.getCurrentMatter()%>
+                </option>
 
                 <% for (String mat : s.getMatter()) { %>
                 <option value="<%=mat%>">
@@ -193,6 +172,38 @@
             </select>
             <noscript><input type="submit" value="Submit"/></noscript>
         </form>
+
+        <div style="margin:1px; color:black; padding:20px;
+    width: 100%;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-x: auto;
+    text-align:justify;
+    font-size: 13px;
+    background-color: white !important;
+    border-radius: 5px;">
+
+            <% if (s.getArg().size() > 0) {
+                int count = 0;
+                for (Argument arg : s.getArg()) {
+                    count++;
+            %>
+            <strong>Lezione <%=count%>:
+            </strong><br>
+            <%=arg.getDescprition()%>
+
+            <hr style="margin:10px 0px">
+
+            <%
+                }
+            } else {
+            %>
+            No Arguments avaiable
+
+            <%}%>
+
+        </div>
+
     </div>
 </div>
 <%
