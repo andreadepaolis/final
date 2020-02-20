@@ -57,7 +57,7 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
         this.currentPage.setStyle("-fx-border-color: green;");
     }
 
-    public void goToLogout(ActionEvent actionEvent) throws IOException {
+    public void goToLogout() throws IOException {
         this.setStudent(null);
         this.setGradesStudent(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
@@ -65,7 +65,7 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
         rootAbsences.getChildren().setAll(pane);
     }
 
-    public void goToGrades(ActionEvent actionEvent) throws ToastException, IOException {
+    public void goToGrades() throws ToastException, IOException {
         ControllerHomeStudent chs = new ControllerHomeStudent();
         GradesPageBean page = chs.fullGradesPage(this.student);
         this.setGradesStudent(page);
@@ -74,7 +74,7 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
         rootAbsences.getChildren().setAll(pane);
     }
 
-    public void goToHome(ActionEvent actionEvent) throws IOException {
+    public void goToHome() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/homeStudent.fxml"));
         AnchorPane pane = loader.load();
         rootAbsences.getChildren().setAll(pane);
