@@ -23,7 +23,7 @@
             <TextArea fx:id="textAreaReport" layoutY="64.0" prefHeight="354.0" prefWidth="241.0" />
          </children>
       </AnchorPane>
-      <Button layoutX="674.0" layoutY="14.0" mnemonicParsing="false" prefWidth="70.0" text="Grades" />
+      <Button fx:id="currentPage" layoutX="674.0" layoutY="14.0" mnemonicParsing="false" prefWidth="70.0" text="Grades" />
       <Button layoutX="593.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHome" prefWidth="70.0" text="Home" />
       <Button layoutX="835.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogout" prefWidth="70.0" text="Logout" />
       <Button layoutX="754.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAbsences" prefWidth="70.0" text="Absences" />

@@ -63,9 +63,9 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
         if(prof != null){
 
             pb = new ProfessorBean();
-            pb.setMatricola(prof.getpMatricola());
-            pb.setLastname(prof.getpLastname());
-            pb.setName(prof.getpName());
+            pb.setMatricola(prof.getMatricola());
+            pb.setLastname(prof.getLastname());
+            pb.setName(prof.getName());
         }
 
         return pb;
@@ -103,6 +103,7 @@ public class ControllerLogin extends ControllerScenes implements Initializable {
         this.passwordProf.setText("pass");
         this.matricolaStudente.setText("1234");
         this.passwordStudente.setText("password");
+
     }
 
     public void loginStudent() throws IOException, ToastException {

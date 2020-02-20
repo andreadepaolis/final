@@ -3,9 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="472.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerfx.ControllerAbsencesStudentFX">
+<AnchorPane fx:id="rootAbsences" prefHeight="472.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerfx.ControllerAbsencesStudentFX">
    <children>
       <Label fx:id="labelTitolo" layoutX="231.0" layoutY="75.0" text="Gestisci le tue assenze:" />
       <VBox fx:id="containerAssenze" layoutX="231.0" layoutY="92.0" prefHeight="278.0" prefWidth="524.0" />
+      <Button layoutX="853.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogout" prefWidth="70.0" text="Logout" />
+      <Button fx:id="currentPage" layoutX="774.0" layoutY="14.0" mnemonicParsing="false" prefWidth="70.0" text="Absences" />
+      <Button layoutX="695.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToGrades" prefWidth="70.0" text="Grades" />
+      <Button layoutX="616.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHome" prefWidth="70.0" text="Home" />
    </children>
 </AnchorPane>

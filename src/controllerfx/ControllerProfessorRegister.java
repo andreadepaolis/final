@@ -62,6 +62,8 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
     public Label labelName;
     @FXML
     public TextField textVoto;
+    @FXML
+    public Button currentPage;
 
     private ProfessorRegister registro;
     private ProfessorBean professor;
@@ -141,7 +143,7 @@ public class ControllerProfessorRegister extends ControllerScenes implements Ini
         tableVoti.setItems(values);
 
         this.curMese.setText(this.registro.getCurrentMonth().getName() + " "+ this.registro.getCurrentMonth().getYear());
-
+        this.currentPage.setStyle("-fx-border-color: green;");
     }
 
     public void addVoto() throws IOException, CustomException, CustomSQLException, ToastException {

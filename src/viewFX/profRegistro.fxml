@@ -45,8 +45,8 @@
             <DatePicker fx:id="assenzaData" layoutX="429.0" layoutY="49.0" prefHeight="25.0" />
             <Button fx:id="assenzaConferma" layoutX="789.0" layoutY="49.0" mnemonicParsing="false" onAction="#addAbsence" text="Conferma" />
          </children></AnchorPane>
-      <Button fx:id="buttLogout" layoutX="881.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLogout" prefWidth="60.0" text="Logout" />
-      <Button layoutX="808.0" layoutY="10.0" mnemonicParsing="false" prefWidth="60.0" text="Registro" />
-      <Button fx:id="buttHome" layoutX="734.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHomePage" prefWidth="60.0" text="Home" />
+      <Button fx:id="buttLogout" layoutX="881.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToLogout" prefWidth="70.0" text="Logout" />
+      <Button fx:id="currentPage" layoutX="802.0" layoutY="10.0" mnemonicParsing="false" prefWidth="70.0" text="Registro" />
+      <Button fx:id="buttHome" layoutX="720.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHomePage" prefWidth="70.0" text="Home" />
    </children>
 </AnchorPane>

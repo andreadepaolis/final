@@ -61,7 +61,7 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="tableSchedule" layoutX="10.0" layoutY="40.0" prefHeight="150.0" prefWidth="350.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                              <TableView fx:id="tableSchedule" layoutX="10.0" layoutY="40.0" prefHeight="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                  <columns>
                                     <TableColumn prefWidth="75.0" text="Orario" />
                                     <TableColumn prefWidth="75.0" text="LUN" />
@@ -72,9 +72,9 @@
                                     <TableColumn prefWidth="75.0" text="SAB" />
                                  </columns>
                               </TableView>
-                              <Button fx:id="butRegistro" layoutX="292.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToRegistro" prefWidth="60.0" text="Registro" />
-                              <Button layoutX="210.0" layoutY="6.0" mnemonicParsing="false" prefWidth="60.0" text="Home" />
-                              <Button layoutX="373.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefWidth="60.0" text="Logout" />
+                              <Button fx:id="butRegistro" layoutX="284.0" layoutY="6.0" mnemonicParsing="false" onAction="#goToRegistro" prefWidth="70.0" text="Registro" />
+                              <Button fx:id="currentPage" layoutX="206.0" layoutY="6.0" mnemonicParsing="false" prefWidth="70.0" text="Home" />
+                              <Button layoutX="362.0" layoutY="6.0" mnemonicParsing="false" onAction="#logout" prefWidth="70.0" text="Logout" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">

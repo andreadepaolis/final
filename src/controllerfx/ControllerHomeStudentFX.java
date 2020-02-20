@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.Homework;
@@ -29,6 +26,8 @@ import java.util.ResourceBundle;
 
 
 public class ControllerHomeStudentFX extends ControllerScenes implements Initializable {
+    @FXML
+    public Button currentPage;
     @FXML
     private Label labelWelcomeStudent;
     @FXML
@@ -79,6 +78,7 @@ public class ControllerHomeStudentFX extends ControllerScenes implements Initial
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = dateFormat.format(this.student.getCurrentDate());
         labelDataHomework.setText(strDate);
+        this.currentPage.setStyle("-fx-border-color: green;");
     }
 
     public void goDayBefore() throws ToastException, IOException {

@@ -1,21 +1,32 @@
 package controllerfx;
 
+import bean.GradesPageBean;
 import bean.StudentBean;
+import controller.ControllerHomeStudent;
 import controller.ControllerStudent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Absences;
 import utils.ToastException;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerAbsencesStudentFX extends ControllerScenes implements Initializable {
+    @FXML
+    private Button currentPage;
+    @FXML
+    private AnchorPane rootAbsences;
     @FXML
     private Label labelTitolo;
     @FXML
@@ -43,5 +54,29 @@ public class ControllerAbsencesStudentFX extends ControllerScenes implements Ini
                 containerAssenze.getChildren().add(hbox);
             }
         }
+        this.currentPage.setStyle("-fx-border-color: green;");
+    }
+
+    public void goToLogout(ActionEvent actionEvent) throws IOException {
+        this.setStudent(null);
+        this.setGradesStudent(null);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/login.fxml"));
+        AnchorPane pane = loader.load();
+        rootAbsences.getChildren().setAll(pane);
+    }
+
+    public void goToGrades(ActionEvent actionEvent) throws ToastException, IOException {
+        ControllerHomeStudent chs = new ControllerHomeStudent();
+        GradesPageBean page = chs.fullGradesPage(this.student);
+        this.setGradesStudent(page);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/gradesStudent.fxml"));
+        AnchorPane pane = loader.load();
+        rootAbsences.getChildren().setAll(pane);
+    }
+
+    public void goToHome(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../viewFX/homeStudent.fxml"));
+        AnchorPane pane = loader.load();
+        rootAbsences.getChildren().setAll(pane);
     }
 }

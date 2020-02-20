@@ -1,3 +1,12 @@
 .label {
     -fx-font-family: Arial, sans-serif;
 }
+
+.button{
+    -fx-font-family: Arial, sans-serif;
+    -fx-background-color: lightgreen;
+}
+
+.root{
+    -fx-background-color: lightBlue;
+}

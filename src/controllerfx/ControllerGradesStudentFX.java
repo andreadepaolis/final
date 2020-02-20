@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class ControllerGradesStudentFX extends ControllerScenes implements Initializable {
     @FXML
+    private Button currentPage;
+    @FXML
     private VBox vBoxMateria;
     @FXML
     private TextArea textAreaVoti;
@@ -58,6 +60,7 @@ public class ControllerGradesStudentFX extends ControllerScenes implements Initi
         for(MatterBean m : this.pageGrades.getMatter()){
             this.textAreaReport.appendText(m.getMateria()+": " + m.getMedia() + "\n");
         }
+        this.currentPage.setStyle("-fx-border-color: green;");
     }
 
     public void goToHome() throws IOException {
